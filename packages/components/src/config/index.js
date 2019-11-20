@@ -1,0 +1,1 @@
+export const API_SERVER = "http://localhost:8010/proxy/api/public/v1/";
