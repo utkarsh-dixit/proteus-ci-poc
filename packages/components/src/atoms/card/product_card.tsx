@@ -54,7 +54,7 @@ export default class ProductCard extends Component<Props, State> {
         return (
             <View style={{ flex: 1, width: this.props.width, marginRight: 10, ...styles.container }}>
                 <Image source={{ uri: this.props.data.image }} style={{ height: 200, backgroundColor: "yellow" }} />
-                <View>
+                <View style={{flex: 1}}>
                     <Text style={styles.item_name}>{data.name.substr(0,30)}</Text>
                     <View style={styles.ratingContainer}>
                         <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         marginLeft: 5,
-        marginTop: 8,
+        position: "relative",
+        top: -5,
         justifyContent: "space-between"
     },
     container: {
