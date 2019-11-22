@@ -35,7 +35,7 @@ export default class ProductCard extends React.PureComponent<Props, State> {
         return (
             <TouchableWithoutFeedback onPress={this.props.callback}>
                 <View style={{
-                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000"), marginTop: 3,
+                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000",5, 10), marginTop: 3,
                     marginLeft: 3, marginBottom:5, backgroundColor: "white", marginRight: 10, ...styles.container
                 }}>
                     <Image source={{ uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://") }} style={{ height: 200, backgroundColor: "rgb(199,199, 205)" }} />

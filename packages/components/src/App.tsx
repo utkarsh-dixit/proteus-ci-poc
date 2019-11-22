@@ -16,7 +16,8 @@ import HeadBar from "./molecules/headbar";
 import { getAllCategories } from "../src/actions/category";
 import { getProductsFromCategory } from "./actions/product";
 import SearchBar from "./atoms/search_bar/index";
-import {shadowgiver} from "./util/helpers";
+import CategoryList from "./molecules/list/category_list";
+import { shadowgiver } from "./util/helpers";
 
 
 import { bindActionCreators } from 'redux';
@@ -33,6 +34,7 @@ interface product {
 
 type State = {
   slides: Array<{ code: string, name: string, image: string }>
+  categories: Array<{ name: string, image: string, id: string }>
   search: string;
 }
 class App extends Component<any, State> {
@@ -50,9 +52,54 @@ class App extends Component<any, State> {
         {
           "code": "GRANADA",
           "name": "Granada",
-          "image": "https://cdn-imgix.headout.com/tour/721/image/GossipGirls.PCP.jpg"
+          "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/about-01-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+        },
+        {
+          "code": "GRANADA",
+          "name": "Granada",
+          "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/about-01-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+        },
+        {
+          "code": "ALADIN",
+          "name": "Aladin",
+          "image": "https://cdn-imgix.headout.com/assets/images/flap/city-specific/new-york/android/ny-508-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+        },
+        {
+          "code": "ATTRA",
+          "name": "Attractions",
+          "image": "https://cdn-imgix.headout.com/assets/images/flap/city-specific/new-york/android/ny-attractions-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+        },
+        {
+          "code": "CASH",
+          "name": "Cashbacks",
+          "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/cashback-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
         },
       ],
+      categories: [{
+        "id": "BAR",
+        "name": "Broadway Show Tickets",
+        "image": "https://cdn-imgix.headout.com/category/24/image/66000036-0523-4859-87b7-83d628b8843c-BroadwayShowTickets.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+      }, {
+        "id": "BYC",
+        "name": "NYC 101",
+        "image": "https://cdn-imgix.headout.com/category/20/image/50dd86bd-0af8-4fef-a334-94a699d3a67c-NYC101.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+      },
+      {
+        "id": "cw",
+        "name": "City Walks",
+        "image": "https://cdn-imgix.headout.com/category/29/image/379e4fd4-3c83-43a4-b4e7-8422b0356867-NYCCityWalks.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+      },
+      {
+        "id": "nyc",
+        "name": "NYC Tours",
+        "image": "https://cdn-imgix.headout.com/category/119/image/7be3f1f2-2002-4466-b6e0-890952bc408e-NYCTours.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+      },
+      {
+        "id": "ew",
+        "name": "Entertainment",
+        "image": "https://cdn-imgix.headout.com/category/334/image/e7b12e66-aa7e-4cfc-ac43-262c6ff87f7a-334.jpeg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+      }
+    ],
       search: ""
     };
   }
@@ -83,8 +130,8 @@ class App extends Component<any, State> {
     }
   }
 
-  updateSearchValue(value: string){
-    this.setState({search: value});
+  updateSearchValue(value: string) {
+    this.setState({ search: value });
   }
   render() {
     return (
@@ -94,10 +141,11 @@ class App extends Component<any, State> {
           <View style={{ position: "relative" }}>
             <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
             <View style={{ position: "relative", alignItems: "center", flex: 1, top: -20 }}>
-              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, ...shadowgiver(4, "#000", 5, 25 ), fontStyle: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
+              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, borderColor: "transparent", ...shadowgiver(4, "#000", 5, 25), fontWeight: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
             </View>
           </View>
           <View style={styles.mainContainer}>
+            <CategoryList items={this.state.categories}/>
             {this.props.categories.map((category: any, index: number) => {
               const record = this.props.product_items[category.id];
               const data = record ? record.map((product: any, index: number) => {
