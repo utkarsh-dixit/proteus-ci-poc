@@ -9,6 +9,7 @@ import {
     Platform,
     TouchableWithoutFeedback
 } from 'react-native';
+import {shadowgiver} from "../../util/helpers";
 
 interface product {
     id: string;
@@ -25,28 +26,6 @@ type Props = {
     data: product;
 };
 type State = {};
-
-function shadowgiver(elevation, color) {
-    const shadowOffset = { width: 0, height: 0.5 * elevation };
-    const shadowOpacity = 0.1;
-    const shadowRadius = 0.8 * elevation;
-    const shadowColor = color || 'black';
-    // console.log(`${shadowOffset.width}px ${shadowOffset.height}px ${shadowRadius}px ${shadowColor}`);
-    return Platform.select({
-        ios: {
-            shadowColor: 'black',
-            shadowOpacity,
-            shadowRadius,
-            shadowOffset,
-        },
-        android: {
-            elevation,
-        },
-        web: {
-            boxShadow: `${shadowOffset.width}px ${shadowOffset.height}px ${shadowRadius}px rgba(0,0,0,0.34)`
-        },
-    });
-}
 
 export default class ProductCard extends React.PureComponent<Props, State> {
 

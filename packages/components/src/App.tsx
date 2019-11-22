@@ -15,6 +15,9 @@ import CompactList from "./molecules/list/compact_list";
 import HeadBar from "./molecules/headbar";
 import { getAllCategories } from "../src/actions/category";
 import { getProductsFromCategory } from "./actions/product";
+import SearchBar from "./atoms/search_bar/index";
+import {shadowgiver} from "./util/helpers";
+
 
 import { bindActionCreators } from 'redux';
 
@@ -30,7 +33,7 @@ interface product {
 
 type State = {
   slides: Array<{ code: string, name: string, image: string }>
-  products: Array<product>;
+  search: string;
 }
 class App extends Component<any, State> {
 
@@ -42,13 +45,15 @@ class App extends Component<any, State> {
         {
           "code": "SEVILLE",
           "name": "Seville",
-          "image": "https://cdn-imgix-open.headout.com/flaps/city-specific/new-york/android/New-York-2505-Christmas+Spectacular-Android-1.png?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"        },
+          "image": "https://cdn-imgix-open.headout.com/flaps/city-specific/new-york/android/New-York-2505-Christmas+Spectacular-Android-1.png?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+        },
         {
           "code": "GRANADA",
           "name": "Granada",
           "image": "https://cdn-imgix.headout.com/tour/721/image/GossipGirls.PCP.jpg"
         },
-      ]
+      ],
+      search: ""
     };
   }
 
@@ -78,12 +83,20 @@ class App extends Component<any, State> {
     }
   }
 
+  updateSearchValue(value: string){
+    this.setState({search: value});
+  }
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <HeadBar/>
-          <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
+          <HeadBar />
+          <View style={{ position: "relative" }}>
+            <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
+            <View style={{ position: "relative", alignItems: "center", flex: 1, top: -20 }}>
+              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, ...shadowgiver(4, "#000", 5, 25 ), fontStyle: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
+            </View>
+          </View>
           <View style={styles.mainContainer}>
             {this.props.categories.map((category: any, index: number) => {
               const record = this.props.product_items[category.id];
