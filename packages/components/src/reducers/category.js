@@ -1,9 +1,10 @@
 // import { COUNTER_CHANGE } from '../constants';
-import { ADD_CATEGORIES } from "../actions/category";
+import { ADD_CATEGORIES, SET_LOADING_PRODUCTS } from "../actions/category";
 
 
 const initialState = {
-    list: []
+    list: [],
+    loadingProducts: {}
 };
 export const category = (state = initialState, action) => {
     switch (action.type) {
@@ -20,6 +21,14 @@ export const category = (state = initialState, action) => {
                     }]
                 }, [])
             };
+        case SET_LOADING_PRODUCTS:
+            return {
+                ...state,
+                loadingProducts: {
+                    ...loadingProducts,
+                    [action.id]: action.loading
+                }
+            }
         default:
             return state;
     }

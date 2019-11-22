@@ -1,14 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import rootReducer from './reducers/';
+import rootReducer from 'components/src/reducers';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import { persistStore, persistReducer } from 'redux-persist'
-import webStorage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import AsyncStorage from '@react-native-community/async-storage'
 import { Platform } from "react-native";
 
 const persistConfig = {
     key: 'root',
-    storage: webStorage
+    storage: AsyncStorage
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -22,7 +22,7 @@ type Props = {
 };
 type State = {};
 
-export default class ImageSlider extends Component<Props, State> {
+export default class ImageSlider extends React.PureComponent<Props, State> {
 
     prepareSlides() {
         const { slides, callback } = this.props;
@@ -37,14 +37,21 @@ export default class ImageSlider extends Component<Props, State> {
         })
     }
 
+    getDots({ index , isActive, onPress }: any){
+        return (
+            <View style={{position: "relative", top: -12, width: 6, height: 6, marginLeft: 3, marginRight: 3, backgroundColor: isActive ? "white" : "transparent", borderWidth: 2, borderColor: "rgba(255,255,255,0.5)", borderRadius: 30}}></View>
+        );
+    }
+
     render() {
         return (
             <View style={{ ...styles.container, height: this.props.height }}>
-                <Swiper controlsProps={{
+                <Swiper minDistanceForAction={0.10}  springConfig={{ speed: 10 }} controlsProps={{
                     dotsTouchable: true,
                     dotsPos: 'bottom',
                     prevPos: false,
-                    nextPos: false
+                    nextPos: false,
+                    DotComponent: this.getDots
                 }}>
                     {this.prepareSlides()}
                 </Swiper>
@@ -63,12 +70,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     slide1: {
-        backgroundColor: 'rgba(20,20,200,0.3)',
-    },
-    slide2: {
-        backgroundColor: 'rgba(20,200,20,0.3)',
-    },
-    slide3: {
-        backgroundColor: 'rgba(200,20,20,0.3)',
-    },
+        backgroundColor: 'rgb(199,199, 205)',
+    }
 });

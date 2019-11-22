@@ -4,7 +4,8 @@ import {
     StyleSheet,
     FlatList,
     View,
-    Text
+    Text,
+    Platform
 } from 'react-native';
 import ProductCard from "../../atoms/card/product_card";
 
@@ -21,14 +22,15 @@ type Props = {
     title: string;
     items: Array<product>;
     style?: any;
+    itemCallback?: any;
 };
 type State = {};
 
-export default class CompactList extends Component<Props, State> {
+export default class CompactList extends React.PureComponent<Props, State> {
 
     _prepareItem({ item, index }) {
         return (
-            <ProductCard data={item} width={320} key={index}>
+            <ProductCard data={item} width={320} key={index} callback={this.props.itemCallback}>
 
             </ProductCard>
         );
@@ -40,9 +42,10 @@ export default class CompactList extends Component<Props, State> {
                 <FlatList
                     data={this.props.items}
                     horizontal={true}
-                    style={{ height: 300 }}
+                    style={{ height: 305 }}
                     renderItem={this._prepareItem.bind(this)}
                     keyExtractor={(item) => item.name}
+                    legacyImplementation={Platform.OS !== "web" ? true : false}
                 />
             </View>
         );

@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import ImageSlider from "./molecules/slider/image_slider";
 import CompactList from "./molecules/list/compact_list";
+import HeadBar from "./molecules/headbar";
 import { getAllCategories } from "../src/actions/category";
 import { getProductsFromCategory } from "./actions/product";
 
@@ -37,32 +38,16 @@ class App extends Component<any, State> {
     super(props);
     this.state = {
       slides: [
-        {
-          "code": "GRANADA",
-          "name": "Granada",
-          "image": "https://cdn-imgix.headout.com/cities/granada/images/mobile/morning.jpg"
-        },
+
         {
           "code": "SEVILLE",
           "name": "Seville",
-          "image": "https://cdn-imgix.headout.com/cities/seville/images/mobile/morning.jpg"
-        },
-      ],
-      products: [
+          "image": "https://cdn-imgix-open.headout.com/flaps/city-specific/new-york/android/New-York-2505-Christmas+Spectacular-Android-1.png?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"        },
         {
-          id: "INR",
-          name: "Aladdin",
-          image: "https://cdn-imgix.headout.com/cities/granada/images/mobile/morning.jpg",
-          ratings: { avg: 4.5, total: 322 },
-          pricing: 3297
+          "code": "GRANADA",
+          "name": "Granada",
+          "image": "https://cdn-imgix.headout.com/tour/721/image/GossipGirls.PCP.jpg"
         },
-        {
-          id: "INR",
-          name: "Aladdina",
-          image: "https://cdn-imgix.headout.com/cities/granada/images/mobile/morning.jpg",
-          ratings: { avg: 4.5, total: 322 },
-          pricing: 3297
-        }
       ]
     };
   }
@@ -85,11 +70,20 @@ class App extends Component<any, State> {
     }
   }
 
+  handle_item_click(id: any) {
+    if (Platform.OS == "ios" || Platform.OS == "android") {
+      ToastAndroid.show("Clicked", ToastAndroid.LONG);
+    } else {
+      console.log("Clicked");
+    }
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <ImageSlider height={260} slides={this.state.slides} callback={this.onSelected.bind(this)} />
+          <HeadBar/>
+          <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
           <View style={styles.mainContainer}>
             {this.props.categories.map((category: any, index: number) => {
               const record = this.props.product_items[category.id];
@@ -103,7 +97,7 @@ class App extends Component<any, State> {
                   currencyCode: product.pricing.currencyCode
                 }
               }) : [];
-              return data.length > 0 ? (<CompactList style={{ marginBottom: 7 }} title={category.name} key={category.id} items={data}></CompactList>) : null;
+              return data.length > 0 ? (<CompactList style={{ marginBottom: 7 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
             })}
           </View>
         </ScrollView>

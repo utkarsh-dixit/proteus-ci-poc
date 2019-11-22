@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native';
 import React from 'react';
-import App from './App';
+import App from 'components/src/App';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './store';

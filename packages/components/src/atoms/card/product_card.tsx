@@ -6,7 +6,8 @@ import {
     View,
     Text,
     Image,
-    Platform
+    Platform,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 interface product {
@@ -20,57 +21,67 @@ interface product {
 
 type Props = {
     width: number;
+    callback?: any;
     data: product;
 };
 type State = {};
 
 function shadowgiver(elevation, color) {
     const shadowOffset = { width: 0, height: 0.5 * elevation };
-    const shadowOpacity = 0.3;
+    const shadowOpacity = 0.1;
     const shadowRadius = 0.8 * elevation;
     const shadowColor = color || 'black';
-    console.log(`${shadowOffset.width}px ${shadowOffset.height}px ${shadowRadius}px ${shadowColor}`);
+    // console.log(`${shadowOffset.width}px ${shadowOffset.height}px ${shadowRadius}px ${shadowColor}`);
     return Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOpacity,
-        shadowRadius,
-        shadowOffset,
-      },
-      android: {
-        elevation,
-      },
-      web: {
-        boxShadow: `${shadowOffset.width}px ${shadowOffset.height}px ${shadowRadius}px ${shadowColor}`,
-      },
+        ios: {
+            shadowColor: 'black',
+            shadowOpacity,
+            shadowRadius,
+            shadowOffset,
+        },
+        android: {
+            elevation,
+        },
+        web: {
+            boxShadow: `${shadowOffset.width}px ${shadowOffset.height}px ${shadowRadius}px rgba(0,0,0,0.34)`
+        },
     });
-  }
+}
 
-export default class ProductCard extends Component<Props, State> {
+export default class ProductCard extends React.PureComponent<Props, State> {
 
     render() {
         const { data } = this.props;
 
         return (
-            <View style={{ flex: 1, width: this.props.width, marginRight: 10, ...styles.container }}>
-                <Image source={{ uri: this.props.data.image }} style={{ height: 200, backgroundColor: "yellow" }} />
-                <View style={{flex: 1}}>
-                    <Text style={styles.item_name}>{data.name.substr(0,30)}</Text>
-                    <View style={styles.ratingContainer}>
-                        <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
-                        <Text style={styles.total_rating_text}>{data.ratings.total} ratings</Text>
-                    </View>
-                    <View style={styles.product_status_container}>
-                        <View style={{ alignSelf: "flex-end" }}>
-                            <Text style={styles.booking_text}>9 bookings in last 2 hours</Text>
+            <TouchableWithoutFeedback onPress={this.props.callback}>
+                <View style={{
+                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000"), marginTop: 3,
+                    marginLeft: 3, marginBottom:5, backgroundColor: "white", marginRight: 10, ...styles.container
+                }}>
+                    <Image source={{ uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://") }} style={{ height: 200, backgroundColor: "rgb(199,199, 205)" }} />
+                    <View style={{
+                        flex: 1, backgroundColor: "white",
+                        padding: 5,
+                        paddingRight: 7
+                    }}>
+                        <Text style={styles.item_name}>{data.name.substr(0, 30)}</Text>
+                        <View style={styles.ratingContainer}>
+                            <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
+                            <Text style={styles.total_rating_text}>{data.ratings.total} ratings</Text>
                         </View>
-                        <View style={styles.booking_price_container}>
-                            <Text style={styles.booking_price_desc}>from</Text>
-                            <Text style={styles.booking_price}>{data.currencyCode === "USD" ? "$" : data.currencyCode} {data.pricing}</Text>
+                        <View style={styles.product_status_container}>
+                            <View style={{ alignSelf: "flex-end" }}>
+                                <Text style={styles.booking_text}>9 bookings in last 2 hours</Text>
+                            </View>
+                            <View style={styles.booking_price_container}>
+                                <Text style={styles.booking_price_desc}>from</Text>
+                                <Text style={styles.booking_price}>{data.currencyCode === "USD" ? "$" : data.currencyCode}{data.pricing}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -112,10 +123,11 @@ const styles = StyleSheet.create({
         color: "#d8d8d8",
     },
     booking_price: {
-        fontSize: 14,
+        fontSize: 15,
         marginTop: 2,
         textAlign: "right",
-        color: "#444444"
+        color: "#444444",
+        fontWeight: "bold"
     },
     product_status_container: {
         flex: 1,
@@ -126,6 +138,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     container: {
-        ...shadowgiver(3, "#000")
+        backgroundColor: "white",
+        marginBottom: 10,
+        marginTop: 10,
+        marginLeft: 5
     }
 });
