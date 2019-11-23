@@ -51,7 +51,7 @@ export default class ProductCard extends React.PureComponent<Props, State> {
         return (
             <TouchableWithoutFeedback onPress={this.props.callback}>
                 <View style={{
-                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000", 5, 10), marginTop: 3,
+                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000", 5, 10), marginTop: 3,  flexGrow: Platform.OS !== "web" ? 0 : "auto",
                     marginLeft: 3, marginBottom: 5, backgroundColor: "white", marginRight: 10, ...styles.container
                 }}>
                     <Image source={{ uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://") }} style={{ height: 181.25, backgroundColor: "rgb(199,199, 205)" }} />
@@ -67,7 +67,7 @@ export default class ProductCard extends React.PureComponent<Props, State> {
                             <View style={{ alignSelf: "flex-end" }}>
                                 <View style={styles.ratingContainer}>
                                     <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
-                                    {this.getRatings(data.ratings.avg)}
+                                    <View>{this.getRatings(data.ratings.avg)}</View>
                                     <Text style={styles.total_rating_text}> ( {data.ratings.total} )</Text>
                                 </View>
                             </View>
@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
         color: "#d8d8d8",
     },
     booking_price_container: {
-        alignSelf: "flex-end"
+        alignSelf: "flex-end",
+        marginRight: 4
     },
     booking_price_desc: {
         fontSize: 12,

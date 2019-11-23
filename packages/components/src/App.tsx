@@ -19,9 +19,10 @@ import SearchBar from "./atoms/search_bar/index";
 import CategoryList from "./molecules/list/category_list";
 import { shadowgiver } from "./util/helpers";
 import FeedSeperator from "./atoms/feed_seperator";
-
-
+import {calendar, camera} from "./assets/icons";
 import { bindActionCreators } from 'redux';
+import StyledLink from './atoms/styled_link';
+import CollectionList from './molecules/list/collection_list';
 
 type Props = {};
 
@@ -36,7 +37,8 @@ interface product {
 type State = {
   slides: Array<{ code: string, name: string, image: string }>
   categories: Array<{ name: string, image: string, id: string }>
-  top_experiences: Array<{}>,
+  top_experiences: Array<any>,
+  collections: Array<{id: number, name: string, image: string}>,
   search: string;
 }
 
@@ -58,6 +60,7 @@ class App extends Component<any, State> {
       slides: require("./data/banner_slides.json"),
       categories: require("./data/categories.json"),
       top_experiences: require("./data/top_experiences.json"),
+      collections: require("./data/collections.json"),
       search: ""
     };
   }
@@ -124,6 +127,9 @@ class App extends Component<any, State> {
             <CategoryList items={this.state.categories}/>
             <FeedSeperator/>
             <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={{marginLeft: 10}}></CompactList>
+            <View style={{marginLeft: 10, marginTop: 10, marginRight: 10}}>
+              <StyledLink
+            links={[{icon: camera, text: "Top 10 Experiences"}, {icon: calendar, text: "This Week Only"}]} style={{ flex: 1}}/></View>
             {/* {this.props.categories.map((category: any, index: number) => {
               const record = this.props.product_items[category.id];
               const data = record ? record.map((product: any, index: number) => {
@@ -139,6 +145,8 @@ class App extends Component<any, State> {
               return data.length > 0 ? (<CompactList style={{ marginBottom: 7 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
             })} */}
           </View>
+          <CollectionList items={this.state.collections} title="Collections"  style={{marginLeft: 20}} desc="Discover experiences based on these themes"/>
+
         </ScrollView>
       </SafeAreaView>
     );
@@ -155,8 +163,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    paddingLeft: 10,
-    paddingBottom: 500
+    paddingLeft: 10
   }
 
 });

@@ -4,6 +4,8 @@ import {
     StyleSheet,
     FlatList,
     View,
+                ScrollView,
+
     Text,
     Platform
 } from 'react-native';
@@ -46,7 +48,6 @@ export default class CompactList extends React.Component<Props, State> {
     }
 
     render() {
-        // console.log(this.props.items.length, this.state.xOffset);
         return (
             <View style={{ ...this.props.style, flex: 1 }}>
                 <View style={styles.heading}>
@@ -56,7 +57,6 @@ export default class CompactList extends React.Component<Props, State> {
                     </View>
                     {this.props.desc && (<Text style={styles.desc}>{this.props.desc}</Text>)}
                 </View>
-
                 <FlatList
                     data={this.props.items}
                     horizontal={true}
@@ -72,8 +72,6 @@ export default class CompactList extends React.Component<Props, State> {
                     // onScroll={this.handleScroll.bind(this)}
                     scrollEventThrottle={16}
                 />
-
-                {/* <Text>{Math.round(this.state.xOffset * 100/this.props.items.length)}</Text> */}
             </View>
         );
     }
@@ -81,7 +79,7 @@ export default class CompactList extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
     heading: {
-        marginTop: 30,
+        marginTop: 24,
         marginBottom: 20
     },
     desc: {
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
         fontWeight: "400"
     },
     heading_text: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "600",
         color: "rgb(84,84,84)",
         lineHeight: 28

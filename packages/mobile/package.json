@@ -19,6 +19,7 @@
     "components": "0.0.1",
     "react": "16.9.0",
     "react-native": "0.61.4",
+    "react-native-svg": "^9.13.3",
     "react-native-web-svg": "^1.0.0",
     "react-native-web-swiper": "^2.1.0",
     "react-redux": "^7.1.3",
