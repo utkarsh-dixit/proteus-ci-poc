@@ -1,0 +1,27 @@
+[
+    {
+        "code": "SEVILLE",
+        "name": "Seville",
+        "image": "https://cdn-imgix-open.headout.com/flaps/city-specific/new-york/android/New-York-2505-Christmas+Spectacular-Android-1.png?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+    },
+    {
+        "code": "GRANADA",
+        "name": "Granada",
+        "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/about-01-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+    },
+    {
+        "code": "ALADIN",
+        "name": "Aladin",
+        "image": "https://cdn-imgix.headout.com/assets/images/flap/city-specific/new-york/android/ny-508-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+    },
+    {
+        "code": "ATTRA",
+        "name": "Attractions",
+        "image": "https://cdn-imgix.headout.com/assets/images/flap/city-specific/new-york/android/ny-attractions-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+    },
+    {
+        "code": "CASH",
+        "name": "Cashbacks",
+        "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/cashback-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
+    }
+]

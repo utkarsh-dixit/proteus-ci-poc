@@ -18,6 +18,7 @@ import { getProductsFromCategory } from "./actions/product";
 import SearchBar from "./atoms/search_bar/index";
 import CategoryList from "./molecules/list/category_list";
 import { shadowgiver } from "./util/helpers";
+import FeedSeperator from "./atoms/feed_seperator";
 
 
 import { bindActionCreators } from 'redux';
@@ -35,71 +36,28 @@ interface product {
 type State = {
   slides: Array<{ code: string, name: string, image: string }>
   categories: Array<{ name: string, image: string, id: string }>
+  top_experiences: Array<{}>,
   search: string;
 }
+
+interface product {
+  id: string;
+  name: string;
+  image: string;
+  category?: {id: number, name: string};
+  ratings: { avg: number, total: number };
+  pricing: number;
+  currencyCode: string;
+};
+
 class App extends Component<any, State> {
 
   constructor(props: any) {
     super(props);
     this.state = {
-      slides: [
-
-        {
-          "code": "SEVILLE",
-          "name": "Seville",
-          "image": "https://cdn-imgix-open.headout.com/flaps/city-specific/new-york/android/New-York-2505-Christmas+Spectacular-Android-1.png?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
-        },
-        {
-          "code": "GRANADA",
-          "name": "Granada",
-          "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/about-01-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
-        },
-        {
-          "code": "GRANADA",
-          "name": "Granada",
-          "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/about-01-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
-        },
-        {
-          "code": "ALADIN",
-          "name": "Aladin",
-          "image": "https://cdn-imgix.headout.com/assets/images/flap/city-specific/new-york/android/ny-508-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
-        },
-        {
-          "code": "ATTRA",
-          "name": "Attractions",
-          "image": "https://cdn-imgix.headout.com/assets/images/flap/city-specific/new-york/android/ny-attractions-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
-        },
-        {
-          "code": "CASH",
-          "name": "Cashbacks",
-          "image": "https://cdn-imgix.headout.com/assets/images/flap/non-city-specific/android/cashback-android.jpg?auto=compress&fm=pjpg&w=1080&h=756&crop=faces&fit=min"
-        },
-      ],
-      categories: [{
-        "id": "BAR",
-        "name": "Broadway Show Tickets",
-        "image": "https://cdn-imgix.headout.com/category/24/image/66000036-0523-4859-87b7-83d628b8843c-BroadwayShowTickets.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
-      }, {
-        "id": "BYC",
-        "name": "NYC 101",
-        "image": "https://cdn-imgix.headout.com/category/20/image/50dd86bd-0af8-4fef-a334-94a699d3a67c-NYC101.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
-      },
-      {
-        "id": "cw",
-        "name": "City Walks",
-        "image": "https://cdn-imgix.headout.com/category/29/image/379e4fd4-3c83-43a4-b4e7-8422b0356867-NYCCityWalks.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
-      },
-      {
-        "id": "nyc",
-        "name": "NYC Tours",
-        "image": "https://cdn-imgix.headout.com/category/119/image/7be3f1f2-2002-4466-b6e0-890952bc408e-NYCTours.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
-      },
-      {
-        "id": "ew",
-        "name": "Entertainment",
-        "image": "https://cdn-imgix.headout.com/category/334/image/e7b12e66-aa7e-4cfc-ac43-262c6ff87f7a-334.jpeg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
-      }
-    ],
+      slides: require("./data/banner_slides.json"),
+      categories: require("./data/categories.json"),
+      top_experiences: require("./data/top_experiences.json"),
       search: ""
     };
   }
@@ -133,6 +91,24 @@ class App extends Component<any, State> {
   updateSearchValue(value: string) {
     this.setState({ search: value });
   }
+
+  getItems(product: Array<{id: number, name: string, tourType: string, imageUrl: string, listingPrice: {currencyCode: string, bestDiscount: number, originalPrice: number, finalPrice: number}, primaryCategory:{id: number, name: string, displayName: string},  reviewCount: number, averageRating: number, callToAction: string}>) {
+    return product.map((current, index) => {
+      return {
+        id: current.id,
+        name: current.name,
+        image: current.imageUrl,
+        category: {
+          id: current.primaryCategory.id,
+          name: current.primaryCategory.displayName
+        },
+        ratings: { avg: current.averageRating, total: current.reviewCount },
+        pricing: current.listingPrice.finalPrice,
+        currencyCode: current.listingPrice.currencyCode
+      }
+    }, []).slice(0,10);
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -146,7 +122,9 @@ class App extends Component<any, State> {
           </View>
           <View style={styles.mainContainer}>
             <CategoryList items={this.state.categories}/>
-            {this.props.categories.map((category: any, index: number) => {
+            <FeedSeperator/>
+            <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={{marginLeft: 10}}></CompactList>
+            {/* {this.props.categories.map((category: any, index: number) => {
               const record = this.props.product_items[category.id];
               const data = record ? record.map((product: any, index: number) => {
                 return {
@@ -159,7 +137,7 @@ class App extends Component<any, State> {
                 }
               }) : [];
               return data.length > 0 ? (<CompactList style={{ marginBottom: 7 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
-            })}
+            })} */}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -172,11 +150,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   scrollView: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "#f7f7f7"
   },
   mainContainer: {
     flex: 1,
-    paddingLeft: 10
+    paddingLeft: 10,
+    paddingBottom: 500
   }
 
 });

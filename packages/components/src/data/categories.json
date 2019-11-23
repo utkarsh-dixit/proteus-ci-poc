@@ -1,0 +1,27 @@
+[
+    {
+        "id": "BAR",
+        "name": "Broadway Show Tickets",
+        "image": "https://cdn-imgix.headout.com/category/24/image/66000036-0523-4859-87b7-83d628b8843c-BroadwayShowTickets.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+    },
+    {
+        "id": "BYC",
+        "name": "NYC 101",
+        "image": "https://cdn-imgix.headout.com/category/20/image/50dd86bd-0af8-4fef-a334-94a699d3a67c-NYC101.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+    },
+    {
+        "id": "cw",
+        "name": "City Walks",
+        "image": "https://cdn-imgix.headout.com/category/29/image/379e4fd4-3c83-43a4-b4e7-8422b0356867-NYCCityWalks.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+    },
+    {
+        "id": "nyc",
+        "name": "NYC Tours",
+        "image": "https://cdn-imgix.headout.com/category/119/image/7be3f1f2-2002-4466-b6e0-890952bc408e-NYCTours.jpg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+    },
+    {
+        "id": "ew",
+        "name": "Entertainment",
+        "image": "https://cdn-imgix.headout.com/category/334/image/e7b12e66-aa7e-4cfc-ac43-262c6ff87f7a-334.jpeg?auto=compress&fm=pjpg&w=90&h=90&crop=faces&fit=min"
+    }
+]

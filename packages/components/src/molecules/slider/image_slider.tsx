@@ -39,14 +39,14 @@ export default class ImageSlider extends React.PureComponent<Props, State> {
 
     getDots({ index , isActive, onPress }: any){
         return (
-            <View style={{position: "relative", top: -12, width: 6, height: 6, marginLeft: 3, marginRight: 3, backgroundColor: isActive ? "white" : "transparent", borderWidth: 2, borderColor: "rgba(255,255,255,0.5)", borderRadius: 30}}></View>
+            <View style={{position: "relative", padding: 0, top: -12, width: 6, height: 6, marginLeft: 3, marginRight: 3, backgroundColor: isActive ? "white" : "transparent", borderWidth: 2, borderColor: "rgba(255,255,255,0.5)", borderRadius: 30}}></View>
         );
     }
 
     render() {
         return (
             <View style={{ ...styles.container, height: this.props.height }}>
-                <Swiper minDistanceForAction={0.10}  springConfig={{ speed: 10 }} controlsProps={{
+                <Swiper minDistanceForAction={0.10} loop={true}  springConfig={{ speed: 10 }} controlsProps={{
                     dotsTouchable: true,
                     dotsPos: 'bottom',
                     prevPos: false,

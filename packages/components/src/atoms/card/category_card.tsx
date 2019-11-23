@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 12.59,
         color: "rgba(0,0,0,0.7)",
-        fontFamily: "Avenir,proxima-nova,arial,sans-serif",
-        fontWeight: 300,
+        // fontFamily: "Avenir,proxima-nova,arial,sans-serif",
+        fontWeight: "300",
         lineHeight: 20.69,
         marginTop: 10.1
     }
