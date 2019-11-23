@@ -16,6 +16,10 @@ module.exports = function override(config, env) {
   config.resolve.plugins = config.resolve.plugins.filter(
     plugin => plugin.constructor.name !== 'ModuleScopePlugin'
   )
+  config.resolve.alias = {
+    ...config.resolve.alias,
+    'react-native-svg$': require.resolve('react-native-web-svg'),
+  }
   config.module.rules[0].include = appIncludes
   config.module.rules[1] = null
   config.module.rules[2].oneOf[1].include = appIncludes

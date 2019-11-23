@@ -10,6 +10,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 import { shadowgiver } from "../../util/helpers";
+import { star, half_star } from "../../assets/icons";
 
 interface product {
     id: string;
@@ -30,6 +31,20 @@ type State = {};
 
 export default class ProductCard extends React.PureComponent<Props, State> {
 
+    getRatings(avg: number){
+        let out = [];
+        const stars = Math.round((avg)*2)/2;
+        // console.log(avg);
+        for(let i = 1; i <= stars; i++){
+            out.push(star("#ffbb58", 12.4, {marginRight: 1}));
+            if(stars - i === 0.5){
+                out.push(half_star("#ffbb58", 12.4, {marginRight: 1}));
+            }
+        }
+        return (
+            <View style={{flex:1, flexDirection:"row", alignItems: "center"}}>{out}</View>
+        );
+    }
     render() {
         const { data } = this.props;
 
@@ -52,7 +67,8 @@ export default class ProductCard extends React.PureComponent<Props, State> {
                             <View style={{ alignSelf: "flex-end" }}>
                                 <View style={styles.ratingContainer}>
                                     <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
-                                    <Text style={styles.total_rating_text}>( {data.ratings.total} )</Text>
+                                    {this.getRatings(data.ratings.avg)}
+                                    <Text style={styles.total_rating_text}> ( {data.ratings.total} )</Text>
                                 </View>
                             </View>
                             <View style={styles.booking_price_container}>
@@ -93,13 +109,14 @@ const styles = StyleSheet.create({
     },
     rating_avg: {
         fontSize: 14,
+        paddingRight: 5.6,
         // fontWeight:"bold",
         color: "rgb(255, 187, 88)"
     },
     total_rating_text: {
         fontSize: 12,
         color: "rgb(186, 186, 186);",
-        marginLeft: 12
+
     },
     booking_text: {
         fontSize: 14,
