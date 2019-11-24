@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: "row",
         zIndex: 3,
-        ...shadowgiver(3, "#000", -5, 5)
+        ...shadowgiver(3, "#000", 5, 5)
     },
     icon: {
         paddingTop: 5,
