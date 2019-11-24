@@ -101,12 +101,14 @@ const styles = StyleSheet.create({
         color: "rgba(86,86,86, 0.4)",
         marginTop: 5,
         textTransform: "uppercase",
-        fontWeight: "900"
+        fontWeight: "900",
+        fontFamily: "Avenir"
     },
     item_name: {
         fontSize: 15,
         marginTop: 2.22,
         color: "rgb(84,84,84)",
+        fontFamily: "Avenir",
         lineHeight: 23,
         marginLeft: 5
     },
@@ -119,16 +121,18 @@ const styles = StyleSheet.create({
         fontSize: 14,
         paddingRight: 5.6,
         // fontWeight:"bold",
-        color: "rgb(255, 187, 88)"
+        color: "rgb(255, 187, 88)",
+        fontFamily: "Avenir"
     },
     total_rating_text: {
         fontSize: 12,
         color: "rgb(186, 186, 186);",
-
+        fontFamily: "Avenir",
     },
     booking_text: {
         fontSize: 14,
         color: "#d8d8d8",
+        fontFamily: "Avenir",
     },
     booking_price_container: {
         alignSelf: "flex-end",
@@ -138,13 +142,15 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: "flex-end",
         color: "rgb(154, 154, 154);",
+        fontFamily: "Avenir",
     },
     booking_price: {
         fontSize: 18,
         marginTop: 2,
         textAlign: "right",
         color: "rgb(84,84,84)",
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: "Avenir",
     },
     product_status_container: {
         flex: 1,

@@ -17,15 +17,15 @@ export default class StyledLink extends React.PureComponent<Props>{
             if (i !== 0) {
                 out.push(<View key={i} style={[styles.container, this.props.style, styles.dotted]}>
                     <View style={{ height: 76, marginRight: 12.8, justifyContent: "center" }}>{this.props.links[i].icon(18)}</View>
-                    <Text style={{ color: "rgb(84, 84, 84)", fontSize: 16, fontWeight: "400" }}>{this.props.links[i].text}</Text>
-                    <View style={{ alignItems: "center", marginLeft: "auto" }}>{right_arrow(12.8, { transform: "rotate(270deg)" })}</View>
+                    <Text style={{ color: "rgb(84, 84, 84)", fontSize: 16, fontWeight: "400",  fontFamily: "Avenir" }}>{this.props.links[i].text}</Text>
+                    <View style={{ alignItems: "center", marginLeft: "auto" }}>{right_arrow(12.8)}</View>
                     {/* <View>{right_arrow(76)}</View> */}
                 </View>);
             } else {
                 out.push(<View key={i} style={[styles.container, this.props.style]}>
                     <View style={{ height: 76, marginRight: 12.8, justifyContent: "center" }}>{this.props.links[i].icon(18)}</View>
-                    <Text style={{ color: "rgb(84, 84, 84)", fontSize: 16, fontWeight: "400" }}>{this.props.links[i].text}</Text>
-                    <View style={{ alignItems: "center", marginLeft: "auto" }}>{right_arrow(12.8, { transform: "rotate(270deg)" })}</View>
+                    <Text style={{ color: "rgb(84, 84, 84)", fontSize: 16, fontWeight: "400",  fontFamily: "Avenir" }}>{this.props.links[i].text}</Text>
+                    <View style={{ alignItems: "center", marginLeft: "auto" }}>{right_arrow(12.8)}</View>
                     {/* <View>{right_arrow(76)}</View> */}
                 </View>);
             }

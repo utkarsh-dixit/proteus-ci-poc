@@ -19,10 +19,11 @@ import SearchBar from "./atoms/search_bar/index";
 import CategoryList from "./molecules/list/category_list";
 import { shadowgiver } from "./util/helpers";
 import FeedSeperator from "./atoms/feed_seperator";
-import { calendar, camera } from "./assets/icons";
+import { calendar, camera, collections, account, explore } from "./assets/icons";
 import { bindActionCreators } from 'redux';
 import StyledLink from './atoms/styled_link';
 import CollectionList from './molecules/list/collection_list';
+import Footer from "./molecules/footer";
 
 type Props = {};
 
@@ -121,7 +122,7 @@ class App extends Component<any, State> {
           <View style={{ position: "relative" }}>
             <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
             <View style={{ position: "relative", alignItems: "center", flex: 1, top: -20 }}>
-              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, borderColor: "transparent", ...shadowgiver(4, "#000", 5, 25), fontWeight: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
+              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, borderColor: "transparent", ...shadowgiver(4, "#000", 5, 25),  fontFamily: "Avenir", fontWeight: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
             </View>
           </View>
           <View style={styles.mainContainer}>
@@ -149,6 +150,9 @@ class App extends Component<any, State> {
           <CollectionList items={this.state.collections} title="Collections" style={{ marginLeft: 20 }} desc="Discover experiences based on these themes" />
 
         </ScrollView>
+        <Footer items={[{id: "1", icon: explore, text: "Explore"}, {id: "2", icon: collections, text: "Collections"}, {id: "3", icon: account, text: "Account"}]} active={"1"} >
+
+        </Footer>
       </SafeAreaView>
     );
   }

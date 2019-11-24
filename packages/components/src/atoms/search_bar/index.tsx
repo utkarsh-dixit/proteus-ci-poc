@@ -20,7 +20,7 @@ export default class SearchBar extends React.PureComponent<Props, any>{
     render() {
         return (
             <TextInput
-                style={{ width: this.props.width, ...styles.search_bar, ...this.props.style }}
+                style={[{ width: this.props.width}, styles.search_bar, this.props.style ]}
                 onChangeText={this.props.callback}
                 placeholder={this.props.placeholder}
                 
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     search_bar: {
         height: 40,
         borderColor: 'gray',
-        borderWidth: 1
+        borderWidth: 1,
+        fontFamily: "Avenir"
     }
 });

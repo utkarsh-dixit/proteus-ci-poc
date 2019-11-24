@@ -2,6 +2,7 @@ import React from "react";
 import Svg, {
     Path,
     G,
+    Circle,
 } from "react-native-svg";
 
 export const star = (color, height, style = {}) => {
@@ -47,7 +48,7 @@ export const calendar = (width, style = {}) => {
 }
 export const right_arrow = (width, style = {}) => {
     return (
-        <Svg version="1.1" id="Capa_1" x="0px" y="0px"
+        <Svg id="Capa_1" x="0px" y="0px"
         width={width} height={width} viewBox="0 0 451.847 451.847" style={style}>
 <G>
 	<Path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
@@ -57,6 +58,39 @@ export const right_arrow = (width, style = {}) => {
    </Svg>
     );
 };
+
+export const explore = (height, color) => {
+    return (
+        <Svg id="explore" viewBox="0 0 19 19" height={height} width={height} fill={color} stroke={color}>
+		<G id="compass" transform="translate(-1.5 -1.5)">
+			<Circle id="Ellipse_7" cx="9" cy="9" r="9" fill="none" stroke-linejoin="round" transform="translate(2 2)"></Circle>
+			<Path id="Path_817" d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36z" fill="none" stroke-linejoin="round" transform="translate(-1 -1)"></Path>
+		</G>
+	</Svg>
+    );
+}
+
+export const collections = (height, color) => {
+    return (
+        <Svg id="collections" height={height} width={height} fill={color} stroke={color} viewBox="0 0 17 19.022">
+		<G transform="translate(-1148.268 -2608.721)">
+			<Path fill="none" strokeLinejoin="round" d="M1168.759,2610.629v-1.408h14.009v10.662h-1.137" transform="translate(-18)"></Path>
+			<Path fill="none" strokeLinecap="round" strokeLinejoin="round" d="M1180.775,2621.826h0v-10.3h-14.007v15.691s.7.056,3.015,0c5.977-.144,4.745-5.042,10.992-5.39" transform="translate(-18)"></Path>
+		</G>
+	</Svg>
+    );
+};
+
+export const account = (height, color) => {
+    return  (
+        <Svg height={height} width={height} fill="none" stroke={color} viewBox="0 0 18 20" id="account">
+		<G>
+			<Path d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19" strokeLinecap="round" strokeLinejoin="round"></Path>
+			<Path d="M9 9C11.2091 9 13 7.20914 13 5C13 2.79086 11.2091 1 9 1C6.79086 1 5 2.79086 5 5C5 7.20914 6.79086 9 9 9Z" strokeLinecap="round" strokeLinejoin="round"></Path>
+		</G>
+	</Svg>
+    );
+}
 
 export const half_star = (color, height, style = {}) => {
     return (

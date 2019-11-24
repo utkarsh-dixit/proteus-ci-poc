@@ -91,13 +91,15 @@ const styles = StyleSheet.create({
         color: "rgb(84,84,84)",
         fontSize: 16,
         marginTop: 12,
-        fontWeight: "300"
+        fontWeight: "300",
+        fontFamily: "Avenir",
     },
     heading_text: {
         fontSize: 20,
         fontWeight: "600",
         color: "rgb(84,84,84)",
-        lineHeight: 28
+        lineHeight: 28,
+        fontFamily: "Avenir",
     },
     list_container: {
         flex: 1,
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "800",
         textAlign: "center",
+        fontFamily: "Avenir",
         lineHeight: 22.22
     },
     list_item: {

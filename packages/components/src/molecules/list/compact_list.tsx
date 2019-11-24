@@ -60,7 +60,7 @@ export default class CompactList extends React.Component<Props, State> {
                 <FlatList
                     data={this.props.items}
                     horizontal={true}
-                    style={{ marginLeft: -4, flexGrow: "unset" }}
+                    style={{ marginLeft: -4, flexGrow: 0 }}
                     // contentContainerStyle={{    alignItems: "baseline"}}
                     getItemLayout={(data: any, index) => (
                         {length: this.props.items.length, width: 291, offset: 291 * index, index}
@@ -90,19 +90,22 @@ const styles = StyleSheet.create({
         color: "rgb(84,84,84)",
         fontSize: 16,
         marginTop: 12,
-        fontWeight:"300"
+        fontWeight:"300",
+        fontFamily: "Avenir",
     },
     viewAll: {
         textAlign: "right",
         flex: 1,
         paddingRight: 28,
         color: "rgb(79, 195, 247)",
-        fontWeight: "400"
+        fontWeight: "400",
+        fontFamily: "Avenir",
     },
     heading_text: {
         fontSize: 18,
         fontWeight: "600",
         color: "rgb(84,84,84)",
-        lineHeight: 28
+        lineHeight: 28,
+        fontFamily: "Avenir",
     }
 });

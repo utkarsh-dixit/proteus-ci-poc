@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     heading_text: {
         fontSize: 16.5,
         color: "rgba(0,0,0,0.65)",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: "Avenir",
     }
 });
