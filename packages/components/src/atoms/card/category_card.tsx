@@ -26,7 +26,7 @@ export default class CategoryCard extends React.PureComponent<Props, any>{
     render() {
         return (
             <View style={{...styles.container, ...this.props.style}}>
-                <Image style={styles.item_image} source={{uri: this.props.data.image}} />
+                <Image style={styles.item_image} source={{uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://")}} />
                 <Text style={styles.item_text}>{this.props.data.name}</Text>
             </View>
         );
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         height: 60,
         width: 60,
         alignSelf: "center",
+        backgroundColor: "rgb(199,199, 205)",
         borderRadius: 100
     },
     item_text: {

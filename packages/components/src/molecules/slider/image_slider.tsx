@@ -46,6 +46,7 @@ export default class ImageSlider extends React.PureComponent<Props, State> {
     render() {
         return (
             <View style={{ ...styles.container, height: this.props.height }}>
+                {this.props.slides.length > 0 && (
                 <Swiper minDistanceForAction={0.10} loop={true}  springConfig={{ speed: 10 }} controlsProps={{
                     dotsTouchable: true,
                     dotsPos: 'bottom',
@@ -55,6 +56,7 @@ export default class ImageSlider extends React.PureComponent<Props, State> {
                 }}>
                     {this.prepareSlides()}
                 </Swiper>
+                )}
             </View>
         );
     }

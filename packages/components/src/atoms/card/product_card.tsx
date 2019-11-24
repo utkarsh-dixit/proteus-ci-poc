@@ -74,9 +74,20 @@ export default class ProductCard extends React.PureComponent<Props, State> {
                         <View style={styles.product_status_container}>
                             <View style={{ alignSelf: "flex-end" }}>
                                 <View style={styles.ratingContainer}>
-                                    <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
-                                    <View>{this.getRatings(data.ratings.avg)}</View>
-                                    <Text style={styles.total_rating_text}> ( {data.ratings.total} )</Text>
+                                    {data.ratings.total === 0 && (
+                                        <React.Fragment>
+                                             <View>{this.getRatings(1)}</View>
+                                            <Text style={styles.newly_text}>Newly Arrived</Text>
+                                        </React.Fragment>
+                                    )}
+                                    {data.ratings.total !== 0 && (
+                                        <React.Fragment>
+                                            <Text style={styles.rating_avg}>{data.ratings.avg}</Text>
+                                            <View>{this.getRatings(data.ratings.avg)}</View>
+                                            <Text style={styles.total_rating_text}> ( {data.ratings.total} )</Text>
+                                        </React.Fragment>
+                                    )}
+
                                 </View>
                             </View>
                             <View style={styles.booking_price_container}>
@@ -114,7 +125,7 @@ const styles = StyleSheet.create({
     },
     ratingContainer: {
         marginTop: 5,
-        marginLeft: 5,
+
         flexDirection: "row"
     },
     rating_avg: {
@@ -123,6 +134,12 @@ const styles = StyleSheet.create({
         // fontWeight:"bold",
         color: "rgb(255, 187, 88)",
         fontFamily: "Avenir"
+    },
+    newly_text: {
+        fontSize: 12,
+        color: "rgb(186, 186, 186);",
+        fontFamily: "Avenir",
+        marginLeft: 4,
     },
     total_rating_text: {
         fontSize: 12,

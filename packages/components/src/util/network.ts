@@ -1,11 +1,11 @@
 import axios from "axios";
 import url from "url";
-import {API_SERVER} from "../config/";
+import {BASE_API_URL} from "../config/";
 
 // Send API Request and execute function in case of request fail.
 export const requestAPICall = async (endpoint, payload, callback, dispatch) => {
     let result: any;
-    const request = Object.entries(payload).length === 0 ? axios.get(url.resolve(API_SERVER, endpoint)) : axios.post(url.resolve(API_SERVER, endpoint), payload);
+    const request = Object.entries(payload).length === 0 ? axios.get(url.resolve(BASE_API_URL, endpoint)) : axios.post(url.resolve(API_SERVER, endpoint), payload);
     await request
     .then((res) => {
         result = res;

@@ -64,7 +64,7 @@ export const explore = (height, color) => {
         <Svg id="explore" viewBox="0 0 19 19" height={height} width={height} fill={color} stroke={color}>
 		<G id="compass" transform="translate(-1.5 -1.5)">
 			<Circle id="Ellipse_7" cx="9" cy="9" r="9" fill="none" strokeLinejoin="round" transform="translate(2 2)"></Circle>
-			<Path id="Path_817" d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36z" fill="none" stroke-linejoin="round" transform="translate(-1 -1)"></Path>
+			<Path id="Path_817" d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36z" fill="none" strokeLinejoin="round" transform="translate(-1 -1)"></Path>
 		</G>
 	</Svg>
     );

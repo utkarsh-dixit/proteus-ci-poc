@@ -14,7 +14,7 @@ import ImageSlider from "./molecules/slider/image_slider";
 import CompactList from "./molecules/list/compact_list";
 import HeadBar from "./molecules/headbar";
 import { getAllCategories } from "../src/actions/category";
-import { getProductsFromCategory } from "./actions/product";
+import { getProductsFromCategory, getProductsFromCategoryInBatch } from "./actions/product";
 import SearchBar from "./atoms/search_bar/index";
 import CategoryList from "./molecules/list/category_list";
 import { shadowgiver } from "./util/helpers";
@@ -24,6 +24,7 @@ import { bindActionCreators } from 'redux';
 import StyledLink from './atoms/styled_link';
 import CollectionList from './molecules/list/collection_list';
 import Footer from "./molecules/footer";
+import { getBanners } from "./actions/city";
 
 type Props = {};
 
@@ -58,8 +59,8 @@ class App extends Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      slides: require("./data/banner_slides.json"),
-      categories: require("./data/categories.json"),
+      slides: [],
+      categories: [],
       top_experiences: require("./data/top_experiences.json"),
       collections: require("./data/collections.json"),
       search: ""
@@ -68,12 +69,15 @@ class App extends Component<any, State> {
 
 
   componentDidMount() {
-    // this.props.getAllCategories((items: any) => {
-    //   items.map((category: any, index: number) => {
-    //     this.props.getProductsFromCategory(category.id);
-    //     return category;
-    //   })
-    // });
+    this.props.getBanners();
+    this.props.getAllCategories((items: any) => {
+      if (Object.keys(this.props.product_items).length === 0) {
+        items.slice(0, 10).map((category: any) => {
+          this.props.getProductsFromCategory(category.id);
+          return category;
+        })
+      }
+    });
   }
 
   onSelected() {
@@ -96,6 +100,30 @@ class App extends Component<any, State> {
     this.setState({ search: value });
   }
 
+  getBanners() {
+    return this.props.banners ? this.props.banners.map((value, index) => {
+      return {
+        "code": `${index + 1}`,
+        "name": value.title,
+        "image": value.imageUrl
+      }
+    }) : [];
+  }
+
+  getCategories() {
+    if(this.props.category_schema && this.props.category_schema.categories){
+      return this.props.category_schema.categories.map((current, index) => {
+        return {
+          "id": current.id,
+          "name": current.displayName,
+          "image": current.cardImageUrl + "?auto=compress&fm=pjpg&w=60&h=60&crop=faces&fit=min"
+        };
+      }) 
+    } else {
+      return [];
+    }
+  }
+
   getItems(product: Array<{ id: number, name: string, tourType: string, imageUrl: string, listingPrice: { currencyCode: string, bestDiscount: number, originalPrice: number, finalPrice: number }, primaryCategory: { id: number, name: string, displayName: string }, reviewCount: number, averageRating: number, callToAction: string }>) {
     return product.map((current, index) => {
       return {
@@ -113,44 +141,55 @@ class App extends Component<any, State> {
     }, []).slice(0, 10);
   }
 
+  _getProductsInCategory(id, limit = 10) {
+    const record = this.props.product_items[id];
+    return record ? record.map((product: any) => {
+      return {
+        id: product.id,
+        name: product.name,
+        image: product.image.url,
+        category: {
+          id: product.primaryCategory.id,
+          name: product.primaryCategory.name
+        },
+        ratings: { avg: product.ratingCumulative.avg, total: product.ratingCumulative.count },
+        pricing: product.pricing.minimumPrice.finalPrice,
+        currencyCode: product.currency.code
+      }
+    }, []).slice(0, limit) : [];
+  }
+
   render() {
+    const banners = this.getBanners();
+    const categories = this.getCategories();
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} >
         <HeadBar />
 
         <ScrollView style={styles.scrollView}>
           <View style={{ position: "relative" }}>
-            <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
+            <ImageSlider height={288} slides={banners} callback={this.onSelected.bind(this)} />
             <View style={{ position: "relative", alignItems: "center", flex: 1, top: -20 }}>
-              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, borderColor: "transparent", ...shadowgiver(4, "#000", 5, 25),  fontFamily: "Avenir", fontWeight: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
+              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, borderColor: "transparent", ...shadowgiver(4, "#000", 5, 25), fontFamily: "Avenir", fontWeight: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
             </View>
           </View>
           <View style={styles.mainContainer}>
-            <CategoryList items={this.state.categories} />
+            <CategoryList items={categories} />
             <FeedSeperator />
             <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={{ marginLeft: 10 }}></CompactList>
             <View style={{ marginLeft: 10, marginTop: 10, marginRight: 10 }}>
               <StyledLink
                 links={[{ icon: camera, text: "Top 10 Experiences" }, { icon: calendar, text: "This Week Only" }]} style={{ flex: 1 }} /></View>
-            {/* {this.props.categories.map((category: any, index: number) => {
-              const record = this.props.product_items[category.id];
-              const data = record ? record.map((product: any, index: number) => {
-                return {
-                  id: product.id,
-                  name: product.name,
-                  image: product.image.url,
-                  ratings: { avg: product.ratingCumulative.avg, total: product.ratingCumulative.count },
-                  pricing: product.pricing.minimumPrice.finalPrice,
-                  currencyCode: product.pricing.currencyCode
-                }
-              }) : [];
-              return data.length > 0 ? (<CompactList style={{ marginBottom: 7 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
-            })} */}
           </View>
           <CollectionList items={this.state.collections} title="Collections" style={{ marginLeft: 20 }} desc="Discover experiences based on these themes" />
-
+          <View style={{ marginTop: 10 }}>
+            {categories.map((category: any, index: number) => {
+              const data = this._getProductsInCategory(category.id);
+              return data.length > 0 ? (<CompactList style={{ marginBottom: 7, marginLeft: 20 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
+            })}
+          </View>
         </ScrollView>
-        <Footer items={[{id: "1", icon: explore, text: "Explore"}, {id: "2", icon: collections, text: "Collections"}, {id: "3", icon: account, text: "Account"}]} active={"1"} >
+        <Footer items={[{ id: "1", icon: explore, text: "Explore" }, { id: "2", icon: collections, text: "Collections" }, { id: "3", icon: account, text: "Account" }]} active={"1"} >
 
         </Footer>
       </SafeAreaView>
@@ -175,13 +214,16 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ category, product }: any) => ({
-  categories: category.list,
+const mapStateToProps = ({ category, product, city }: any) => ({
+  category_schema: category.schema,
+  banners: city.banners,
   product_items: product.products
 });
-const mapDispatchToProps = (dispatch: any) => ({
-  getAllCategories: (callback: any) => getAllCategories(callback)(dispatch),
-  getProductsFromCategory: (category_id: string) => getProductsFromCategory(category_id)(dispatch)
-});
+const mapDispatchToProps = {
+  getAllCategories,
+  getProductsFromCategory,
+  getProductsFromCategoryInBatch,
+  getBanners
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

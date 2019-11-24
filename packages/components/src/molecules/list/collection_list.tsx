@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, Platform } from "react-native";
 
 type Props = {
     title: string;
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,0,0, 0.2)",
         top: 0,
         left: 0,
-        width: "100%",
-        height: "100%"
+        width: Platform.OS === "web" ? "100%": "auto",
+        height: Platform.OS === "web" ? "100%" : "auto"
     },
     itemTextContainer: {
         position: 'absolute',
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 8,
         flexWrap: 'wrap',
+        minHeight: "auto",
         alignItems: 'flex-start' // if you want to fill rows left to right
     },
     imageText: {
@@ -118,7 +119,9 @@ const styles = StyleSheet.create({
     },
     list_item: {
         width: '50%',
-        backgroundColor: "red",
+        backgroundColor: "rgb(199,199, 205)",
         paddingTop: "48.5%",
+        height: "auto",
+        position: "relative"
     }
 });

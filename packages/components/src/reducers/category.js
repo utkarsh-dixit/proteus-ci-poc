@@ -3,7 +3,7 @@ import { ADD_CATEGORIES, SET_LOADING_PRODUCTS } from "../actions/category";
 
 
 const initialState = {
-    list: [],
+    schema: [],
     loadingProducts: {}
 };
 export const category = (state = initialState, action) => {
@@ -11,24 +11,8 @@ export const category = (state = initialState, action) => {
         case ADD_CATEGORIES:
             return {
                 ...state,
-                list: action.categories.reduce((prev, current) => {
-                    return [...prev, {
-                        id: current.id,
-                        name: current.name,
-                        image: current.image.url,
-                        cityCode: current.cityCode,
-                        canonicalUrl: current.canonicalUrl
-                    }]
-                }, [])
+                schema: action.schema
             };
-        case SET_LOADING_PRODUCTS:
-            return {
-                ...state,
-                loadingProducts: {
-                    ...loadingProducts,
-                    [action.id]: action.loading
-                }
-            }
         default:
             return state;
     }

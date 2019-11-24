@@ -7,11 +7,11 @@ export const SET_LOADING_PRODUCTS = "SET_LOADING_PRODUCTS";
 export const getAllCategories = (callback) => async (dispatch) => {
   try {
     // ToastAndroid.show("Makiing request", ToastAndroid.LONG);
-    const result = await requestAPICall("category/list-by/city?cityCode=NEW_YORK", {}, changeNetworkStatus, dispatch);
+    const result = await requestAPICall("api/v1/feed/city/get/NEW_YORK/?depth=1&currency=USD&lang=en", {}, changeNetworkStatus, dispatch);
     // ToastAndroid.show("Item Length " + result.data.items.length, ToastAndroid.LONG);
 
-    dispatch({ type: ADD_CATEGORIES, categories: result.data.items });
-    return callback(result.data.items);
+    dispatch({ type: ADD_CATEGORIES, schema: result.data });
+    return callback(result.data.categories);
   } catch (error) {
     return false;
   }
