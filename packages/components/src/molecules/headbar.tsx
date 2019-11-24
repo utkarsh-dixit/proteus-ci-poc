@@ -8,14 +8,18 @@ import {
     ImageBackground
 } from 'react-native';
 
-export default class Headbar extends React.PureComponent{
+type Props = {
+    style?: any;
+}
+export default class Headbar extends React.PureComponent<Props>{
 
-    constructor(props){
+    constructor(props: Props){
         super(props);
     }
+    
     render(){
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, this.props.style]}>
                 <Image style={styles.logo} source={{uri: "https://cdn-imgix-open.headout.com/logo/www-desktop-8743256.png?w=300&h=50&fit=fill"}} />
             </View>
         );
@@ -26,7 +30,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 15,
         paddingLeft: 20,
-        backgroundColor: "#fff"  
+        backgroundColor: "#fff"
     },
     logo: {
 

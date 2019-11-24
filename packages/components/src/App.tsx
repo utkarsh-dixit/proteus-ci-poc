@@ -19,7 +19,7 @@ import SearchBar from "./atoms/search_bar/index";
 import CategoryList from "./molecules/list/category_list";
 import { shadowgiver } from "./util/helpers";
 import FeedSeperator from "./atoms/feed_seperator";
-import {calendar, camera} from "./assets/icons";
+import { calendar, camera } from "./assets/icons";
 import { bindActionCreators } from 'redux';
 import StyledLink from './atoms/styled_link';
 import CollectionList from './molecules/list/collection_list';
@@ -38,7 +38,7 @@ type State = {
   slides: Array<{ code: string, name: string, image: string }>
   categories: Array<{ name: string, image: string, id: string }>
   top_experiences: Array<any>,
-  collections: Array<{id: number, name: string, image: string}>,
+  collections: Array<{ id: number, name: string, image: string }>,
   search: string;
 }
 
@@ -46,7 +46,7 @@ interface product {
   id: string;
   name: string;
   image: string;
-  category?: {id: number, name: string};
+  category?: { id: number, name: string };
   ratings: { avg: number, total: number };
   pricing: number;
   currencyCode: string;
@@ -66,13 +66,13 @@ class App extends Component<any, State> {
   }
 
 
-  componentWillMount() {
-    this.props.getAllCategories((items: any) => {
-      items.map((category: any, index: number) => {
-        this.props.getProductsFromCategory(category.id);
-        return category;
-      })
-    });
+  componentDidMount() {
+    // this.props.getAllCategories((items: any) => {
+    //   items.map((category: any, index: number) => {
+    //     this.props.getProductsFromCategory(category.id);
+    //     return category;
+    //   })
+    // });
   }
 
   onSelected() {
@@ -95,7 +95,7 @@ class App extends Component<any, State> {
     this.setState({ search: value });
   }
 
-  getItems(product: Array<{id: number, name: string, tourType: string, imageUrl: string, listingPrice: {currencyCode: string, bestDiscount: number, originalPrice: number, finalPrice: number}, primaryCategory:{id: number, name: string, displayName: string},  reviewCount: number, averageRating: number, callToAction: string}>) {
+  getItems(product: Array<{ id: number, name: string, tourType: string, imageUrl: string, listingPrice: { currencyCode: string, bestDiscount: number, originalPrice: number, finalPrice: number }, primaryCategory: { id: number, name: string, displayName: string }, reviewCount: number, averageRating: number, callToAction: string }>) {
     return product.map((current, index) => {
       return {
         id: current.id,
@@ -109,14 +109,15 @@ class App extends Component<any, State> {
         pricing: current.listingPrice.finalPrice,
         currencyCode: current.listingPrice.currencyCode
       }
-    }, []).slice(0,10);
+    }, []).slice(0, 10);
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <HeadBar />
+
         <ScrollView style={styles.scrollView}>
-          <HeadBar />
           <View style={{ position: "relative" }}>
             <ImageSlider height={288} slides={this.state.slides} callback={this.onSelected.bind(this)} />
             <View style={{ position: "relative", alignItems: "center", flex: 1, top: -20 }}>
@@ -124,12 +125,12 @@ class App extends Component<any, State> {
             </View>
           </View>
           <View style={styles.mainContainer}>
-            <CategoryList items={this.state.categories}/>
-            <FeedSeperator/>
-            <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={{marginLeft: 10}}></CompactList>
-            <View style={{marginLeft: 10, marginTop: 10, marginRight: 10}}>
+            <CategoryList items={this.state.categories} />
+            <FeedSeperator />
+            <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={{ marginLeft: 10 }}></CompactList>
+            <View style={{ marginLeft: 10, marginTop: 10, marginRight: 10 }}>
               <StyledLink
-            links={[{icon: camera, text: "Top 10 Experiences"}, {icon: calendar, text: "This Week Only"}]} style={{ flex: 1}}/></View>
+                links={[{ icon: camera, text: "Top 10 Experiences" }, { icon: calendar, text: "This Week Only" }]} style={{ flex: 1 }} /></View>
             {/* {this.props.categories.map((category: any, index: number) => {
               const record = this.props.product_items[category.id];
               const data = record ? record.map((product: any, index: number) => {
@@ -145,7 +146,7 @@ class App extends Component<any, State> {
               return data.length > 0 ? (<CompactList style={{ marginBottom: 7 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
             })} */}
           </View>
-          <CollectionList items={this.state.collections} title="Collections"  style={{marginLeft: 20}} desc="Discover experiences based on these themes"/>
+          <CollectionList items={this.state.collections} title="Collections" style={{ marginLeft: 20 }} desc="Discover experiences based on these themes" />
 
         </ScrollView>
       </SafeAreaView>
@@ -159,6 +160,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    // paddingTop: 50,
     backgroundColor: "#f7f7f7"
   },
   mainContainer: {

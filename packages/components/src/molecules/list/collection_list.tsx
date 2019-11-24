@@ -20,7 +20,7 @@ export default class CollectionList extends React.PureComponent<Props>{
         const limit = this.props.limit ? this.props.limit : 8;
         out = this.props.items.slice(0,limit).map((current, index) => {
             return (
-                <ImageBackground key={index} source={{ uri: current.image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
+                <ImageBackground key={index} imageStyle={{resizeMode: "cover", width: "100%"}} source={{ uri: current.image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
                     <View style={styles.overlay}></View>
                     <View style={styles.itemTextContainer}>
                         <Text style={styles.imageText}>{current.name}</Text>
@@ -30,7 +30,7 @@ export default class CollectionList extends React.PureComponent<Props>{
         });
         if(this.props.items.length > limit) {
             return out.slice(0, limit - 1).concat((
-                <ImageBackground key={8} source={{ uri: this.props.items[limit].image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
+                <ImageBackground key={limit} imageStyle={{resizeMode: "cover", width: "100%"}} source={{ uri: this.props.items[limit].image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
                 <View style={styles.overlay}></View>
                 <View style={styles.itemTextContainer}>
                     <Text style={styles.imageText}>+{this.props.items.length - out.length} more</Text>
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     },
     list_item: {
         width: '50%',
+        backgroundColor: "red",
         paddingTop: "48.5%",
     }
 });

@@ -31,18 +31,26 @@ type State = {};
 
 export default class ProductCard extends React.PureComponent<Props, State> {
 
-    getRatings(avg: number){
+    getRatings(avg: number) {
         let out = [];
-        const stars = Math.round((avg)*2)/2;
+        const stars = Math.round((avg) * 2) / 2;
         // console.log(avg);
-        for(let i = 1; i <= stars; i++){
-            out.push(star("#ffbb58", 12.4, {marginRight: 1}));
-            if(stars - i === 0.5){
-                out.push(half_star("#ffbb58", 12.4, {marginRight: 1}));
+        for (let i = 1; i <= stars; i++) {
+            out.push(
+                <View key={i}>
+                    {star("#ffbb58", 12.4, { marginRight: 1 })}
+                </View>
+            );
+            if (stars - i === 0.5) {
+                out.push(
+                    <View key={i + 1}>
+                        {half_star("#ffbb58", 12.4, { marginRight: 1 })}
+                    </View>
+                );
             }
         }
         return (
-            <View style={{flex:1, flexDirection:"row", alignItems: "center"}}>{out}</View>
+            <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>{out}</View>
         );
     }
     render() {
@@ -51,7 +59,7 @@ export default class ProductCard extends React.PureComponent<Props, State> {
         return (
             <TouchableWithoutFeedback onPress={this.props.callback}>
                 <View style={{
-                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000", 5, 10), marginTop: 3,  flexGrow: Platform.OS !== "web" ? 0 : "auto",
+                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000", 5, 10), marginTop: 3, flexGrow: Platform.OS !== "web" ? 0 : 1,
                     marginLeft: 3, marginBottom: 5, backgroundColor: "white", marginRight: 10, ...styles.container
                 }}>
                     <Image source={{ uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://") }} style={{ height: 181.25, backgroundColor: "rgb(199,199, 205)" }} />
@@ -140,6 +148,7 @@ const styles = StyleSheet.create({
     },
     product_status_container: {
         flex: 1,
+        // flexGrow: 0.5,
         flexDirection: "row",
         marginLeft: 5,
         position: "relative",

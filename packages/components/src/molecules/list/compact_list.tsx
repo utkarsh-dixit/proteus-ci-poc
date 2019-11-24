@@ -49,7 +49,7 @@ export default class CompactList extends React.Component<Props, State> {
 
     render() {
         return (
-            <View style={{ ...this.props.style, flex: 1 }}>
+            <View style={[styles.container, this.props.style]}>
                 <View style={styles.heading}>
                     <View style={{ flex: 1, flexDirection: "row" }}>
                         <Text style={styles.heading_text}>{this.props.title}</Text>
@@ -60,7 +60,8 @@ export default class CompactList extends React.Component<Props, State> {
                 <FlatList
                     data={this.props.items}
                     horizontal={true}
-                    style={{ marginLeft: -4 }}
+                    style={{ marginLeft: -4, flexGrow: "unset" }}
+                    // contentContainerStyle={{    alignItems: "baseline"}}
                     getItemLayout={(data: any, index) => (
                         {length: this.props.items.length, width: 291, offset: 291 * index, index}
                     )}
@@ -78,6 +79,9 @@ export default class CompactList extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex:1
+    },
     heading: {
         marginTop: 24,
         marginBottom: 20

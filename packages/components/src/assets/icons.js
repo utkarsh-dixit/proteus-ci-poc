@@ -1,13 +1,7 @@
 import React from "react";
 import Svg, {
-    Defs,
-    ClipPath,
     Path,
-    Rect,
     G,
-    Text,
-    Polygon,
-    Use
 } from "react-native-svg";
 
 export const star = (color, height, style = {}) => {
@@ -20,7 +14,7 @@ export const star = (color, height, style = {}) => {
 
 export const camera = (width, style = {}) => {
     return (
-        <Svg x="0px" y="0px" viewBox="0 0 42 31" width={width} style={style}>
+        <Svg x="0px" y="0px" viewBox="0 0 42 31" width={width} height={width} style={style}>
             <G id="Default-Pages">
                 <G id="Feed-Page" transform="translate(-61.000000, -2091.000000)">
                     <G id="Top-10-Attractions" transform="translate(42.000000, 2041.000000)">
@@ -37,7 +31,7 @@ export const camera = (width, style = {}) => {
 
 export const calendar = (width, style = {}) => {
     return (
-        <Svg x="0px" y="0px" viewBox="0 0 34 35" width={width} style={style}>
+        <Svg x="0px" y="0px" viewBox="0 0 34 35" width={width} height={width} style={style}>
             <G id="Default-Pages">
                 <G id="Feed-Page" transform="translate(-65.000000, -2222.000000)">
                     <G id="This-Week-only" transform="translate(42.000000, 2175.000000)">
@@ -51,22 +45,23 @@ export const calendar = (width, style = {}) => {
         </Svg>
     );
 }
-
 export const right_arrow = (width, style = {}) => {
     return (
-        <Svg class="external-link-arrow" width={width} viewBox="0 0 64 64" style={style}>
-            <G>
-                <Path d="m60.533,15.733l-28.56, 28.328-28.579-28.348c-0.397-0.394-0.917-0.59-1.437-0.59s-1.039, 0.196-1.436,0.59c-0.793,0.787-0.793, 2.062 0,2.849l29.98,29.735c0.2,0.2 0.494, 0.375 0.757,0.476 0.75,0.282 1.597,0.107 2.166-0.456l29.981-29.735c0.793-0.787 0.793-2.062 0-2.849-0.794-0.786-2.078-0.786-2.872, 7.10543e-15z">
-                </Path>
-            </G>
-        </Svg>
+        <Svg version="1.1" id="Capa_1" x="0px" y="0px"
+        width={width} height={width} viewBox="0 0 451.847 451.847" style={style}>
+<G>
+	<Path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+		L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+		c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"/>
+</G>
+   </Svg>
     );
 };
 
 export const half_star = (color, height, style = {}) => {
     return (
         <Svg id="star-half" width={height} viewBox="0 0 19 18" height={height} style={style}>
-            <G stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <G stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <G transform="translate(-154.000000, -83.000000)">
                     <G transform="translate(154.000000, 83.000000)">
                         <Path d="M9,14.9983037 L9.0015564,14.9973985 L14.2431108,17.7559529 C14.3987732,17.8461423 14.5470236,17.8912363 14.6878595,17.8912363 C14.8361124,17.8912363 14.9491507,17.8367477 15.0269819,17.7277688 C15.1048131,17.61879 15.1437287,17.4853867 15.1437287,17.3275552 C15.1437287,17.2298499 15.1400227,17.1546932 15.1326107,17.1020828 L14.1763976,11.4652717 L18.2125024,7.47441002 C18.4052274,7.27900046 18.5015886,7.09862396 18.5015886,6.93327546 C18.5015886,6.65519292 18.2940421,6.48233168 17.878939,6.41468923 L12.2973307,5.5917145 L9.54125588,0.461218322 C9.40041751,0.153072185 9.22393198,0.00328063965 9.0015564,0.00328063965 L9,0.00328308745 L9,14.9983037 Z" fill="#EBEBEB"></Path>
