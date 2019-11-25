@@ -43,7 +43,7 @@ export default class CompactList extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.dataProvider = new DataProvider((a, b) => {
-            return a.id !== b.id;
+            return a.name+"_"+a.id !== b.name+"_"+b.id;
         });
         this.layoutProvider = new LayoutProvider(
             index => {
@@ -77,7 +77,7 @@ export default class CompactList extends React.Component<Props, State> {
         return (
             <View style={[styles.container, this.props.style]}>
                 <View style={styles.heading}>
-                    <View style={{ flex: 1, flexDirection: "row" }}>
+                    <View style={{  flexDirection: "row" }}>
                         <Text style={styles.heading_text}>{this.props.title}</Text>
                         <Text style={styles.viewAll}>View All</Text>
                     </View>
@@ -92,7 +92,8 @@ export default class CompactList extends React.Component<Props, State> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 400
+        height: 400,
+        marginBottom: 50
     },
     heading: {
         marginTop: 24,
