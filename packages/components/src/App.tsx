@@ -129,7 +129,7 @@ class App extends Component<any, State> {
       return {
         id: current.id,
         name: current.name,
-        image: current.imageUrl,
+        image: current.imageUrl  + "?auto=compress&fm=pjpg&w=291&h=182&crop=faces&fit=min",
         category: {
           id: current.primaryCategory.id,
           name: current.primaryCategory.displayName

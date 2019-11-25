@@ -47,7 +47,7 @@ export default class CompactList extends React.Component<Props, State> {
         });
         this.layoutProvider = new LayoutProvider(
             index => {
-                return index;
+                return 0;
             },
             (type, dimension) => {
                 dimension.height = 331;
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: 400,
-        marginBottom: 50
+        marginBottom: 40
     },
     heading: {
         marginTop: 24,
