@@ -1,0 +1,184 @@
+===================>
+{
+  "style": {
+    "marginLeft": -4,
+    "width": 391.42857142857144,
+    "height": 380,
+    "zIndex": 10
+  },
+  "layoutProvider": {},
+  "forceNonDeterministicRendering": true,
+  "isHorizontal": true,
+  "useWindowScroll": false,
+  "dataProvider": {},
+  "rowRenderer": "[function bound _prepareItem]",
+  "canChangeSize": false,
+  "disableRecycling": false,
+  "initialOffset": 0,
+  "initialRenderIndex": 0,
+  "onEndReachedThreshold": 0,
+  "distanceFromWindow": 0,
+  "renderAheadOffset": 250
+}
+===================>
+{
+  "style": {
+    "marginLeft": -4,
+    "width": 391.42857142857144,
+    "height": 380,
+    "zIndex": 10
+  },
+  "layoutProvider": {},
+  "forceNonDeterministicRendering": true,
+  "isHorizontal": true,
+  "useWindowScroll": false,
+  "dataProvider": {},
+  "rowRenderer": "[function bound _prepareItem]",
+  "canChangeSize": false,
+  "disableRecycling": false,
+  "initialOffset": 0,
+  "initialRenderIndex": 0,
+  "onEndReachedThreshold": 0,
+  "distanceFromWindow": 0,
+  "renderAheadOffset": 250,
+  "onScroll": "[function ]",
+  "onSizeChanged": "[function ]",
+  "contentHeight": 380.19049072265625,
+  "contentWidth": 1500.09521484375,
+  "externalScrollView": "[function ScrollView]",
+  "scrollThrottle": 16
+}
+===================>
+{
+  "removeClippedSubviews": false,
+  "scrollEventThrottle": 16,
+  "style": {
+    "marginLeft": -4,
+    "width": 391.42857142857144,
+    "height": 380,
+    "zIndex": 10
+  },
+  "layoutProvider": {},
+  "forceNonDeterministicRendering": true,
+  "isHorizontal": true,
+  "useWindowScroll": false,
+  "dataProvider": {},
+  "rowRenderer": "[function bound _prepareItem]",
+  "canChangeSize": false,
+  "disableRecycling": false,
+  "initialOffset": 0,
+  "initialRenderIndex": 0,
+  "onEndReachedThreshold": 0,
+  "distanceFromWindow": 0,
+  "renderAheadOffset": 250,
+  "onScroll": "[function ]",
+  "onSizeChanged": "[function ]",
+  "contentHeight": 380.19049072265625,
+  "contentWidth": 1500.09521484375,
+  "externalScrollView": "[function ScrollView]",
+  "scrollThrottle": 16,
+  "horizontal": true
+}
+===================>
+{
+  "removeClippedSubviews": false,
+  "scrollEventThrottle": 16,
+  "layoutProvider": {},
+  "forceNonDeterministicRendering": true,
+  "isHorizontal": true,
+  "useWindowScroll": false,
+  "dataProvider": {},
+  "rowRenderer": "[function bound _prepareItem]",
+  "canChangeSize": false,
+  "disableRecycling": false,
+  "initialOffset": 0,
+  "initialRenderIndex": 0,
+  "onEndReachedThreshold": 0,
+  "distanceFromWindow": 0,
+  "renderAheadOffset": 250,
+  "onSizeChanged": "[function ]",
+  "contentHeight": 380.19049072265625,
+  "contentWidth": 1500.09521484375,
+  "externalScrollView": "[function ScrollView]",
+  "scrollThrottle": 16,
+  "horizontal": true,
+  "alwaysBounceHorizontal": true,
+  "alwaysBounceVertical": false,
+  "style": [
+    {},
+    {}
+  ],
+  "onContentSizeChange": null,
+  "onLayout": "[function ]",
+  "onMomentumScrollBegin": "[function bound scrollResponderHandleMomentumScrollBegin]",
+  "onMomentumScrollEnd": "[function bound scrollResponderHandleMomentumScrollEnd]",
+  "onResponderGrant": "[function bound scrollResponderHandleResponderGrant]",
+  "onResponderReject": "[function bound scrollResponderHandleResponderReject]",
+  "onResponderRelease": "[function bound scrollResponderHandleResponderRelease]",
+  "onResponderTerminationRequest": "[function bound scrollResponderHandleTerminationRequest]",
+  "onScrollBeginDrag": "[function bound scrollResponderHandleScrollBeginDrag]",
+  "onScrollEndDrag": "[function bound scrollResponderHandleScrollEndDrag]",
+  "onScrollShouldSetResponder": "[function bound scrollResponderHandleScrollShouldSetResponder]",
+  "onStartShouldSetResponder": "[function bound scrollResponderHandleStartShouldSetResponder]",
+  "onStartShouldSetResponderCapture": "[function bound scrollResponderHandleStartShouldSetResponderCapture]",
+  "onTouchEnd": "[function bound scrollResponderHandleTouchEnd]",
+  "onTouchMove": "[function bound scrollResponderHandleTouchMove]",
+  "onTouchStart": "[function bound scrollResponderHandleTouchStart]",
+  "onTouchCancel": "[function bound scrollResponderHandleTouchCancel]",
+  "onScroll": "[function ]",
+  "scrollBarThumbImage": null,
+  "sendMomentumEvents": false,
+  "DEPRECATED_sendUpdatedChildFrames": false,
+  "snapToStart": true,
+  "snapToEnd": true,
+  "pagingEnabled": false
+}
+===================>
+
+{
+  "style": [
+    {},
+    null
+  ],
+  "removeClippedSubviews": false,
+  "collapsable": false
+}
+========================
+{
+  "style": {
+    "flexDirection": "row"
+  }
+}
+=========================
+{
+  "style": {
+    "height": 380.19049072265625,
+    "width": 1500.09521484375
+  }
+}
+===========================
+{
+  "data": {
+    "id": "519",
+    "name": "Chicago",
+    "image": "//cdn-imgix.headout.com/tour/654/TOUR-IMAGE/41c27ecf-f84a-47ff-9517-fe88303ac5e8-1.jpg",
+    "category": {},
+    "ratings": {},
+    "pricing": 49.5,
+    "currencyCode": "USD"
+  },
+  "dataHasChanged": "[function ]",
+  "x": 0,
+  "y": 0,
+  "layoutType": 0,
+  "index": 0,
+  "layoutProvider": {},
+  "forceNonDeterministicRendering": true,
+  "isHorizontal": true,
+  "onSizeChanged": "[function ]",
+  "childRenderer": "[function bound _prepareItem]",
+  "height": 351.23809814453125,
+  "width": 305.9047546386719,
+  "itemAnimator": {},
+  "internalSnapshot": {}
+}

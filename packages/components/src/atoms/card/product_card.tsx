@@ -25,6 +25,8 @@ interface product {
 type Props = {
     width: number;
     callback?: any;
+    height: number;
+    style?: any;
     data: product;
 };
 type State = {};
@@ -57,10 +59,11 @@ export default class ProductCard extends React.PureComponent<Props, State> {
         const { data } = this.props;
 
         return (
-            <TouchableWithoutFeedback onPress={this.props.callback}>
+            <View style={this.props.style}>
+            <TouchableWithoutFeedback  onPress={this.props.callback}>
                 <View style={{
                     flex: 1, width: this.props.width, ...shadowgiver(3, "#000", 5, 10), marginTop: 3, flexGrow: Platform.OS !== "web" ? 0 : 1,
-                    marginLeft: 3, marginBottom: 5, backgroundColor: "white", marginRight: 10, ...styles.container
+                    marginLeft: 3, marginBottom: 5, backgroundColor: "white", marginRight: 10, ...styles.container, minHeight: this.props.height, zIndex: 12
                 }}>
                     <Image source={{ uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://") }} style={{ height: 181.25, backgroundColor: "rgb(199,199, 205)" }} />
                     <View style={{
@@ -98,6 +101,7 @@ export default class ProductCard extends React.PureComponent<Props, State> {
                     </View>
                 </View>
             </TouchableWithoutFeedback>
+            </View>
         );
     }
 }
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         position: "relative",
         marginTop: 24,
-        top: -5,
+        top: -2,
         justifyContent: "space-between"
     },
     container: {

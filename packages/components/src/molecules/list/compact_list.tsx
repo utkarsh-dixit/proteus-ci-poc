@@ -4,12 +4,13 @@ import {
     StyleSheet,
     FlatList,
     View,
-                ScrollView,
-
+    ScrollView,
+    Dimensions,
     Text,
     Platform
 } from 'react-native';
 import ProductCard from "../../atoms/card/product_card";
+import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
 
 interface product {
     id: string;
@@ -29,23 +30,48 @@ type Props = {
     itemCallback?: any;
 };
 type State = {
-    xOffset: number;
+    dataProvider: any;
 };
 
 export default class CompactList extends React.Component<Props, State> {
 
     ref: any;
+    dataProvider: DataProvider;
+    layoutProvider: LayoutProvider;
+    _rowRenderer: any;
 
     constructor(props: Props) {
         super(props);
-    }
-    _prepareItem({ item, index }: any) {
-        return (
-            <ProductCard data={item} width={291} key={index} callback={this.props.itemCallback}>
+        this.dataProvider = new DataProvider((a, b) => {
+            return a.id !== b.id;
+        });
+        this.layoutProvider = new LayoutProvider(
+            index => {
+                return index;
+            },
+            (type, dimension) => {
+                dimension.height = 331;
+                dimension.width = 303;
+            }
+        );
+        this._rowRenderer = this._prepareItem.bind(this);
 
-            </ProductCard>
+        //Since component should always render once data has changed, make data provider part of the state
+        this.state = {
+            dataProvider: this.dataProvider.cloneWithRows(this.props.items)
+        };
+    }
+    _prepareItem(type, data) {
+        return (
+            // <View style={styles.itemContainer}>
+                <ProductCard data={data} style={styles.itemContainer} width={291} height={311} callback={this.props.itemCallback}>
+                </ProductCard>
+            // </View>
+
         );
     }
+
+
 
     render() {
         return (
@@ -57,22 +83,7 @@ export default class CompactList extends React.Component<Props, State> {
                     </View>
                     {this.props.desc && (<Text style={styles.desc}>{this.props.desc}</Text>)}
                 </View>
-                <FlatList
-                    data={this.props.items}
-                    horizontal={true}
-                    style={{ marginLeft: -4, flexGrow: 0 }}
-                    // contentContainerStyle={{    alignItems: "baseline"}}
-                    getItemLayout={(data: any, index) => (
-                        {length: this.props.items.length, width: 291, offset: 291 * index, index}
-                    )}
-                    showsHorizontalScrollIndicator={true}
-                    // persistentScrollbar={true}
-                    renderItem={this._prepareItem.bind(this)}
-                    keyExtractor={(item) => item.name}
-                    legacyImplementation={Platform.OS !== "web" ? true : false}
-                    // onScroll={this.handleScroll.bind(this)}
-                    scrollEventThrottle={16}
-                />
+                <RecyclerListView isHorizontal={true} style={{ flex: 1, minHeight: 331 }} layoutProvider={this.layoutProvider} dataProvider={this.state.dataProvider} rowRenderer={this._rowRenderer} />
             </View>
         );
     }
@@ -80,17 +91,26 @@ export default class CompactList extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1
+        flex: 1,
+        height: 400
     },
     heading: {
         marginTop: 24,
         marginBottom: 20
     },
+    itemContainer: {
+        // alignContent: "space-around",
+        justifyContent: "flex-start",
+        flex: 1,
+        height: 331,
+        backgroundColor: "#0000"
+
+    },
     desc: {
         color: "rgb(84,84,84)",
         fontSize: 16,
         marginTop: 12,
-        fontWeight:"300",
+        fontWeight: "300",
         fontFamily: "Avenir",
     },
     viewAll: {

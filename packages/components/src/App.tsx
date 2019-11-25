@@ -124,8 +124,8 @@ class App extends Component<any, State> {
     }
   }
 
-  getItems(product: Array<{ id: number, name: string, tourType: string, imageUrl: string, listingPrice: { currencyCode: string, bestDiscount: number, originalPrice: number, finalPrice: number }, primaryCategory: { id: number, name: string, displayName: string }, reviewCount: number, averageRating: number, callToAction: string }>) {
-    return product.map((current, index) => {
+  getItems(product: any) {
+    return product.pageData.items.length > 0 ? product.pageData.items.map((current, index) => {
       return {
         id: current.id,
         name: current.name,
@@ -138,7 +138,7 @@ class App extends Component<any, State> {
         pricing: current.listingPrice.finalPrice,
         currencyCode: current.listingPrice.currencyCode
       }
-    }, []).slice(0, 10);
+    }).slice(0, 6) : [];
   }
 
   _getProductsInCategory(id, limit = 10) {
