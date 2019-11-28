@@ -22,8 +22,14 @@ type Props = {
 };
 type State = {};
 
-export default class ImageSlider extends React.PureComponent<Props, State> {
+export default class ImageSlider extends React.Component<Props, State> {
 
+    shouldComponentUpdate(newProps){
+        if(this.props === newProps){
+            return false;
+        }
+        return true;
+    }
     prepareSlides() {
         const { slides, callback } = this.props;
         return slides.map((value, index) => {

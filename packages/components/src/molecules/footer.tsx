@@ -8,7 +8,14 @@ type Props = {
     activeColor?: string;
 };
 
-export default class Footer extends React.PureComponent<Props>{
+export default class Footer extends React.Component<Props>{
+    shouldComponentUpdate(newProps){
+        if(this.props===newProps){
+            return false;
+        }
+        return true;
+    }
+    
     render() {
         return (
             <View style={[styles.container]}>

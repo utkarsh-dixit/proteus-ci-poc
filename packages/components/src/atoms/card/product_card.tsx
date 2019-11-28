@@ -31,8 +31,12 @@ type Props = {
 };
 type State = {};
 
-export default class ProductCard extends React.PureComponent<Props, State> {
+export default class ProductCard extends React.Component<Props, State> {
 
+    shouldComponentUpdate(newProps){
+        // @TODO: Look into this.
+        return false;
+    }
     getRatings(avg: number) {
         let out = [];
         const stars = Math.round((avg) * 2) / 2;

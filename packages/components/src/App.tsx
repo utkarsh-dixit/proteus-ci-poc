@@ -138,7 +138,7 @@ class App extends Component<any, State> {
         pricing: current.listingPrice.finalPrice,
         currencyCode: current.listingPrice.currencyCode
       }
-    }).slice(0, 6) : [];
+    }) : [];
   }
 
   _getProductsInCategory(id, limit = 10) {

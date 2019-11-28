@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "name": "Broadway Show Tickets",
+        "image": "//cdn-imgix.headout.com/category/24/image/66000036-0523-4859-87b7-83d628b8843c-BroadwayShowTickets.jpg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 2,
+        "name": "NYC 101",
+        "image": "//cdn-imgix.headout.com/category/20/image/50dd86bd-0af8-4fef-a334-94a699d3a67c-NYC101.jpg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 3,
+        "name": "City Walks",
+        "image": "//cdn-imgix.headout.com/category/29/image/379e4fd4-3c83-43a4-b4e7-8422b0356867-NYCCityWalks.jpg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 4,
+        "name": "NYC Tours",
+        "image": "//cdn-imgix.headout.com/category/119/image/7be3f1f2-2002-4466-b6e0-890952bc408e-NYCTours.jpg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 5,
+        "name": "Entertainment",
+        "image": "//cdn-imgix.headout.com/category/334/image/e7b12e66-aa7e-4cfc-ac43-262c6ff87f7a-334.jpeg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 6,
+        "name": "New York City Passes",
+        "image": "//cdn-imgix.headout.com/category/1303/image/ed686051-e9b8-493c-b0a5-dc27c79a726c-1303.jpeg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 7,
+        "name": "Cruises",
+        "image": "//cdn-imgix.headout.com/category/21/image/f083df8f-c083-4766-b496-bd67cb1199ad-NYCCruises.jpg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 8,
+        "name": "Boats",
+        "image": "//cdn-imgix.headout.com/category/1201/image/afc2edd0-7350-49ee-8d17-366138403af5-1201.jpeg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 9,
+        "name": "Boats",
+        "image": "//cdn-imgix.headout.com/category/1201/image/afc2edd0-7350-49ee-8d17-366138403af5-1201.jpeg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 10,
+        "name": "Boats",
+        "image": "//cdn-imgix.headout.com/category/1201/image/afc2edd0-7350-49ee-8d17-366138403af5-1201.jpeg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    },
+    {
+        "id": 11,
+        "name": "Boats",
+        "image": "//cdn-imgix.headout.com/category/1201/image/afc2edd0-7350-49ee-8d17-366138403af5-1201.jpeg?auto=compress&fm=pjpg&w=270&h=270&crop=faces&fit=min"
+    }
+]

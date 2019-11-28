@@ -12,10 +12,17 @@ import {shadowgiver} from "../util/helpers";
 type Props = {
     style?: any;
 }
-export default class Headbar extends React.PureComponent<Props>{
+export default class Headbar extends React.Component<Props>{
 
     constructor(props: Props){
         super(props);
+    }
+
+    shouldComponentUpdate(newProps){
+        if(this.props===newProps){
+            return false;
+        }
+        return true;
     }
     
     render(){
