@@ -7,7 +7,9 @@ import {
   SafeAreaView,
   Platform,
   ToastAndroid,
-  ScrollView
+  FlatList,
+  ScrollView,
+  Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import ImageSlider from "./molecules/slider/image_slider";
@@ -25,6 +27,7 @@ import StyledLink from './atoms/styled_link';
 import CollectionList from './molecules/list/collection_list';
 import Footer from "./molecules/footer";
 import { getBanners } from "./actions/city";
+import { DataProvider, LayoutProvider, RecyclerListView } from 'recyclerlistview';
 
 type Props = {};
 
@@ -41,6 +44,8 @@ type State = {
   categories: Array<{ name: string, image: string, id: string }>
   top_experiences: Array<any>,
   collections: Array<{ id: number, name: string, image: string }>,
+  itemToRender: number,
+  extendedState: any,
   search: string;
 }
 
@@ -56,6 +61,11 @@ interface product {
 
 class App extends Component<any, State> {
 
+  footerNav: Array<{ id: string, icon: any, text: string }>;
+  links: Array<{ icon: any, text: string }>
+  dataProvider: DataProvider;
+  // static whyDidYouRender = true
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -63,8 +73,17 @@ class App extends Component<any, State> {
       categories: [],
       top_experiences: require("./data/top_experiences.json"),
       collections: require("./data/collections.json"),
+      itemToRender: 2,
+      extendedState: [],
       search: ""
     };
+    this.dataProvider = new DataProvider((a, b) => {
+      return a.name + "_" + a.id !== b.name + "_" + b.id;
+  });
+    this.footerNav = [{ id: "1", icon: explore, text: "Explore" }, { id: "2", icon: collections, text: "Collections" }, { id: "3", icon: account, text: "Account" }];
+    this.links = [{ icon: camera, text: "Top 10 Experiences" }, { icon: calendar, text: "This Week Only" }];
+    this.updateSearchValue = this.updateSearchValue.bind(this);
+    this.onSelected = this.onSelected.bind(this);
   }
 
 
@@ -72,10 +91,12 @@ class App extends Component<any, State> {
     this.props.getBanners();
     this.props.getAllCategories((items: any) => {
       if (Object.keys(this.props.product_items).length === 0) {
-        items.slice(0, 10).map((category: any) => {
+        const ids = [];
+        items.slice(0,9).map((category: any) => {
+          ids.push(category.id);
           this.props.getProductsFromCategory(category.id);
-          return category;
-        })
+        });
+        // this.props.getProductsFromCategoryInBatch(ids);
       }
     });
   }
@@ -102,8 +123,10 @@ class App extends Component<any, State> {
 
   getBanners() {
     return this.props.banners ? this.props.banners.map((value, index) => {
+      const title = value.title.replace(" ", "_").toUpperCase();
+      const id = value.imageUrl.split("/").slice(-1);
       return {
-        "code": `${index + 1}`,
+        "code": `${title}_${id}`,
         "name": value.title,
         "image": value.imageUrl
       }
@@ -111,14 +134,14 @@ class App extends Component<any, State> {
   }
 
   getCategories() {
-    if(this.props.category_schema && this.props.category_schema.categories){
+    if (this.props.category_schema && this.props.category_schema.categories) {
       return this.props.category_schema.categories.map((current, index) => {
         return {
           "id": current.id,
           "name": current.displayName,
           "image": current.cardImageUrl + "?auto=compress&fm=pjpg&w=60&h=60&crop=faces&fit=min"
         };
-      }) 
+      })
     } else {
       return [];
     }
@@ -129,7 +152,7 @@ class App extends Component<any, State> {
       return {
         id: current.id,
         name: current.name,
-        image: current.imageUrl  + "?auto=compress&fm=pjpg&w=291&h=182&crop=faces&fit=min",
+        image: current.imageUrl + "?auto=compress&fm=pjpg&w=291&h=182&crop=faces&fit=min",
         category: {
           id: current.primaryCategory.id,
           name: current.primaryCategory.displayName
@@ -159,6 +182,44 @@ class App extends Component<any, State> {
     }, []).slice(0, limit) : [];
   }
 
+  getListOfCagegories(categories) {
+
+    const renderListContainer = ({item, index}) => {
+      // if (index + 1 <= this.state.itemToRender || Platform.OS == "web") {
+        // No infinte looad for web
+        const data = this._getProductsInCategory(item.id, 10);
+        return data.length > 0 ? (<CompactList style={styles.cListAbs} itemCallback={this.handle_item_click} title={item.name} key={`cat_${item.id}`} items={data}></CompactList>) : null;
+      // }
+    };
+
+    const d = this.dataProvider.cloneWithRows(categories);
+
+    const layoutProvider = new LayoutProvider(
+      index => {
+          return 0;
+      },
+      (type, dimension) => {
+          dimension.height = 400;
+          dimension.width = Dimensions.get('window').width;
+      }
+  );
+
+    return (
+      <FlatList
+        data={categories}
+        renderItem={renderListContainer}
+        removeClippedSubviews={true}
+        initialNumToRender={2}
+        keyExtractor={(item)=>{return `cat_${item.id}`;}}
+        scrollEventThrottle={50}
+        windowSize={3}
+        // legacyImplementation={Platform.OS !== "web" ? true : false}
+      />
+      // <RecyclerListView extendedState={this.state.extendedState} style={{ flex: 1, height: 400 * categories.length}} layoutProvider={layoutProvider} dataProvider={d} rowRenderer={renderListContainer} />
+    )
+
+  }
+
   render() {
     const banners = this.getBanners();
     const categories = this.getCategories();
@@ -166,30 +227,36 @@ class App extends Component<any, State> {
       <SafeAreaView style={styles.container} >
         <HeadBar />
 
-        <ScrollView style={styles.scrollView}>
-          <View style={{ position: "relative" }}>
-            <ImageSlider height={288} slides={banners} callback={this.onSelected.bind(this)} />
-            <View style={{ position: "relative", alignItems: "center", flex: 1, top: -20 }}>
-              <SearchBar placeholder="Search for experiences" value={this.state.search} style={{ alignSelf: 'stretch', height: 50, marginLeft: 20, borderRadius: 5, paddingLeft: 14.98, paddingRight: 55, backgroundColor: "#fff", marginRight: 20, borderColor: "transparent", ...shadowgiver(4, "#000", 5, 25), fontFamily: "Avenir", fontWeight: this.state.search.length == 0 ? 'bold' : 'normal' }} callback={this.updateSearchValue.bind(this)} />
+        <ScrollView style={styles.scrollView} scrollEventThrottle={50} removeClippedSubviews={true} onMomentumScrollEnd={(e) => {
+          const scrollPosition = e.nativeEvent.contentOffset.y;
+          const scrolViewHeight = e.nativeEvent.layoutMeasurement.height;
+          const contentHeight = e.nativeEvent.contentSize.height;
+          const isScrolledToBottom = scrolViewHeight + scrollPosition
+          // check if scrollView is scrolled to bottom and limit itemToRender to data length
+          if (isScrolledToBottom >= (contentHeight - 50) && this.state.itemToRender <= categories.length) {
+            this.setState({ itemToRender: this.state.itemToRender + 2 })
+          }
+        }}>
+          <View style={styles.header}>
+            <ImageSlider height={288} slides={banners} callback={this.onSelected} />
+            <View style={styles.searchContainer}>
+              <SearchBar placeholder="Search for experiences" value={this.state.search} style={styles.search_bar} callback={this.updateSearchValue} />
             </View>
           </View>
           <View style={styles.mainContainer}>
             <CategoryList items={categories} />
             <FeedSeperator />
-            <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={{ marginLeft: 10 }}></CompactList>
-            <View style={{ marginLeft: 10, marginTop: 10, marginRight: 10 }}>
+            <CompactList items={this.getItems(this.state.top_experiences)} title="Top Experiences in New York" desc="Handpicked curated activities just for you" style={styles.cList}></CompactList>
+            <View style={styles.linkContainer}>
               <StyledLink
-                links={[{ icon: camera, text: "Top 10 Experiences" }, { icon: calendar, text: "This Week Only" }]} style={{ flex: 1 }} /></View>
+                links={this.links} style={styles.link} /></View>
           </View>
-          <CollectionList items={this.state.collections} title="Collections" style={{ marginLeft: 20 }} desc="Discover experiences based on these themes" />
-          <View style={{ marginTop: 10 }}>
-            {categories.map((category: any, index: number) => {
-              const data = this._getProductsInCategory(category.id);
-              return data.length > 0 ? (<CompactList style={{ marginBottom: 7, marginLeft: 20 }} itemCallback={this.handle_item_click} title={category.name} key={category.id} items={data}></CompactList>) : null;
-            })}
+          <CollectionList items={this.state.collections} title="Collections" style={styles.collection} desc="Discover experiences based on these themes" />
+          <View style={styles.listContainer}>
+            {this.getListOfCagegories(categories)}
           </View>
         </ScrollView>
-        <Footer items={[{ id: "1", icon: explore, text: "Explore" }, { id: "2", icon: collections, text: "Collections" }, { id: "3", icon: account, text: "Account" }]} active={"1"} >
+        <Footer items={this.footerNav} active={"1"} >
 
         </Footer>
       </SafeAreaView>
@@ -209,8 +276,48 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingLeft: 10
+  },
+  searchContainer: {
+    position: "relative",
+    alignItems: "center",
+    flex: 1,
+    top: -20
+  },
+  header: {
+    position: "relative"
+  },
+  search_bar: {
+    alignSelf: 'stretch',
+    height: 50,
+    marginLeft: 20,
+    borderRadius: 5,
+    paddingLeft: 14.98,
+    paddingRight: 55,
+    backgroundColor: "#fff",
+    marginRight: 20,
+    borderColor: "transparent",
+    ...shadowgiver(4, "#000", 5, 25),
+    fontFamily: "Avenir"
+    // fontWeight: this.state.search.length == 0 ? 'bold' : 'normal'
+  },
+  cList: {
+    marginLeft: 10
+  },
+  link: {
+    flex: 1
+  },
+  linkContainer: {
+    marginLeft: 10, marginTop: 10, marginRight: 10
+  },
+  cListAbs: {
+    marginBottom: 7, marginLeft: 20
+  },
+  listContainer: {
+    marginTop: 10
+  },
+  collection: {
+    marginLeft: 20
   }
-
 });
 
 

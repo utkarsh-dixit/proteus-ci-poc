@@ -31,12 +31,10 @@ type Props = {
 };
 type State = {};
 
-export default class ProductCard extends React.Component<Props, State> {
+export default class ProductCard extends React.PureComponent<Props, State> {
 
-    shouldComponentUpdate(newProps){
-        // @TODO: Look into this.
-        return false;
-    }
+    static whyDidYouRender = true
+
     getRatings(avg: number) {
         let out = [];
         const stars = Math.round((avg) * 2) / 2;
@@ -64,11 +62,8 @@ export default class ProductCard extends React.Component<Props, State> {
 
         return (
             <View style={this.props.style}>
-            <TouchableWithoutFeedback  onPress={this.props.callback}>
-                <View style={{
-                    flex: 1, width: this.props.width, ...shadowgiver(3, "#000", 5, 10), marginTop: 3, flexGrow: Platform.OS !== "web" ? 0 : 1,
-                    marginLeft: 3, marginBottom: 5, backgroundColor: "white", marginRight: 10, ...styles.container, minHeight: this.props.height, zIndex: 12
-                }}>
+                <TouchableWithoutFeedback onPress={this.props.callback}>
+                    <View style={[styles.mContainer, { width: this.props.width, minHeight: this.props.height }]}>
                     <Image source={{ uri: this.props.data.image.replace(/^(\/\/\.*?)/i, "https://") }} style={{ height: 181.25, backgroundColor: "rgb(199,199, 205)" }} />
                     <View style={{
                         flex: 1, backgroundColor: "white",
@@ -83,7 +78,7 @@ export default class ProductCard extends React.Component<Props, State> {
                                 <View style={styles.ratingContainer}>
                                     {data.ratings.total === 0 && (
                                         <React.Fragment>
-                                             <View>{this.getRatings(1)}</View>
+                                            <View>{this.getRatings(1)}</View>
                                             <Text style={styles.newly_text}>Newly Arrived</Text>
                                         </React.Fragment>
                                     )}
@@ -105,12 +100,23 @@ export default class ProductCard extends React.Component<Props, State> {
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-            </View>
+            </View >
         );
     }
 }
 
 const styles = StyleSheet.create({
+    mContainer: {
+        flex: 1,
+        marginTop: 3,
+        flexGrow: Platform.OS !== "web" ? 0 : 1,
+        marginLeft: 3,
+        marginBottom: 5,
+        backgroundColor: "white",
+        marginRight: 10,
+        zIndex: 12,
+        ...shadowgiver(3, "#000", 5, 10)
+    },
     image: {
         flex: 0.3
     },

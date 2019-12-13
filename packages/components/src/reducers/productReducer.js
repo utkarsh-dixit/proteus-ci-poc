@@ -20,7 +20,7 @@ export const product = (state = initialState, action) => {
         case ADD_PRODUCTS_IN_CATEGORIES_IN_BATCH:
             return {
                 ...state,
-                product: {
+                products: {
                     ...state.products,
                     ...action.products
                 }

@@ -24,8 +24,8 @@ type State = {};
 
 export default class ImageSlider extends React.Component<Props, State> {
 
-    shouldComponentUpdate(newProps){
-        if(this.props === newProps){
+    shouldComponentUpdate(newProps) {
+        if (JSON.stringify(this.props) === JSON.stringify(newProps)) {
             return false;
         }
         return true;
@@ -34,7 +34,7 @@ export default class ImageSlider extends React.Component<Props, State> {
         const { slides, callback } = this.props;
         return slides.map((value, index) => {
             return (
-                <View style={[styles.slideContainer, styles.slide1]} key={index}>
+                <View style={[styles.slideContainer, styles.slide1]} key={value.code}>
                     <TouchableHighlight style={styles.slideContainer} onPress={callback}>
                         <ImageBackground source={{ uri: value.image }} style={{ flex: 1 }} ></ImageBackground>
                     </TouchableHighlight>
@@ -43,25 +43,25 @@ export default class ImageSlider extends React.Component<Props, State> {
         })
     }
 
-    getDots({ index , isActive, onPress }: any){
+    getDots({ isActive }: any) {
         return (
-            <View style={{position: "relative", padding: 0, top: -12, width: 6, height: 6, marginLeft: 3, marginRight: 3, backgroundColor: isActive ? "white" : "transparent", borderWidth: 2, borderColor: "rgba(255,255,255,0.5)", borderRadius: 30}}></View>
+            <View style={[styles.dots, { backgroundColor: isActive ? "white" : "transparent" }]}></View>
         );
     }
 
     render() {
         return (
-            <View style={{ ...styles.container, height: this.props.height }}>
+            <View style={[styles.container, { minHeight: this.props.height }]}>
                 {this.props.slides.length > 0 && (
-                <Swiper minDistanceForAction={0.10} loop={true}  springConfig={{ speed: 10 }} controlsProps={{
-                    dotsTouchable: true,
-                    dotsPos: 'bottom',
-                    prevPos: false,
-                    nextPos: false,
-                    DotComponent: this.getDots
-                }}>
-                    {this.prepareSlides()}
-                </Swiper>
+                    <Swiper minDistanceForAction={0.10} loop={true} springConfig={{ speed: 10 }} controlsProps={{
+                        dotsTouchable: true,
+                        dotsPos: 'bottom',
+                        prevPos: false,
+                        nextPos: false,
+                        DotComponent: this.getDots
+                    }}>
+                        {this.prepareSlides()}
+                    </Swiper>
                 )}
             </View>
         );
@@ -79,5 +79,18 @@ const styles = StyleSheet.create({
     },
     slide1: {
         backgroundColor: 'rgb(199,199, 205)',
+    },
+    dots: {
+        position: "relative",
+        padding: 0,
+        top: -12,
+        width: 6,
+        height: 6,
+        marginLeft: 3,
+        marginRight: 3,
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        borderColor: "rgba(255,255,255,0.5)",
+        borderRadius: 30
     }
 });

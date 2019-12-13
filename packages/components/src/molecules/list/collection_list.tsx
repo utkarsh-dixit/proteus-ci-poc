@@ -15,12 +15,14 @@ type Props = {
 
 export default class CollectionList extends React.PureComponent<Props>{
 
+    static whyDidYouRender = true
+
     getItems() {
         let out = [];
         const limit = this.props.limit ? this.props.limit : 8;
         out = this.props.items.slice(0,limit).map((current, index) => {
             return (
-                <ImageBackground key={index} imageStyle={{resizeMode: "cover", width: "100%"}} source={{ uri: current.image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
+                <ImageBackground key={index} imageStyle={styles.imageStyle} source={{ uri: current.image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
                     <View style={styles.overlay}></View>
                     <View style={styles.itemTextContainer}>
                         <Text style={styles.imageText}>{current.name}</Text>
@@ -30,7 +32,7 @@ export default class CollectionList extends React.PureComponent<Props>{
         });
         if(this.props.items.length > limit) {
             return out.slice(0, limit - 1).concat((
-                <ImageBackground key={limit} imageStyle={{resizeMode: "cover", width: "100%"}} source={{ uri: this.props.items[limit].image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
+                <ImageBackground key={limit} imageStyle={styles.imageStyle} source={{ uri: this.props.items[limit].image.replace(/^(\/\/\.*?)/i, "https://") }} style={styles.list_item}>
                 <View style={styles.overlay}></View>
                 <View style={styles.itemTextContainer}>
                     <Text style={styles.imageText}>+{this.props.items.length - out.length} more</Text>
@@ -47,7 +49,7 @@ export default class CollectionList extends React.PureComponent<Props>{
             <React.Fragment>
                 <View style={[this.props.style]}>
                     <View style={styles.heading}>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
+                        <View style={styles.titleContainer}>
                             <Text style={styles.heading_text}>{this.props.title}</Text>
                         </View>
                         {this.props.desc && (<Text style={styles.desc}>{this.props.desc}</Text>)}
@@ -75,6 +77,9 @@ const styles = StyleSheet.create({
         left: 0,
         width: Platform.OS === "web" ? "100%": "auto",
         height: Platform.OS === "web" ? "100%" : "auto"
+    },
+    titleContainer: {
+         flex: 1, flexDirection: "row" 
     },
     itemTextContainer: {
         position: 'absolute',
@@ -123,5 +128,8 @@ const styles = StyleSheet.create({
         paddingTop: "48.5%",
         height: "auto",
         position: "relative"
+    },
+    imageStyle: {
+        resizeMode: "cover", width: "100%"
     }
 });

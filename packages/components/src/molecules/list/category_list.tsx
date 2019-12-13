@@ -22,27 +22,39 @@ type Props = {
 };
 type State = {};
 
-export default class CategoryList extends React.PureComponent<Props, State> {
+export default class CategoryList extends React.Component<Props, State> {
 
+    constructor(props: Props){
+        super(props);
+        this._prepareItem = this._prepareItem.bind(this);
+    }
+    
     _prepareItem({ item, index }) {
         return (
-            <CategoryCard data={item} key={index} callback={this.props.itemCallback} style={{width: 85, marginLeft: 6.5, borderColor: "transparent", marginRight: 6.5}}>
+            <CategoryCard data={item}callback={this.props.itemCallback} style={{width: 85, marginLeft: 6.5, borderColor: "transparent", marginRight: 6.5}}>
 
             </CategoryCard>
         );
     }
+
+    getItemLayout(data: any, index) {
+        return {length: 85, width: 85, offset: 98 * index, index};
+    }
+    getKeyExtractor(item){
+        return item.id + "";
+    }
+
     render() {
+        const {items} = this.props;
         return (
-            <View style={{ ...this.props.style, marginTop: 5 }}>
+            <View style={[this.props.style, {marginTop: 5 }]}>
                 <FlatList
-                    data={this.props.items}
+                    data={items}
                     horizontal={true}
-                    renderItem={this._prepareItem.bind(this)}
-                    keyExtractor={(item) => item.name}
-                    getItemLayout={(data: any, index) => (
-                        {length: this.props.items.length, width: 85, offset: 98 * index, index}
-                    )}
-                    legacyImplementation={Platform.OS !== "web" ? true : false}
+                    renderItem={this._prepareItem}
+                    keyExtractor={this.getKeyExtractor}
+                    getItemLayout={this.getItemLayout}
+                    removeClippedSubviews={true}
                 />
             </View>
         );

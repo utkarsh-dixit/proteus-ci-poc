@@ -41,11 +41,20 @@ export default class CompactList extends React.Component<Props, State> {
     layoutProvider: LayoutProvider;
     _rowRenderer: any;
 
+    static whyDidYouRender = true
+
+    shouldComponentUpdate(newProps) {
+        if (JSON.stringify(newProps.items) == JSON.stringify(this.props.items)) {
+            return false;
+        }
+        return true;
+    }
+
     constructor(props: Props) {
         super(props);
         this.dataProvider = new DataProvider((a, b) => {
-            return a.name + "_" + a.id !== b.name + "_" + b.id;
-        });
+            return a !== b;
+        }, (index) => { return `id_${props.items[index].id}`; });
         this.layoutProvider = new LayoutProvider(
             index => {
                 return 0;
@@ -66,16 +75,10 @@ export default class CompactList extends React.Component<Props, State> {
         };
     }
 
-    shouldComponentUpdate(newProps) {
-        if (this.props === newProps) {
-            return false;
-        }
-        return true;
-    }
-
-    _prepareItem(type, data) {
+    _prepareItem(index, data) {
         return (
             // <View style={styles.itemContainer}>
+
             <ProductCard data={data} style={styles.itemContainer} width={291} height={311} callback={this.props.itemCallback}>
             </ProductCard>
             // </View>
@@ -84,6 +87,13 @@ export default class CompactList extends React.Component<Props, State> {
     }
 
 
+    extractKey(item) {
+        return item.id.toString();
+    }
+
+    getItemLayout(data: any, index) {
+        return { length: 291, offset: (304) * index, index }
+    }
 
     render() {
         return (
@@ -95,21 +105,19 @@ export default class CompactList extends React.Component<Props, State> {
                     </View>
                     {this.props.desc && (<Text style={styles.desc}>{this.props.desc}</Text>)}
                 </View>
-                <RecyclerListView renderAheadOffset={4} extendedState={this.state.extendedState} isHorizontal={true} style={{ flex: 1, minHeight: 331 }} layoutProvider={this.layoutProvider} dataProvider={this.state.dataProvider} rowRenderer={this._rowRenderer} />
-                          {/* <FlatList
+                <RecyclerListView forceNonDeterministicRendering={true} extendedState={this.state.extendedState} isHorizontal={true} style={{ flex: 1, minHeight: 331 }} layoutProvider={this.layoutProvider} dataProvider={this.state.dataProvider} rowRenderer={this._rowRenderer} />
+                {/* <FlatList
                     data={this.props.items}
                     horizontal={true}
                     style={{ marginLeft: -4, flexGrow: 0 }}
                     // contentContainerStyle={{    alignItems: "baseline"}}
-                    getItemLayout={(data: any, index) => (
-                        {length: 291, offset: (291 + 20) * index, index}
-                    )}
-                    renderItem={this._prepareItem.bind(this)}
+                    getItemLayout={this.getItemLayout}
+                    renderItem={this._rowRenderer}
                     removeClippedSubviews={true}
-                    keyExtractor={(item) => item.id.toString()}
+                    keyExtractor={this.extractKey}
                     initialNumToRender={4}
                     // initialScrollIndex={0}
-                    // legacyImplementation={Platform.OS !== "web" ? true : false}
+                    legacyImplementation={Platform.OS !== "web" ? true : false}
                     scrollEventThrottle={16}
                 /> */}
             </View>
@@ -120,8 +128,8 @@ export default class CompactList extends React.Component<Props, State> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 400,
-        marginBottom: 40
+        minHeight: 400,
+        paddingBottom: 10
     },
     heading: {
         marginTop: 24,
