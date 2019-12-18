@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     list_item: {
         width: '50%',
         backgroundColor: "rgb(199,199, 205)",
-        paddingTop: "48.5%",
+        paddingTop: "50%",
         height: "auto",
         position: "relative"
     },

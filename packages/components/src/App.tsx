@@ -128,7 +128,7 @@ class App extends Component<any, State> {
       return {
         "code": `${title}_${id}`,
         "name": value.title,
-        "image": value.imageUrl
+        "image": value.imageUrl + `?auto=compress&fm=pjpg&w=${Dimensions.get('window').width}&crop=faces&fit=min`
       }
     }) : [];
   }

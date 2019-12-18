@@ -60,3 +60,8 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# Web
+/packages/web/.next
+/packages/web/build
+
