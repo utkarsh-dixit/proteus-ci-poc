@@ -79,7 +79,7 @@ class App extends Component<any, State> {
     };
     this.dataProvider = new DataProvider((a, b) => {
       return a.name + "_" + a.id !== b.name + "_" + b.id;
-  });
+    });
     this.footerNav = [{ id: "1", icon: explore, text: "Explore" }, { id: "2", icon: collections, text: "Collections" }, { id: "3", icon: account, text: "Account" }];
     this.links = [{ icon: camera, text: "Top 10 Experiences" }, { icon: calendar, text: "This Week Only" }];
     this.updateSearchValue = this.updateSearchValue.bind(this);
@@ -88,17 +88,19 @@ class App extends Component<any, State> {
 
 
   componentDidMount() {
-    this.props.getBanners();
-    this.props.getAllCategories((items: any) => {
-      if (Object.keys(this.props.product_items).length === 0) {
-        const ids = [];
-        items.slice(0,9).map((category: any) => {
-          ids.push(category.id);
-          this.props.getProductsFromCategory(category.id);
-        });
-        // this.props.getProductsFromCategoryInBatch(ids);
-      }
-    });
+    if (!this.props.misc.ssr) {
+      this.props.getBanners();
+      this.props.getAllCategories((items: any) => {
+        if (Object.keys(this.props.product_items).length === 0) {
+          const ids = [];
+          items.slice(0, 9).map((category: any) => {
+            ids.push(category.id);
+            this.props.getProductsFromCategory(category.id);
+          });
+          // this.props.getProductsFromCategoryInBatch(ids);
+        }
+      });
+    }
   }
 
   onSelected() {
@@ -170,7 +172,7 @@ class App extends Component<any, State> {
       return {
         id: product.id,
         name: product.name,
-        image: product.image.url,
+        image: product.image.url + "?auto=compress&fm=pjpg&w=291&h=182&crop=faces&fit=min",
         category: {
           id: product.primaryCategory.id,
           name: product.primaryCategory.name
@@ -184,11 +186,11 @@ class App extends Component<any, State> {
 
   getListOfCagegories(categories) {
 
-    const renderListContainer = ({item, index}) => {
+    const renderListContainer = ({ item, index }) => {
       // if (index + 1 <= this.state.itemToRender || Platform.OS == "web") {
-        // No infinte looad for web
-        const data = this._getProductsInCategory(item.id, 10);
-        return data.length > 0 ? (<CompactList style={styles.cListAbs} itemCallback={this.handle_item_click} title={item.name} key={`cat_${item.id}`} items={data}></CompactList>) : null;
+      // No infinte looad for web
+      const data = this._getProductsInCategory(item.id, 10);
+      return data.length > 0 ? (<CompactList style={styles.cListAbs} itemCallback={this.handle_item_click} title={item.name} key={`cat_${item.id}`} items={data}></CompactList>) : null;
       // }
     };
 
@@ -196,13 +198,13 @@ class App extends Component<any, State> {
 
     const layoutProvider = new LayoutProvider(
       index => {
-          return 0;
+        return 0;
       },
       (type, dimension) => {
-          dimension.height = 400;
-          dimension.width = Dimensions.get('window').width;
+        dimension.height = 400;
+        dimension.width = Dimensions.get('window').width;
       }
-  );
+    );
 
     return (
       <FlatList
@@ -210,10 +212,10 @@ class App extends Component<any, State> {
         renderItem={renderListContainer}
         removeClippedSubviews={true}
         initialNumToRender={2}
-        keyExtractor={(item)=>{return `cat_${item.id}`;}}
+        keyExtractor={(item) => { return `cat_${item.id}`; }}
         scrollEventThrottle={50}
         windowSize={3}
-        // legacyImplementation={Platform.OS !== "web" ? true : false}
+      // legacyImplementation={Platform.OS !== "web" ? true : false}
       />
       // <RecyclerListView extendedState={this.state.extendedState} style={{ flex: 1, height: 400 * categories.length}} layoutProvider={layoutProvider} dataProvider={d} rowRenderer={renderListContainer} />
     )
@@ -321,10 +323,11 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ category, product, city }: any) => ({
+const mapStateToProps = ({ category, product, city, misc }: any) => ({
   category_schema: category.schema,
   banners: city.banners,
-  product_items: product.products
+  product_items: product.products,
+  misc
 });
 const mapDispatchToProps = {
   getAllCategories,

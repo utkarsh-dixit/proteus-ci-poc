@@ -6283,16 +6283,18 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
   }
 
   componentDidMount() {
-    this.props.getBanners();
-    this.props.getAllCategories(items => {
-      if (_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(this.props.product_items).length === 0) {
-        const ids = [];
-        items.slice(0, 9).map(category => {
-          ids.push(category.id);
-          this.props.getProductsFromCategory(category.id);
-        }); // this.props.getProductsFromCategoryInBatch(ids);
-      }
-    });
+    if (!this.props.misc.ssr) {
+      this.props.getBanners();
+      this.props.getAllCategories(items => {
+        if (_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_5___default()(this.props.product_items).length === 0) {
+          const ids = [];
+          items.slice(0, 9).map(category => {
+            ids.push(category.id);
+            this.props.getProductsFromCategory(category.id);
+          }); // this.props.getProductsFromCategoryInBatch(ids);
+        }
+      });
+    }
   }
 
   onSelected() {
@@ -6369,7 +6371,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       return {
         id: product.id,
         name: product.name,
-        image: product.image.url,
+        image: product.image.url + "?auto=compress&fm=pjpg&w=291&h=182&crop=faces&fit=min",
         category: {
           id: product.primaryCategory.id,
           name: product.primaryCategory.name
@@ -6401,7 +6403,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
         items: data,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 191
+          lineNumber: 193
         },
         __self: this
       }) : null; // }
@@ -6427,7 +6429,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       ,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 208
+        lineNumber: 210
       },
       __self: this
     }) // <RecyclerListView extendedState={this.state.extendedState} style={{ flex: 1, height: 400 * categories.length}} layoutProvider={layoutProvider} dataProvider={d} rowRenderer={renderListContainer} />
@@ -6441,13 +6443,13 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       style: styles.container,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 227
+        lineNumber: 229
       },
       __self: this
     }, __jsx(_molecules_headbar__WEBPACK_IMPORTED_MODULE_12__["default"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 228
+        lineNumber: 230
       },
       __self: this
     }), __jsx(react_native__WEBPACK_IMPORTED_MODULE_8__["ScrollView"], {
@@ -6468,14 +6470,14 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 230
+        lineNumber: 232
       },
       __self: this
     }, __jsx(react_native__WEBPACK_IMPORTED_MODULE_8__["View"], {
       style: styles.header,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 240
+        lineNumber: 242
       },
       __self: this
     }, __jsx(_molecules_slider_image_slider__WEBPACK_IMPORTED_MODULE_10__["default"], {
@@ -6484,14 +6486,14 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       callback: this.onSelected,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 241
+        lineNumber: 243
       },
       __self: this
     }), __jsx(react_native__WEBPACK_IMPORTED_MODULE_8__["View"], {
       style: styles.searchContainer,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 242
+        lineNumber: 244
       },
       __self: this
     }, __jsx(_atoms_search_bar_index__WEBPACK_IMPORTED_MODULE_15__["default"], {
@@ -6501,27 +6503,27 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       callback: this.updateSearchValue,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 243
+        lineNumber: 245
       },
       __self: this
     }))), __jsx(react_native__WEBPACK_IMPORTED_MODULE_8__["View"], {
       style: styles.mainContainer,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 246
+        lineNumber: 248
       },
       __self: this
     }, __jsx(_molecules_list_category_list__WEBPACK_IMPORTED_MODULE_16__["default"], {
       items: categories,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 247
+        lineNumber: 249
       },
       __self: this
     }), __jsx(_atoms_feed_seperator__WEBPACK_IMPORTED_MODULE_18__["default"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 248
+        lineNumber: 250
       },
       __self: this
     }), __jsx(_molecules_list_compact_list__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -6531,14 +6533,14 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       style: styles.cList,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 249
+        lineNumber: 251
       },
       __self: this
     }), __jsx(react_native__WEBPACK_IMPORTED_MODULE_8__["View"], {
       style: styles.linkContainer,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 250
+        lineNumber: 252
       },
       __self: this
     }, __jsx(_atoms_styled_link__WEBPACK_IMPORTED_MODULE_20__["default"], {
@@ -6546,7 +6548,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       style: styles.link,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 251
+        lineNumber: 253
       },
       __self: this
     }))), __jsx(_molecules_list_collection_list__WEBPACK_IMPORTED_MODULE_21__["default"], {
@@ -6556,14 +6558,14 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       desc: "Discover experiences based on these themes",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 254
+        lineNumber: 256
       },
       __self: this
     }), __jsx(react_native__WEBPACK_IMPORTED_MODULE_8__["View"], {
       style: styles.listContainer,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 255
+        lineNumber: 257
       },
       __self: this
     }, this.getListOfCagegories(categories))), __jsx(_molecules_footer__WEBPACK_IMPORTED_MODULE_22__["default"], {
@@ -6571,7 +6573,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_7__["Component"] {
       active: "1",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 259
+        lineNumber: 261
       },
       __self: this
     }));
@@ -6641,11 +6643,13 @@ const styles = react_native__WEBPACK_IMPORTED_MODULE_8__["StyleSheet"].create({
 const mapStateToProps = ({
   category,
   product,
-  city
+  city,
+  misc
 }) => ({
   category_schema: category.schema,
   banners: city.banners,
-  product_items: product.products
+  product_items: product.products,
+  misc
 });
 
 const mapDispatchToProps = {
@@ -6752,18 +6756,26 @@ const getTourGroups = (sort = "POPULARITY") => async dispatch => {
 /*!********************************************************************************************************!*\
   !*** /Users/utkarsh/Desktop/headout/ReactNativeOne/node_modules/components/src/actions/miscActions.ts ***!
   \********************************************************************************************************/
-/*! exports provided: CHANGE_NETWORK_TYPE, changeNetworkStatus */
+/*! exports provided: CHANGE_NETWORK_TYPE, TURN_ON_SSR, changeNetworkStatus, turnOnSSR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_NETWORK_TYPE", function() { return CHANGE_NETWORK_TYPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TURN_ON_SSR", function() { return TURN_ON_SSR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeNetworkStatus", function() { return changeNetworkStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "turnOnSSR", function() { return turnOnSSR; });
 const CHANGE_NETWORK_TYPE = "CHANGE_NETWORK_TYPE";
+const TURN_ON_SSR = "TURN_ON_SSR";
 const changeNetworkStatus = status => dispatch => {
   dispatch({
     type: CHANGE_NETWORK_TYPE,
     payload: status
+  });
+};
+const turnOnSSR = () => dispatch => {
+  dispatch({
+    type: TURN_ON_SSR
   });
 };
 
@@ -55368,9 +55380,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var components_src_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/src/App */ "../../node_modules/components/src/App.tsx");
+/* harmony import */ var components_src_actions_city__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/src/actions/city */ "../../node_modules/components/src/actions/city.js");
+/* harmony import */ var components_src_actions_category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/src/actions/category */ "../../node_modules/components/src/actions/category.js");
+/* harmony import */ var components_src_actions_product__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! components/src/actions/product */ "../../node_modules/components/src/actions/product.js");
 
 var _jsxFileName = "/Users/utkarsh/Desktop/headout/ReactNativeOne/packages/web/pages/index.tsx";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
+
 
 
 
@@ -55379,11 +55397,35 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
     super(props);
   }
 
+  static getInitialProps({
+    store,
+    isServer,
+    pathname,
+    query
+  }) {
+    return Object(components_src_actions_city__WEBPACK_IMPORTED_MODULE_3__["getBanners"])()(store.dispatch).then(async () => {
+      await Object(components_src_actions_category__WEBPACK_IMPORTED_MODULE_4__["getAllCategories"])(async items => {
+        const ids = [];
+
+        for (let i = 0; i < 9 && i < items.length; i++) {
+          const category = items[i];
+          ids.push(category.id);
+          await Object(components_src_actions_product__WEBPACK_IMPORTED_MODULE_5__["getProductsFromCategory"])(category.id)(store.dispatch);
+        }
+
+        ;
+      })(store.dispatch);
+      return {
+        custom: 'custom'
+      }; // you can pass some custom props to component from here
+    });
+  }
+
   render() {
     return __jsx(components_src_App__WEBPACK_IMPORTED_MODULE_2__["default"], Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.props, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 11
+        lineNumber: 30
       },
       __self: this
     }));

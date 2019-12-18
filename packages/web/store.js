@@ -18,7 +18,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 export function initializeStore(initialState = {}) {
     return createStore(
       persistedReducer,
-      {initialState},
+      initialState,
       applyMiddleware(thunk, logger)
     )
   }
