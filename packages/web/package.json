@@ -13,6 +13,7 @@
     "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.19.0",
     "babel-plugin-styled-components": "^1.10.6",
+    "cacheable-response": "^1.10.0",
     "local-cors-proxy": "^1.0.2",
     "next": "^9.1.6",
     "next-compose-plugins": "^2.2.0",
@@ -37,8 +38,8 @@
   },
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
-    "start": "next start",
+    "dev": "node server.js",
+    "start": "NODE_ENV=production node server.js",
     "proxy": "lcp --proxyUrl https://test-headout.com",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"

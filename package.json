@@ -7,6 +7,10 @@
       ],
       "nohoist": []
     },
+    "scripts": {
+      "deploy": "now",
+      "start": "now dev"
+    },
     "dependencies": {
       "react-native": "0.61.4"
     }

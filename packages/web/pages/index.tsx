@@ -1,8 +1,9 @@
 import React from "react";
-import App from "components/src/App";
 import { getBanners } from "components/src/actions/city";
 import { getAllCategories } from "components/src/actions/category";
 import { getProductsFromCategory, getProductsFromCategoryInBatch } from "components/src/actions/product";
+import dynamic from "next/dynamic";
+const App = dynamic(import("components/src/App"));
 
 class Home extends React.Component {
 
@@ -20,7 +21,7 @@ class Home extends React.Component {
                     await getProductsFromCategory(category.id)(store.dispatch);
                 };
             })(store.dispatch);
-            return { custom: 'custom' }; // you can pass some custom props to component from here
+            return { };
         });
 
     }

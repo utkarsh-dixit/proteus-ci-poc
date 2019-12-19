@@ -13,7 +13,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 
 const makeStore = (initialState = {misc:{ssr: true}}, options) => {
-  return createStore(rootReducer, initialState, applyMiddleware(thunk, logger));
+  return createStore(rootReducer, initialState, applyMiddleware(thunk));
 };
 
 
