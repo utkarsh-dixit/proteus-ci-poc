@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import ProductCard from "../../atoms/card/product_card";
 import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
+import mainStyle from "../../styles/app.css";
 
 interface product {
     id: string;
@@ -100,7 +101,7 @@ export default class CompactList extends React.Component<Props, State> {
             <View style={[styles.container, this.props.style]}>
                 <View style={styles.heading}>
                     <View style={{ flexDirection: "row" }}>
-                        <Text style={styles.heading_text}>{this.props.title}</Text>
+                        <Text className={mainStyle.test} style={styles.heading_text}>{this.props.title}</Text>
                         <Text style={styles.viewAll}>View All</Text>
                     </View>
                     {this.props.desc && (<Text style={styles.desc}>{this.props.desc}</Text>)}

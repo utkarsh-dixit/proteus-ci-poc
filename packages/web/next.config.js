@@ -1,8 +1,10 @@
 const path = require('path');
 const withTM = require('@weco/next-plugin-transpile-modules');
+const withCSS = require('@zeit/next-css')
 
-module.exports = withTM({
+module.exports = withCSS(withTM({
     transpileModules: ["components", "react-native", "recyclerlistview"],
+    cssModules: true,
     webpack: (config, {defaultLoaders}) => {
         config.resolve = {
             ...config.resolve,
@@ -23,4 +25,4 @@ module.exports = withTM({
             include: [path.resolve(__dirname, '..', 'components')]
         })
         return config;
-    }});
+    }}));

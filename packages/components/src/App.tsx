@@ -228,7 +228,6 @@ class App extends Component<any, State> {
     return (
       <SafeAreaView style={styles.container} >
         <HeadBar />
-
         <ScrollView style={styles.scrollView} scrollEventThrottle={50} removeClippedSubviews={true} onMomentumScrollEnd={(e) => {
           const scrollPosition = e.nativeEvent.contentOffset.y;
           const scrolViewHeight = e.nativeEvent.layoutMeasurement.height;
