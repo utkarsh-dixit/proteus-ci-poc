@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import {shadowgiver} from "../util/helpers";
 
 type Props = {
@@ -12,7 +12,7 @@ export default class Footer extends React.PureComponent<Props>{
     
     render() {
         return (
-            <View style={[styles.container]}>
+            <View data-sticky data-isFooter style={[styles.container]}>
                 {this.props.items.map((value, index) => {
                     const active = value.id === this.props.active;
                     const activeColor = this.props.activeColor ? this.props.activeColor: "#ec1943";
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: "row",
         zIndex: 3,
+        backgroundColor: "#fff",
         ...shadowgiver(3, "#000", 5, 5)
     },
     icon: {

@@ -11,8 +11,9 @@ import withRedux from "next-redux-wrapper";
 import rootReducer from "components/src/reducers";
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
+import  "../styles/common.css";
 
-const makeStore = (initialState = {misc:{ssr: true}}, options) => {
+const makeStore = (initialState = {misc:{ssr: false}}, options) => {
   return createStore(rootReducer, initialState, applyMiddleware(thunk));
 };
 
@@ -34,9 +35,7 @@ class MyApp extends App<any> {
 
     return (
       <Provider store={store}>
-          <Container>
               <LoadComponent Component={Component} store={store} {...pageProps} />
-          </Container>
       </Provider>
     );
   }

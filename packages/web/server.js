@@ -19,7 +19,7 @@ const ssrCache = cacheableResponse({
 app.prepare().then(() => {
   const server = express()
 
-  server.get('/', (req, res) => ssrCache({ req, res, pagePath: '/' }))
+  // server.get('/', (req, res) => ssrCache({ req, res, pagePath: '/' }))
 
   server.get('*', (req, res) => handle(req, res))
 
