@@ -20,6 +20,8 @@
 		5631CC0A6F714C1721953699 /* libPods-ReactNativeOne-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DE1EE963E54C4899D252AE /* libPods-ReactNativeOne-tvOSTests.a */; };
 		6B12A9AB41F7C9B1136D9B14 /* libPods-ReactNativeOne-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D3FFD0B9FB90AA8214285B /* libPods-ReactNativeOne-tvOS.a */; };
 		7D894C96EE4278448BB5D8A6 /* libPods-ReactNativeOneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 849B928BD576B95041A1E2E4 /* libPods-ReactNativeOneTests.a */; };
+		AA4C3E4B23B9C4FC002BCC92 /* ContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4C3E4A23B9C4FC002BCC92 /* ContactsManager.m */; };
+		AA4C3E4D23B9CD75002BCC92 /* contact.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4C3E4C23B9CD75002BCC92 /* contact.m */; };
 		B0CA668A16FB43F7B6768766 /* Avenir-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2B8C285DE55642E096AF63C5 /* Avenir-Heavy.otf */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,10 @@
 		68D3FFD0B9FB90AA8214285B /* libPods-ReactNativeOne-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeOne-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		849B928BD576B95041A1E2E4 /* libPods-ReactNativeOneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeOneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C4555937F9BB730BE758D8 /* Pods-ReactNativeOne-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeOne-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeOne-tvOSTests/Pods-ReactNativeOne-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AA4C3E4923B9C4B6002BCC92 /* ContactsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ContactsManager.h; path = ReactNativeOne/ContactsManager.h; sourceTree = "<group>"; };
+		AA4C3E4A23B9C4FC002BCC92 /* ContactsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ContactsManager.m; path = ReactNativeOne/ContactsManager.m; sourceTree = "<group>"; };
+		AA4C3E4C23B9CD75002BCC92 /* contact.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = contact.m; path = ReactNativeOne/contact.m; sourceTree = "<group>"; };
+		AA4C3E4E23B9CE6B002BCC92 /* contact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = contact.h; path = ReactNativeOne/contact.h; sourceTree = "<group>"; };
 		C06A73019960EED046CE9E77 /* Pods-ReactNativeOne-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeOne-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeOne-tvOS/Pods-ReactNativeOne-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E3DE1EE963E54C4899D252AE /* libPods-ReactNativeOne-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeOne-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E3CF1AB62E06BB97F24697 /* Pods-ReactNativeOne-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeOne-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeOne-tvOSTests/Pods-ReactNativeOne-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 		13B07FAE1A68108700A75B9A /* ReactNativeOne */ = {
 			isa = PBXGroup;
 			children = (
+				AA4C3E4823B9C47D002BCC92 /* ContactsModule */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -206,6 +213,17 @@
 				2B8C285DE55642E096AF63C5 /* Avenir-Heavy.otf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		AA4C3E4823B9C47D002BCC92 /* ContactsModule */ = {
+			isa = PBXGroup;
+			children = (
+				AA4C3E4923B9C4B6002BCC92 /* ContactsManager.h */,
+				AA4C3E4A23B9C4FC002BCC92 /* ContactsManager.m */,
+				AA4C3E4C23B9CD75002BCC92 /* contact.m */,
+				AA4C3E4E23B9CE6B002BCC92 /* contact.h */,
+			);
+			name = ContactsModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,8 +566,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4C3E4D23B9CD75002BCC92 /* contact.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				AA4C3E4B23B9C4FC002BCC92 /* ContactsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

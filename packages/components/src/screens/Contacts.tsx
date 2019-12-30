@@ -33,6 +33,7 @@ class Contacts extends React.Component<any, any>{
     componentDidMount() {
 
         const eventEmitter = new NativeEventEmitter(ContactsBackground);
+        console.log(eventEmitter);
         eventEmitter.addListener('onContactsSyncComplete', handleOnContactsSyncComplete.bind(null, this.props.store));
         const epochSeconds = Date.now() / 1000;
         const timeDiff = this.props.lastSync - epochSeconds;

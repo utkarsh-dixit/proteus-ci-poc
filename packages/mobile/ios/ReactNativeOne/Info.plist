@@ -57,5 +57,7 @@
 	<array>
 		<string>Avenir-Heavy.otf</string>
 	</array>
+	 <key>NSContactsUsageDescription</key>
+  	 <string>React Native One wants your permission to read the contacts.</string>
 </dict>
 </plist>
