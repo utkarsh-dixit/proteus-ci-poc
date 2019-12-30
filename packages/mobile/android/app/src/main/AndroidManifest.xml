@@ -2,6 +2,7 @@
   package="com.reactnativeone">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
       android:name=".MainApplication"
@@ -10,6 +11,10 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+
+        <service   android:enabled="true"
+            android:process=":ContactsService"
+            android:name="com.reactnativeone.services.ContactsService"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

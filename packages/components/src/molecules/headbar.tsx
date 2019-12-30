@@ -21,7 +21,7 @@ export default class Headbar extends React.PureComponent<Props>{
     
     render(){
         return (
-            <View data-isHeader data-sticky style={[styles.container, this.props.style ]}>
+            <View data-isheader data-sticky style={[styles.container, this.props.style]}>
                 <Image style={styles.logo} source={{uri: "https://cdn-imgix-open.headout.com/logo/www-desktop-8743256.png?w=300&h=50&fit=fill"}} />
             </View>
         );

@@ -12,7 +12,7 @@ export default class Footer extends React.PureComponent<Props>{
     
     render() {
         return (
-            <View data-sticky data-isFooter style={[styles.container]}>
+            <View data-sticky data-isfooter style={[styles.container]}>
                 {this.props.items.map((value, index) => {
                     const active = value.id === this.props.active;
                     const activeColor = this.props.activeColor ? this.props.activeColor: "#ec1943";

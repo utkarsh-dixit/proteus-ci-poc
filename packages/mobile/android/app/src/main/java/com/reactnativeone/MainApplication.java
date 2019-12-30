@@ -2,6 +2,7 @@ package com.reactnativeone;
 
 import android.app.Application;
 import android.content.Context;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+    private static Context mContext;
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
         @Override
@@ -25,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new BackgroundTasksPackages());
           return packages;
         }
 
@@ -43,7 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+        initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
 
   /**
@@ -52,6 +55,7 @@ public class MainApplication extends Application implements ReactApplication {
    * @param context
    */
   private static void initializeFlipper(Context context) {
+      mContext = context;
     if (BuildConfig.DEBUG) {
       try {
         /*
@@ -71,4 +75,13 @@ public class MainApplication extends Application implements ReactApplication {
       }
     }
   }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+   }
+
+    public static Context getAppContext() {
+        return MainApplication.mContext;
+    }
 }

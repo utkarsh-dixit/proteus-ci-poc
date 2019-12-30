@@ -12,21 +12,21 @@ import {
   Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
-import ImageSlider from "./molecules/slider/image_slider";
-import CompactList from "./molecules/list/compact_list";
-import HeadBar from "./molecules/headbar";
-import { getAllCategories } from "../src/actions/category";
-import { getProductsFromCategory, getProductsFromCategoryInBatch } from "./actions/product";
-import SearchBar from "./atoms/search_bar/index";
-import CategoryList from "./molecules/list/category_list";
-import { shadowgiver } from "./util/helpers";
-import FeedSeperator from "./atoms/feed_seperator";
-import { calendar, camera, collections, account, explore } from "./assets/icons";
+import ImageSlider from "../molecules/slider/image_slider";
+import CompactList from "../molecules/list/compact_list";
+import HeadBar from "../molecules/headbar";
+import { getAllCategories } from "../actions/category";
+import { getProductsFromCategory, getProductsFromCategoryInBatch } from "../actions/product";
+import SearchBar from "../atoms/search_bar/index";
+import CategoryList from "../molecules/list/category_list";
+import { shadowgiver } from "../util/helpers";
+import FeedSeperator from "../atoms/feed_seperator";
+import { calendar, camera, collections, account, explore } from "../assets/icons";
 import { bindActionCreators } from 'redux';
-import StyledLink from './atoms/styled_link';
-import CollectionList from './molecules/list/collection_list';
-import Footer from "./molecules/footer";
-import { getBanners } from "./actions/city";
+import StyledLink from '../atoms/styled_link';
+import CollectionList from '../molecules/list/collection_list';
+import Footer from "../molecules/footer";
+import { getBanners } from "../actions/city";
 import { DataProvider, LayoutProvider, RecyclerListView } from 'recyclerlistview';
 
 type Props = {};
@@ -71,8 +71,8 @@ class App extends Component<any, State> {
     this.state = {
       slides: [],
       categories: [],
-      top_experiences: require("./data/top_experiences.json"),
-      collections: require("./data/collections.json"),
+      top_experiences: require("../data/top_experiences.json"),
+      collections: require("../data/collections.json"),
       itemToRender: 2,
       extendedState: [],
       search: ""
