@@ -64,4 +64,4 @@ buck-out/
 # Web
 packages/web/.next/
 packages/web/build/
-
+lib/
