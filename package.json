@@ -1,17 +1,33 @@
 {
-    "name": "ReactNativeOne",
-    "private": true,
-    "workspaces": {
-      "packages": [
-        "packages/*"
-      ],
-      "nohoist": []
-    },
-    "scripts": {
-      "deploy": "now",
-      "start": "now dev"
-    },
-    "dependencies": {
-      "react-native": "0.61.4"
-    }
+  "name": "ReactNativeOne",
+  "repository": {
+    "type" : "git",
+    "url" : "git@github.com:utkarsh-dixit/headout_react_one.git"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": []
+  },
+  "scripts": {
+    "deploy": "now",
+    "build:web": "rimraf ./lib/web && babel --no-babelrc --out-dir ./lib/web ./packages/components/src --extensions=.js,.ts,.tsx --plugins=babel-plugin-react-native-web,@babel/plugin-proposal-class-properties,@babel/plugin-transform-typescript --presets=@babel/preset-typescript,@babel/react,@babel/flow --compact true && yarn copy:web",
+    "copy:web": "copy './packages/components/*.json' ./lib/web/",
+    "publish:web": "yarn publish lib/web",
+    "start": "now dev"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/plugin-transform-typescript": "^7.7.4",
+    "@babel/preset-flow": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.7",
+    "babel-plugin-react-native-web": "^0.12.0-rc.1",
+    "copy": "^0.3.2",
+    "react-native": "0.61.4",
+    "rimraf": "^3.0.0"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
   }
+}

@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import HeadBar from "../molecules/headbar";
 import Footer from "../molecules/footer";
-import ContactsBackground from "../../packages/Contacts/";
+import ContactsBackground from "../packages/Contacts";
 import { calendar, camera, collections, account, explore } from "../assets/icons";
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import {handleOnContactsSyncComplete} from "../services/background";

@@ -25,4 +25,4 @@ module.exports = withCSS(withTM({
             include: [path.resolve(__dirname, '..', 'components')]
         })
         return config;
-    }}));
+}}));

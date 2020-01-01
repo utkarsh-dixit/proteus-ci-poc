@@ -39,8 +39,6 @@ class MyApp extends App<any> {
       </Provider>
     );
   }
-
-  
 }
 
 export default (withRedux(makeStore)(MyApp));

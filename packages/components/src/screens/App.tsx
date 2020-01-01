@@ -28,7 +28,6 @@ import CollectionList from '../molecules/list/collection_list';
 import Footer from "../molecules/footer";
 import { getBanners } from "../actions/city";
 import { DataProvider, LayoutProvider, RecyclerListView } from 'recyclerlistview';
-
 type Props = {};
 
 interface product {
