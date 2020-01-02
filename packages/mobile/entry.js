@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native';
 import React from 'react';
-import Contacts from 'components/src/screens/Contacts';
+import Contacts from 'headout-components/src/screens/Contacts';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './store';

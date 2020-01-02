@@ -1,5 +1,6 @@
 {
   "name": "ReactNativeOne",
+  "private": true,
   "repository": {
     "type" : "git",
     "url" : "git@github.com:utkarsh-dixit/headout_react_one.git"
@@ -13,7 +14,7 @@
   "scripts": {
     "deploy": "now",
     "build:web": "rimraf ./lib/web && babel --no-babelrc --out-dir ./lib/web ./packages/components/src --extensions=.js,.ts,.tsx --plugins=babel-plugin-react-native-web,@babel/plugin-proposal-class-properties,@babel/plugin-transform-typescript --presets=@babel/preset-typescript,@babel/react,@babel/flow --compact true && yarn copy:web",
-    "copy:web": "copy './packages/components/*.json' ./lib/web/",
+    "copy:web": "copy './packages/components/*.json' ./lib/web/ && node ./lib/generatePackage.js",
     "publish:web": "yarn publish lib/web",
     "start": "now dev"
   },
