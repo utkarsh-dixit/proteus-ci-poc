@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native';
 import React from 'react';
-import Contacts from 'headout-components/src/screens/Contacts';
+import Help from '../components/src/screens/HelpPage';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './store';
@@ -15,7 +15,7 @@ export default class Index extends React.Component {
         return (
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                    <Contacts store={store}/>
+                    <Help store={store}/>
                 </PersistGate>
             </Provider>
         );

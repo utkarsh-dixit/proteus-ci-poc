@@ -6,7 +6,7 @@
  */
 
 var path = require('path');
-const defaultSourceExts = require("metro-config/src/defaults/defaults").sourceExts;
+const defaultSourceExts = [...require("metro-config/src/defaults/defaults").sourceExts, "jsx"];
 
 module.exports = {
   projectRoot: path.resolve(__dirname, '../../'),

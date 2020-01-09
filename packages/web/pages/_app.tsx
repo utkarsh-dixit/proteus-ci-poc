@@ -4,11 +4,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import LoadComponent from "./LoadComponent";
 import withReduxStore from '../lib/with-redux-store'
 import { Provider } from 'react-redux'
-import {turnOnSSR} from "components/src/actions/miscActions";
+import {turnOnSSR} from "headout-components/src/actions/miscActions";
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import withRedux from "next-redux-wrapper";
-import rootReducer from "components/src/reducers";
+import rootReducer from "headout-components/src/reducers";
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import  "../styles/common.css";
