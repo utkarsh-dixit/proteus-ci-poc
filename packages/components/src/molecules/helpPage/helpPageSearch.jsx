@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, TextInput, View, Text, StyleSheet, TouchableHighlight, TouchableWithoutFeedback, Platform, Linking } from 'react-native';
 import { HELP_PAGE } from '../../Constants/constants';
 import Fuse from "fuse.js";
+import Link from "../../atoms/Link";
 import { cross } from "../../assets/icons";
 
 export default class Search extends React.Component {
@@ -50,7 +51,7 @@ export default class Search extends React.Component {
     render() {
         const { results, query } = this.state;
         return (
-            <View>
+            <View style={styles.container}>
                 <View style={styles.helpPageSearchWrapper}>
                     <Image style={{ width: 17.7, height: 17.7, resizeMode: "contain" }} source={{ uri: 'https://cdn-imgix-open.headout.com/Home%20Page/noun-search-2017702@3x.png' }} />
                     <TextInput
@@ -68,18 +69,16 @@ export default class Search extends React.Component {
                     )}
                 </View>
                 {!!query && (
-                    <>
+                   <>
                         <View style={styles.articleSearchResults}>
                             {results.map(({ NAME, SRC }) => (
-                                <TouchableWithoutFeedback onPress={this.openPage.bind(null, SRC)}>
 
-                                    <View style={styles.searchItemContainer}>
+                                    <Link style={styles.searchItemContainer} href={SRC}>
                                         <Text style={styles.searchItem}>{NAME}</Text>
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                    </Link>
                             ))}
                         </View>
-                    </>
+                 </>
                 )}
             </View>
         );
@@ -87,19 +86,24 @@ export default class Search extends React.Component {
 }
 
 export const styles = StyleSheet.create({
+    container: {
+        zIndex: 2
+    },
     helpPageSearchWrapper: {
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "#dadada",
         borderRadius: 4,
         flexDirection: "row",
-        marginTop: 99,
+        marginTop: 79,
         alignItems: "center",
         position: "relative",
+        // zIndex: 12222,
         width: "100%",
         padding: 17.6,
         paddingTop: 9,
         paddingBottom: 9,
+        
         ...Platform.select({
             web: {
                 paddingTop: 17.6,
@@ -118,9 +122,9 @@ export const styles = StyleSheet.create({
         marginTop: 11,
         left: 0,
         minWidth: "100%",
-        backgroundColor: "white",
+        backgroundColor: "#fff",
         borderRadius: 2,
-        zIndex: 1,
+        zIndex: 99,
         ...Platform.select({
             web: {
                 boxShadow: "0 3px 6px 0 rgba(0, 0, 0, 0.16)"
@@ -133,7 +137,6 @@ export const styles = StyleSheet.create({
     cancelCTA: {
         position: "absolute",
         right: 20,
-        tintColor: "#000"
     },
     searchItemContainer: {
         paddingTop: 25,
@@ -142,6 +145,7 @@ export const styles = StyleSheet.create({
         paddingRight: 30,
         borderStyle: "solid",
         borderColor: "#ebebeb",
+        backgroundColor: "#fff",
         borderBottomWidth: 1,
         margin: 0
     },
