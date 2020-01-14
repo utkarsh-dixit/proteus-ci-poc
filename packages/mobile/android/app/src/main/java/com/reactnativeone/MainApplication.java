@@ -85,3 +85,14 @@ public class MainApplication extends Application implements ReactApplication {
         return MainApplication.mContext;
     }
 }
+
+
+let tailWindClass = classNames({ })
+
+export let styledDiv = styled.div`
+  margin: 0;
+`.attrs({
+  classNames: tailWindClass
+})
+
+div classNames="abfda3e ajh312 {tailwindClass}"

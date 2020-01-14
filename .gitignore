@@ -64,4 +64,13 @@ buck-out/
 # Web
 packages/web/.next/
 packages/web/build/
-lib/
+lib/web/
+
+# Mobile
+packages/mobile/*.out
+packages/mobile/*.log
+
+# Others
+debug/
+*.log
+*.orig
