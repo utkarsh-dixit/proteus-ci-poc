@@ -2,8 +2,8 @@
   "name": "Proteus",
   "private": true,
   "repository": {
-    "type" : "git",
-    "url" : "git@github.com:utkarsh-dixit/headout_react_one.git"
+    "type": "git",
+    "url": "git@github.com:headout/proteus.git"
   },
   "workspaces": {
     "packages": [
@@ -29,6 +29,6 @@
     "rimraf": "^3.0.0"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/"
   }
 }
