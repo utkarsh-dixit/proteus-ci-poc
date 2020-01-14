@@ -33,7 +33,7 @@ RCT_EXPORT_METHOD(getAllContacts)
 
       NSLog(@"Background Time:%f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
 
-      [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+      [[UIApplication sharedApplication]  endBackgroundTask:backgroundTaskIdentifier];
 
       backgroundTaskIdentifier = UIBackgroundTaskInvalid;
   }];

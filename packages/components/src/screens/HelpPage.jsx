@@ -9,7 +9,7 @@ import Footer from "../molecules/footer";
 import { calendar, camera, collections, account, explore } from "../assets/icons";
 
 class HelpPageMobile extends React.Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -77,7 +77,7 @@ class HelpPageMobile extends React.Component {
 					<PopUp />
 
 				</View>
-				<Footer items={this.footerNav} active={"1"}/>
+				<Footer items={this.footerNav} active={"1"} />
 			</SafeAreaView>
 		);
 	}
@@ -88,12 +88,20 @@ export default HelpPage;
 
 export const styles = StyleSheet.create({
 	topContainer: {
-		flex: 1
+		flex: 1,
+		paddingTop: 50
 	},
 	container: {
 		position: "relative",
 		paddingLeft: 16,
 		paddingRight: 16,
+		paddingTop: 8,
+		paddingBottom: 40,
+		...Platform.select({
+			web: {
+				paddingBottom: 80
+			}
+		}),
 		flex: 1
 	}
 });

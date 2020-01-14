@@ -67,9 +67,11 @@ const Form = props => {
 	return (
 		<View>
 			<View>
-				<View>
+				<View style={{marginBottom: 0}}>
 					<Text style={styles.h2}>Hi, have an existing reservation?</Text>
+					{!!errorMessage && (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
+					)}
 				</View>
 				{userNeedsHelp ? (
 					<UserForm {...props} />
@@ -89,7 +91,6 @@ const Form = props => {
 
 const styles = StyleSheet.create({
     h2: {
-        fontFamily: "Graphik",
         fontWeight: "600",
         fontSize: 32,
         lineHeight: 35,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         color: "#545454",
 	},
 	linkContainer: {
-		marginTop: 20
+		marginTop: 30
 	},
 	linkText: {
 		fontSize: 16,

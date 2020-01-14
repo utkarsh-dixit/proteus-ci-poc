@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Platform, StyleSheet, View, Text, TouchableOpacity, Linking } from "react-native";
 
 /*
     
@@ -10,6 +10,7 @@ export default class Link extends React.PureComponent {
     }
 
     handleHref(link){
+        Linking.openURL(link);
         console.log("Some implementation for : ", link);
     }
 

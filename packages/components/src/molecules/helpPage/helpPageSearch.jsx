@@ -108,6 +108,10 @@ export const styles = StyleSheet.create({
             web: {
                 paddingTop: 17.6,
                 paddingBottom: 17.6
+            },
+            ios: {
+                paddingTop: 17.6,
+                paddingBottom: 17.6
             }
         })
     },
@@ -150,7 +154,6 @@ export const styles = StyleSheet.create({
         margin: 0
     },
     searchItem: {
-        fontFamily: "Graphik",
         fontSize: 20,
         lineHeight: 25.4,
         // letterSpacing: "normal",
