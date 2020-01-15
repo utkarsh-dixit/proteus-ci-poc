@@ -1,6 +1,8 @@
 module.exports = {
     project: {
-        ios: {},
+        ios: {
+            project: "../../../ceres.xcodeproj"
+        },
         android: {
             sourceDir: "../../../app"
         },

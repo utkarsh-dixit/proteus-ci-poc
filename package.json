@@ -19,13 +19,16 @@
     "start": "now dev"
   },
   "dependencies": {
-    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0-0",
     "@babel/plugin-transform-typescript": "^7.7.4",
     "@babel/preset-flow": "^7.7.4",
     "@babel/preset-typescript": "^7.7.7",
-    "babel-plugin-react-native-web": "^0.12.0-rc.1",
+    "babel-plugin-react-native-web": "^0.11.7",
     "copy": "^0.3.2",
-    "react-native": "0.61.4",
+    "core-js": "^3.6.4",
+    "react": "16.9.0",
+    "react-native": "0.61.5",
     "rimraf": "^3.0.0"
   },
   "publishConfig": {
