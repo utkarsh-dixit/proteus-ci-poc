@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import rootReducer from 'headout-components/src/reducers';
+import rootReducer from 'components/src/reducers';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import { persistStore, persistReducer } from 'redux-persist'

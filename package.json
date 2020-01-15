@@ -28,7 +28,7 @@
     "copy": "^0.3.2",
     "core-js": "^3.6.4",
     "react": "16.9.0",
-    "react-native": "0.61.5",
+    "react-native": "0.61.4",
     "rimraf": "^3.0.0"
   },
   "publishConfig": {

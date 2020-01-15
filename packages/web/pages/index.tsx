@@ -1,9 +1,9 @@
 import React from "react";
-import { getBanners } from "headout-components/src/actions/city";
-import { getAllCategories } from "headout-components/src/actions/category";
-import { getProductsFromCategory, getProductsFromCategoryInBatch } from "headout-components/src/actions/product";
+import { getBanners } from "../../components/src/actions/city";
+import { getAllCategories } from "../../components/src/actions/category";
+import { getProductsFromCategory, getProductsFromCategoryInBatch } from "../../components/src/actions/product";
 import dynamic from "next/dynamic";
-const App = dynamic(import("headout-components/src/screens/App"));
+const App = dynamic(import("../../components/src/screens/App"));
 
 class Home extends React.Component {
 
