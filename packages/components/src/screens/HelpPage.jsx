@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, SafeAreaView, Text, Image, Platform } from "react-native";
+import { View, StyleSheet, ScrollView, SafeAreaView, Platform } from "react-native";
 import getHelpPageComponent from "./common/HelpPage";
 import Form from '../molecules/helpPage/helpPageForm';
 import PopUp from "../atoms/Popup";
@@ -82,7 +82,8 @@ export default HelpPage;
 export const styles = StyleSheet.create({
 	topContainer: {
 		flex: 1,
-		paddingTop: 50
+		paddingTop: 50,
+		marginTop: 30
 	},
 	container: {
 		position: "relative",
