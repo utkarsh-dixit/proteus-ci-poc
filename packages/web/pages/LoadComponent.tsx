@@ -1,5 +1,4 @@
 import React from "react";
-import {connect} from "react-redux";
 
 class LoadComponent extends React.Component <any, any> {
 
@@ -13,4 +12,4 @@ class LoadComponent extends React.Component <any, any> {
   }
 }
 
-export default connect(null, {})(LoadComponent);
+export default LoadComponent;

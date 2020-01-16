@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'react-native';
 import Search from '../../molecules/helpPage/helpPageSearch';
 import Listicles from '../../molecules/helpPage/helpPageListics';
 import HelpStrip from '../../molecules/helpPage/helpPageStrip';

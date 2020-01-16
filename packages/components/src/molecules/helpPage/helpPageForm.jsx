@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FormInputs from '../../atoms/helpPage/helpPageFormInputs';
 import FormRadios from '../../atoms/helpPage/helpPageFormRadios';
-import EmbedSvg from '../embedSVG';
 import Button from "../../atoms/Button";
 import Link from "../../atoms/Link";
 
 import {View, Text, Platform, StyleSheet} from "react-native";
-import {tourListPageSVG} from "../../assets/icons";
 
 const UserForm = props => {
 	const {
