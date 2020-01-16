@@ -1,12 +1,9 @@
 import React from "react";
 import { View, StyleSheet, ScrollView, SafeAreaView, Text, Image, Platform } from "react-native";
-import Search from "../molecules/helpPage/helpPageSearch";
 import getHelpPageComponent from "./common/HelpPage";
 import Form from '../molecules/helpPage/helpPageForm';
 import PopUp from "../atoms/Popup";
-import HeadBar from "../molecules/headbar";
-import Footer from "../molecules/footer";
-import { calendar, camera, collections, account, explore } from "../assets/icons";
+import { collections, account, explore } from "../assets/icons";
 
 class HelpPageMobile extends React.Component {
 
@@ -47,7 +44,6 @@ class HelpPageMobile extends React.Component {
 		const { userNeedsHelp, showForm } = this.state;
 		return (
 			<SafeAreaView style={styles.topContainer}>
-				<HeadBar />
 				<View style={styles.container}>
 					<ScrollView>
 						{showForm && (
@@ -75,15 +71,12 @@ class HelpPageMobile extends React.Component {
 						{children}
 					</ScrollView>
 					<PopUp />
-
 				</View>
-				<Footer items={this.footerNav} active={"1"} />
 			</SafeAreaView>
 		);
 	}
 }
 const HelpPage = getHelpPageComponent(HelpPageMobile);
-// console.log(HelpPage, "Object");
 export default HelpPage;
 
 export const styles = StyleSheet.create({
@@ -99,6 +92,9 @@ export const styles = StyleSheet.create({
 		paddingBottom: 40,
 		...Platform.select({
 			web: {
+				paddingBottom: 80
+			},
+			ios: {
 				paddingBottom: 80
 			}
 		}),
