@@ -43,7 +43,7 @@ class HelpPageMobile extends React.Component {
 		return (
 			<SafeAreaView style={styles.topContainer}>
 				<View style={styles.container}>
-					<ScrollView>
+					<ScrollView showsVerticalScrollIndicator={false}>
 						{showForm && (
 							<Form
 								error={error}
@@ -79,15 +79,13 @@ export default HelpPage;
 
 export const styles = StyleSheet.create({
 	topContainer: {
-		flex: 1,
-		paddingTop: 50,
+		flex: 1
 	},
 	container: {
 		position: "relative",
+		margin: 0,
 		paddingLeft: 16,
 		paddingRight: 16,
-		paddingTop: 8,
-		paddingBottom: 40,
 		...Platform.select({
 			web: {
 				paddingBottom: 80

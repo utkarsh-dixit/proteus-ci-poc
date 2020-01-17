@@ -62,7 +62,7 @@ const Form = props => {
 	const { userNeedsHelp, errorMessage, handleHappyToHelpClick } = props;
 
 	return (
-		<View>
+		<View style={{paddingTop: 24}}>
 			<View>
 				<View style={{marginBottom: 0}}>
 					<Text style={styles.h2}>Hi, have an existing reservation?</Text>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         color: "#545454",
 	},
 	linkContainer: {
-		marginTop: 30
+		marginTop: 24
 	},
 	linkText: {
 		fontSize: 16,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
 		borderRadius: 2,
 		flex: 1,
 		alignItems: "center",
-		marginTop: 50
+		marginTop: 52
 	},
 	getHelpButtonText: {
 		flex: 1,

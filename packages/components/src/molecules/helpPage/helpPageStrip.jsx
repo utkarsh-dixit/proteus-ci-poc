@@ -8,7 +8,7 @@ import {cross} from "../../assets/icons";
 export const SidePopup = props => (
     <View style={styles.popUpWrapper}>
         <Link parentStyle={styles.popUpCancelCTA} onClick={()=>{PopUp.close()}}>
-            {cross("#000", 20)}
+            {cross("#000", 18)}
                 {/* <Image style={styles.popUpImage} source={{ uri: 'https://cdn-imgix-open.headout.com/Home%20Page/noun-cancel-1580467@3x.png' }} /> */}
         </Link>
         <Text style={[styles.h2, styles.popUpH2]}>Call us on our 24/7 helpline</Text>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     popUpCancelCTA: {
         position: "absolute",
-        top: 70,
+        top: 30,
         right: 16.7,
         zIndex: 10,
         width: 20,
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         marginTop: 90,
+        paddingBottom: 40
     },
     needHelpButtonWrapper: {},
     button: {
