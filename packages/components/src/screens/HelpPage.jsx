@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView, SafeAreaView, Platform } from "react-nati
 import getHelpPageComponent from "./common/HelpPage";
 import Form from '../molecules/helpPage/helpPageForm';
 import PopUp from "../atoms/Popup";
-import { collections, account, explore } from "../assets/icons";
 
 class HelpPageMobile extends React.Component {
 
