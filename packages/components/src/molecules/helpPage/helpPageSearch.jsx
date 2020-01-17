@@ -95,15 +95,13 @@ export const styles = StyleSheet.create({
         borderColor: "#dadada",
         borderRadius: 4,
         flexDirection: "row",
-        marginTop: 79,
+        marginTop: 56,
         alignItems: "center",
         position: "relative",
         // zIndex: 12222,
         width: "100%",
-        padding: 17.6,
-        paddingTop: 9,
-        paddingBottom: 9,
-        
+        paddingLeft: 17.6,
+        height: 56,
         ...Platform.select({
             web: {
                 paddingTop: 17.6,
@@ -116,7 +114,7 @@ export const styles = StyleSheet.create({
         })
     },
     helpPageSearchInput: {
-        fontSize: 17.8,
+        fontSize: 16,
         marginLeft: 12.3,
         flex: 0.8
     },
@@ -125,9 +123,12 @@ export const styles = StyleSheet.create({
         top: "100%",
         marginTop: 11,
         left: 0,
-        minWidth: "100%",
+        minWidth: "98%",
         backgroundColor: "#fff",
+        elevation: 3,
         borderRadius: 2,
+        marginLeft: 1,
+        marginRight: 12,
         zIndex: 99,
         ...Platform.select({
             web: {
@@ -143,10 +144,10 @@ export const styles = StyleSheet.create({
         right: 20,
     },
     searchItemContainer: {
-        paddingTop: 25,
-        paddingBottom: 25,
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingTop: 16,
+        paddingBottom: 16,
+        paddingLeft: 20,
+        paddingRight: 20,
         borderStyle: "solid",
         borderColor: "#ebebeb",
         backgroundColor: "#fff",
@@ -154,7 +155,7 @@ export const styles = StyleSheet.create({
         margin: 0
     },
     searchItem: {
-        fontSize: 20,
+        fontSize: 18,
         lineHeight: 25.4,
         // letterSpacing: "normal",
         textAlign: "left",

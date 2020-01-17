@@ -54,16 +54,14 @@ const styles = StyleSheet.create({
 	inputLabel: {
 		fontStyle: "normal",
 		fontWeight: "700",
-		fontSize: 15,
+		fontSize: 16,
 		color: "#545454"
 	},
 	input: {
 		flex: 1,
 		fontSize: 16,
-		paddingTop: 15,
-		paddingBottom: 15,
 		paddingLeft: 15,
-		paddingRight: 15,
+        height: 56,
 		borderWidth: 1,
 		borderStyle: "solid",
 		borderColor: "#dadada",
