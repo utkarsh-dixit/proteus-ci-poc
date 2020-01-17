@@ -1,7 +1,7 @@
 {
     "name": "components",
     "version": "0.0.1",
-    "private": "true",
+    "private": true,
     "scripts": {},
     "dependencies": {
         "@react-native-community/async-storage": "^1.6.3",
