@@ -14,13 +14,11 @@ class HelpPageMobile extends React.Component {
 			showForm: true,
 			showPopUp: false
 		};
-		this.footerNav = [{ id: "1", icon: explore, text: "Explore" }, { id: "2", icon: collections, text: "Collections" }, { id: "3", icon: account, text: "Account" }];
 	}
 
 	hideForm = () => this.setState({ showForm: false });
 	handleHappyToHelpClick = () => {
 		const { userNeedsHelp } = this.state;
-		// alert("Triggered");
 		if (!userNeedsHelp) this.setState({ userNeedsHelp: true });
 	};
 	render() {
