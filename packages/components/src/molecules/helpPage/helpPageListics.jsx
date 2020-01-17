@@ -41,7 +41,7 @@ const Listicles = ({ data }) => {
 const styles = StyleSheet.create({
     listicleWrapper:{},
     listicleCategory:{
-        marginTop: 71.18
+        marginTop: 48
     },
     listicle: {
         marginTop: 24
