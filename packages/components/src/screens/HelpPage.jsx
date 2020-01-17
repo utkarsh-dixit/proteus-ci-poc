@@ -80,7 +80,7 @@ export default HelpPage;
 export const styles = StyleSheet.create({
 	topContainer: {
 		flex: 1,
-		paddingTop: 500,
+		paddingTop: 50,
 	},
 	container: {
 		position: "relative",
