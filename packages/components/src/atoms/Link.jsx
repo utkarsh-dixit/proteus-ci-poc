@@ -24,7 +24,7 @@ export default class Link extends React.PureComponent {
          } = this.props;
 
         return (
-            <TouchableOpacity style={parentStyle} onPress={href ? this.handleHref.bind(null, href) : onClick}>
+            <TouchableOpacity style={parentStyle} onClick={href ? this.handleHref.bind(null, href) : onClick} onPress={href ? this.handleHref.bind(null, href) : onClick}>
                 <View style={[styles.container, style]}>
                     {children}
                 </View>

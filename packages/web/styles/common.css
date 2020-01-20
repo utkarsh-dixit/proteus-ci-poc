@@ -14,3 +14,6 @@
 textarea:focus, input:focus{
     outline: none;
 }
+[data-givemepadding=true]{
+    padding-top: 68px;
+}
