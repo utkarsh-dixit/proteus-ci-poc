@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ScrollView, SafeAreaView, Platform } from "react-native";
 import getHelpPageComponent from "./common/HelpPage";
-import Form from '../molecules/helpPage/helpPageForm';
+import HelpPageForm from '../molecules/helpPage/helpPageForm';
 import PopUp from "../atoms/common/Popup";
 
 class HelpPageMobile extends React.Component {
@@ -16,7 +16,7 @@ class HelpPageMobile extends React.Component {
 	}
 
 	hideForm = () => this.setState({ showForm: false });
-	handleHappyToHelpClick = () => {
+	existingReservationClick = () => {
 		const { userNeedsHelp } = this.state;
 		if (!userNeedsHelp) this.setState({ userNeedsHelp: true });
 	};
@@ -44,7 +44,7 @@ class HelpPageMobile extends React.Component {
 				<View style={styles.container} data-givemepadding={true}>
 					<ScrollView showsVerticalScrollIndicator={false}>
 						{showForm && (
-							<Form
+							<HelpPageForm
 								error={error}
 								submitButtonText={submitButtonText}
 								helperLineText={helperLineText}
@@ -62,7 +62,7 @@ class HelpPageMobile extends React.Component {
 									handleInputChange(value, component)
 								}
 								handleBlur={component => handleBlur(component)}
-								handleHappyToHelpClick={this.handleHappyToHelpClick}
+								existingReservationClick={this.existingReservationClick}
 							/>
 						)}
 						{children}

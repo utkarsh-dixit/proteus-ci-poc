@@ -59,7 +59,7 @@ const UserForm = props => {
 };
 
 const Form = props => {
-	const { userNeedsHelp, errorMessage, handleHappyToHelpClick } = props;
+	const { userNeedsHelp, errorMessage, existingReservationClick } = props;
 
 	return (
 		<View style={{paddingTop: 24}}>
@@ -75,7 +75,7 @@ const Form = props => {
 				) : (
 					<Link
 						// className={`modify-booking-line-cta bold-line-cta`}
-						onClick={handleHappyToHelpClick}
+						onClick={existingReservationClick}
 						style={styles.linkContainer}
 					>
 						<View style={{flexDirection:'row'}}>
