@@ -22,6 +22,7 @@ const FormInputs = props => {
 					style={[styles.input, error.email ? styles.errorInput : null]}
 					keyboardType='email-address'
 					autoCapitalize='none'
+					returnKeyType='done'
 					onChangeText={text =>
 						handleInputChange(text, HELP_PAGE.INPUT.EMAIL)
 					}
@@ -36,6 +37,7 @@ const FormInputs = props => {
 						onBlur={() => handleBlur(HELP_PAGE.INPUT.BOOKINGID)}
 						placeholder='XXXX-XXX'
 						value={bookingId}
+						returnKeyType='done'
 						onChangeText={text =>
 							handleInputChange(
 								text,

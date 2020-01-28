@@ -6,7 +6,7 @@ import { HELP_PAGE } from '../../Constants/constants';
 import { checkEmail } from '../../util/validationUtil';
 import UrlUtils from '../../util/urlUtils';
 
-const getHelpPageComponent = ComponentToRender => {
+const getHelpPageComponent = UserReservationHelpComponent => {
 
     return class extends React.Component {
         constructor(props) {
@@ -21,12 +21,9 @@ const getHelpPageComponent = ComponentToRender => {
                 userValidated: false,
                 selectedFlow: '',
                 errorMessage: '',
+                retrievingBookingDetails: false
             };
             this.state = this.initialState;
-        }
-
-        componentDidMount() {
-
         }
 
         getSubmitButtonText = () => {
@@ -116,7 +113,7 @@ const getHelpPageComponent = ComponentToRender => {
                 email,
                 bookingId,
             } = this.state;
-
+            
             if (!userValidated) {
                 if (error.email || !email) {
                     this.showError(`Please enter a correct email`);
@@ -133,14 +130,14 @@ const getHelpPageComponent = ComponentToRender => {
                 const options = {
                     method: 'HEAD',
                 };
-
+                this.setState({...this.state, retrievingBookingDetails:true});
                 const response = await fetch(
                     `${UrlUtils.getApiBaseUrl()}/api/v5/booking/${bookingId}?emailId=${email}`,
                     options,
                 );
 
                 const resCode = response.status;
-
+                this.setState({...this.state, retrievingBookingDetails:false});
                 if (resCode === 404 || resCode === 422 || resCode === 400) {
                     this.showError(
                         `That email and booking ID combination didn't work. Try again.`,
@@ -225,11 +222,12 @@ const getHelpPageComponent = ComponentToRender => {
                 email,
                 existingReservationFlowVisible,
                 bookingId,
+                retrievingBookingDetails
             } = this.state;
 
             return (
                 <>
-                    <ComponentToRender
+                    <UserReservationHelpComponent
                         error={this.state.error}
                         submitButtonText={this.getSubmitButtonText()}
                         helperLineText={this.getHelperLineText()}
@@ -247,11 +245,12 @@ const getHelpPageComponent = ComponentToRender => {
                         }
                         handleBlur={component => this.handleBlur(component)}
                         existingReservationFlowVisible={existingReservationFlowVisible}
+                        retrievingBookingDetails={retrievingBookingDetails}
                     >
                         <Search />
                         <Listicles data={HELP_PAGE.LISTICLES} />
                         <HelpStrip />
-                    </ComponentToRender>
+                    </UserReservationHelpComponent>
                 </>
             );
         }

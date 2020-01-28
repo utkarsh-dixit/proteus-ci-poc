@@ -5,6 +5,7 @@ import Button from "../../atoms/common/Button";
 import Link from "../../atoms/common/Link";
 import ChevronRight from "../../assets/icons/chevron-right.svg";
 import {View, Text, StyleSheet} from "react-native";
+import { ActivityIndicator } from 'react-native';
 
 const UserForm = props => {
 	const {
@@ -21,6 +22,7 @@ const UserForm = props => {
 		email,
 		bookingId,
 		handleInputChange,
+		retrievingBookingDetails
 	} = props;
 	return (
 		<>
@@ -46,7 +48,12 @@ const UserForm = props => {
 					style={styles.getHelpButton}
 					onClick={handleSubmit}
 				>
-					<Text style={styles.getHelpButtonText}>{submitButtonText}</Text>
+					{retrievingBookingDetails ? (
+						<ActivityIndicator color='white'/>
+					) : (
+						<Text style={styles.getHelpButtonText}>{submitButtonText}</Text>
+					)}
+					
 				</Button>
 				<Link
 					onClick={handleHelperLineClick}

@@ -11,7 +11,8 @@ class HelpPageMobile extends React.Component {
 		this.state = {
 			existingReservationFlowVisible: false,
 			showForm: true,
-			showPopUp: false
+			showPopUp: false,
+			gettingBookingDetails: false
 		};
 	}
 
@@ -41,6 +42,7 @@ class HelpPageMobile extends React.Component {
 			email,
 			handleInputChange,
 			children,
+			retrievingBookingDetails
 		} = this.props;
 		const { existingReservationFlowVisible, showForm } = this.state;
 		return (
@@ -62,6 +64,7 @@ class HelpPageMobile extends React.Component {
 								errorMessage={errorMessage}
 								email={email}
 								bookingId={bookingId}
+								retrievingBookingDetails={retrievingBookingDetails}
 								handleInputChange={(value, component) =>
 									handleInputChange(value, component)
 								}

@@ -12,11 +12,12 @@ export default class Button extends React.PureComponent {
     render() {
         const { 
             children,
-            style
+            style,
+            onClick
          } = this.props;
 
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onClick}>
                 <View style={[styles.container, style]}>
                     {children}
                 </View>
