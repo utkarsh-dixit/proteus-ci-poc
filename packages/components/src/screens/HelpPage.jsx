@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, SafeAreaView, Platform } from "react-native";
+import { View, StyleSheet, ScrollView, SafeAreaView, Platform, LayoutAnimation } from "react-native";
 import getHelpPageComponent from "./common/HelpPage";
 import HelpPageForm from '../molecules/helpPage/helpPageForm';
 import PopUp from "../atoms/common/Popup";
@@ -9,7 +9,7 @@ class HelpPageMobile extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userNeedsHelp: false,
+			existingReservationFlowVisible: false,
 			showForm: true,
 			showPopUp: false
 		};
@@ -17,9 +17,13 @@ class HelpPageMobile extends React.Component {
 
 	hideForm = () => this.setState({ showForm: false });
 	existingReservationClick = () => {
-		const { userNeedsHelp } = this.state;
-		if (!userNeedsHelp) this.setState({ userNeedsHelp: true });
+		const { existingReservationFlowVisible } = this.state;
+		if (!existingReservationFlowVisible) {
+			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+			this.setState({ existingReservationFlowVisible: true });
+		}
 	};
+
 	render() {
 		const {
 			error,
@@ -38,7 +42,7 @@ class HelpPageMobile extends React.Component {
 			handleInputChange,
 			children,
 		} = this.props;
-		const { userNeedsHelp, showForm } = this.state;
+		const { existingReservationFlowVisible, showForm } = this.state;
 		return (
 			<SafeAreaView style={styles.topContainer}>
 				<View style={styles.container} data-givemepadding={true}>
@@ -54,7 +58,7 @@ class HelpPageMobile extends React.Component {
 								userValidated={userValidated}
 								handleRadioClick={e => handleRadioClick(e)}
 								selectedFlow={selectedFlow}
-								userNeedsHelp={userNeedsHelp}
+								existingReservationFlowVisible={existingReservationFlowVisible}
 								errorMessage={errorMessage}
 								email={email}
 								bookingId={bookingId}

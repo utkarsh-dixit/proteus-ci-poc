@@ -4,7 +4,6 @@ import Listicles from '../../molecules/helpPage/helpPageListics';
 import HelpStrip from '../../molecules/helpPage/helpPageStrip';
 import { HELP_PAGE } from '../../Constants/constants';
 import { checkEmail } from '../../util/validationUtil';
-// import { openChatWithCustomVariables } from 'Utils/chatUtils';
 import UrlUtils from '../../util/urlUtils';
 
 const getHelpPageComponent = ComponentToRender => {
@@ -224,7 +223,7 @@ const getHelpPageComponent = ComponentToRender => {
                 selectedFlow,
                 errorMessage,
                 email,
-                userNeedsHelp,
+                existingReservationFlowVisible,
                 bookingId,
             } = this.state;
 
@@ -247,7 +246,7 @@ const getHelpPageComponent = ComponentToRender => {
                             this.handleInputChange(val, component)
                         }
                         handleBlur={component => this.handleBlur(component)}
-                        userNeedsHelp={userNeedsHelp}
+                        existingReservationFlowVisible={existingReservationFlowVisible}
                     >
                         <Search />
                         <Listicles data={HELP_PAGE.LISTICLES} />

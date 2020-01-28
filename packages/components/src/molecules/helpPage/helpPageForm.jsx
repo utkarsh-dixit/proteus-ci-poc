@@ -59,7 +59,7 @@ const UserForm = props => {
 };
 
 const Form = props => {
-	const { userNeedsHelp, errorMessage, existingReservationClick } = props;
+	const { existingReservationFlowVisible, errorMessage, existingReservationClick } = props;
 
 	return (
 		<View style={{paddingTop: 24}}>
@@ -70,7 +70,7 @@ const Form = props => {
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 					)}
 				</View>
-				{userNeedsHelp ? (
+				{existingReservationFlowVisible ? (
 					<UserForm {...props} />
 				) : (
 					<Link

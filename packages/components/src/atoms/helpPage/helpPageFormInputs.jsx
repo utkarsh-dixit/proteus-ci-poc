@@ -20,6 +20,8 @@ const FormInputs = props => {
 					onBlur={() => handleBlur(HELP_PAGE.INPUT.EMAIL)}
 					value={email}
 					style={[styles.input, error.email ? styles.errorInput : null]}
+					keyboardType='email-address'
+					autoCapitalize='none'
 					onChangeText={text =>
 						handleInputChange(text, HELP_PAGE.INPUT.EMAIL)
 					}
