@@ -61,7 +61,7 @@ export default class Search extends React.Component {
                         value={query}
                     />
                     {!!query && (
-                        <TouchableWithoutFeedback onPress={this.clearSearch}>
+                        <TouchableWithoutFeedback onClick={this.clearSearch} onPress={this.clearSearch}>
                             <View style={styles.cancelCTA}>
                                 {cross("#3d3d3d", 15)}
                             </View>

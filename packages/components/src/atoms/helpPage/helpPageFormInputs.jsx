@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		fontSize: 16,
 		paddingLeft: 15,
-        height: 56,
+        minHeight: 56,
 		borderWidth: 1,
 		borderStyle: "solid",
 		borderColor: "#dadada",

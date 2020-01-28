@@ -41,7 +41,7 @@ class HelpPageMobile extends React.Component {
 		const { userNeedsHelp, showForm } = this.state;
 		return (
 			<SafeAreaView style={styles.topContainer}>
-				<View style={styles.container}>
+				<View style={styles.container} data-givemepadding={true}>
 					<ScrollView showsVerticalScrollIndicator={false}>
 						{showForm && (
 							<Form
