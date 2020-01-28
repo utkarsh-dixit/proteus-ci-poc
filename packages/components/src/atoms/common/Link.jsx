@@ -34,5 +34,7 @@ export default class Link extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-    
+    text: {
+        fontFamily: 'Avenir-Roman'
+    }
 });

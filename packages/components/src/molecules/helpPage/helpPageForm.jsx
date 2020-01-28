@@ -1,10 +1,10 @@
 import React from 'react';
 import FormInputs from '../../atoms/helpPage/helpPageFormInputs';
 import FormRadios from '../../atoms/helpPage/helpPageFormRadios';
-import Button from "../../atoms/Button";
-import Link from "../../atoms/Link";
-
-import {View, Text, Platform, StyleSheet} from "react-native";
+import Button from "../../atoms/common/Button";
+import Link from "../../atoms/common/Link";
+import ChevronRight from "../../assets/icons/chevron-right.svg";
+import {View, Text, StyleSheet} from "react-native";
 
 const UserForm = props => {
 	const {
@@ -65,7 +65,7 @@ const Form = props => {
 		<View style={{paddingTop: 24}}>
 			<View>
 				<View style={{marginBottom: 0}}>
-					<Text style={styles.h2}>Hi, have an existing reservation?</Text>
+					<Text style={[styles.h2, {textAlign:'center'}]}>Welcome to Headout Help Desk</Text>
 					{!!errorMessage && (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 					)}
@@ -78,7 +78,10 @@ const Form = props => {
 						onClick={handleHappyToHelpClick}
 						style={styles.linkContainer}
 					>
-						<Text style={styles.linkText}>{`We're happy to help   >`}</Text>
+						<View style={{flexDirection:'row'}}>
+							<Text style={styles.linkText}>Existing Reservation</Text>
+							<ChevronRight width={16} height={16} style={{left:4, marginTop:2}}/>
+						</View>
 					</Link>
 				)}
 			</View>

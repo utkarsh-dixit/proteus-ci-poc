@@ -1,7 +1,7 @@
 
 import React from 'react';
-import Link from '../../atoms/Link';
-import {View, Text, StyleSheet} from "react-native";
+import Link from '../../atoms/common/Link';
+import {Text, StyleSheet} from "react-native";
 
 const ShowAllElement = props => (
 	<Link style={[styles.listicle]} onClick={props.showAllListicles}>

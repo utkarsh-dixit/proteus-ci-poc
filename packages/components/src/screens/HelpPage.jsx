@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, ScrollView, SafeAreaView, Platform } from "react-native";
 import getHelpPageComponent from "./common/HelpPage";
 import Form from '../molecules/helpPage/helpPageForm';
-import PopUp from "../atoms/Popup";
+import PopUp from "../atoms/common/Popup";
 
 class HelpPageMobile extends React.Component {
 

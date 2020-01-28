@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from "react-native";
-import Link from "../../atoms/Link";
+import Link from "../../atoms/common/Link";
 import {NativeModules} from 'react-native';
-import PopUp from "../../atoms/Popup";
+import PopUp from "../../atoms/common/Popup";
 import {cross} from "../../assets/icons";
 
 export const SidePopup = props => (
