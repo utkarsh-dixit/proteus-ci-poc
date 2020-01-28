@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import CategoryListicles from './helpPageCategoryListics';
-import Link from '../../atoms/Link';
+import Link from '../../atoms/common/Link';
 
 const MAX_ELEMENTS_VISIBLE = 5;
 

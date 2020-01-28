@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Image } from "react-native";
-import Link from "../../atoms/Link";
-import { mitt } from "../../util/mitt";
-import PopUp from "../../atoms/Popup";
+import { StyleSheet, Text, View, Image } from "react-native";
+import Link from "../../atoms/common/Link";
+import {NativeModules} from 'react-native';
+import PopUp from "../../atoms/common/Popup";
 import {cross} from "../../assets/icons";
 
 export const SidePopup = props => (
@@ -39,7 +39,7 @@ export default class HelpStrip extends React.Component {
 
     };
     openChat = () => {
-
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped()
     };
     openSidePopup = () => { PopUp.display(<SidePopup />); }
 
@@ -52,7 +52,7 @@ export default class HelpStrip extends React.Component {
                     <Link style={styles.button} href="mailto:support@headout.com">
                         <Text>Email us</Text>
                     </Link>
-                    <Link style={styles.button} onCLick={this.openChat}>
+                    <Link style={styles.button} onClick={()=>this.openChat()}>
                         <Text>Chat with us</Text>
                     </Link>
                     <Link style={styles.button} onClick={this.openSidePopup}>

@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, TextInput, View, Text, StyleSheet, TouchableHighlight, TouchableWithoutFeedback, Platform, Linking } from 'react-native';
 import { HELP_PAGE } from '../../Constants/constants';
 import Fuse from "fuse.js";
-import Link from "../../atoms/Link";
+import Link from "../../atoms/common/Link";
 import { cross } from "../../assets/icons";
 
 export default class Search extends React.Component {
@@ -55,7 +55,7 @@ export default class Search extends React.Component {
                 <View style={styles.helpPageSearchWrapper}>
                     <Image style={{ width: 17.7, height: 17.7, resizeMode: "contain" }} source={{ uri: 'https://cdn-imgix-open.headout.com/Home%20Page/noun-search-2017702@3x.png' }} />
                     <TextInput
-                        placeholder='Search help articles'
+                        placeholder='Search help topics'
                         onChangeText={this.search}
                         style={styles.helpPageSearchInput}
                         value={query}

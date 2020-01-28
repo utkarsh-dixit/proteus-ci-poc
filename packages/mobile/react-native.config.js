@@ -6,6 +6,5 @@ module.exports = {
         android: {
             sourceDir: "../../../app"
         },
-    },
-    assets: ['../components/src/assets/fonts']
+    }
 };

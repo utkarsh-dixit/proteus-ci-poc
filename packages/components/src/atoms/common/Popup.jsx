@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
-import {mitt} from "../util/mitt";
+import {mitt} from "../../util/mitt";
 
 export default class Popup extends React.Component {
     constructor(props) {

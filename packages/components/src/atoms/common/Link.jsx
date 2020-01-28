@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Linking } from "react-native";
+import { View, TouchableOpacity, Linking } from "react-native";
 
 /*
     
@@ -25,14 +25,10 @@ export default class Link extends React.PureComponent {
 
         return (
             <TouchableOpacity style={parentStyle} onClick={href ? this.handleHref.bind(null, href) : onClick} onPress={href ? this.handleHref.bind(null, href) : onClick}>
-                <View style={[styles.container, style]}>
+                <View style={style}>
                     {children}
                 </View>
             </TouchableOpacity>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    
-});
