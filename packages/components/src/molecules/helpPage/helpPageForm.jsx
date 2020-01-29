@@ -1,13 +1,13 @@
 import React from 'react';
 import FormInputs from '../../atoms/helpPage/helpPageFormInputs';
-import FormRadios from '../../atoms/helpPage/helpPageFormRadios';
+import RadioButtonForm from '../../atoms/helpPage/helpPageFormRadios';
 import Button from "../../atoms/common/Button";
 import Link from "../../atoms/common/Link";
 import ChevronRight from "../../assets/icons/chevron-right.svg";
 import {View, Text, StyleSheet} from "react-native";
 import { ActivityIndicator } from 'react-native';
 
-const UserForm = props => {
+const ReservationDetailsForm = props => {
 	const {
 		handleSubmit,
 		bookingIdExists,
@@ -27,9 +27,10 @@ const UserForm = props => {
 	return (
 		<>
 			{userValidated ? (
-				<FormRadios
+				<RadioButtonForm
 					handleRadioClick={e => handleRadioClick(e)}
 					checkedRadio={selectedFlow}
+					style={{paddingTop:16}}
 				/>
 			) : (
 				<FormInputs
@@ -65,7 +66,7 @@ const UserForm = props => {
 	);
 };
 
-const Form = props => {
+const ReservationFormContainerView = props => {
 	const { existingReservationFlowVisible, errorMessage, existingReservationClick } = props;
 
 	return (
@@ -78,7 +79,7 @@ const Form = props => {
 					)}
 				</View>
 				{existingReservationFlowVisible ? (
-					<UserForm {...props} />
+					<ReservationDetailsForm {...props} />
 				) : (
 					<Link
 						// className={`modify-booking-line-cta bold-line-cta`}
@@ -141,4 +142,4 @@ const styles = StyleSheet.create({
 		marginTop: 24
 	}
 });
-export default Form;
+export default ReservationFormContainerView;

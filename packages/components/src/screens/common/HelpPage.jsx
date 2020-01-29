@@ -2,7 +2,7 @@ import React from 'react';
 import Search from '../../molecules/helpPage/helpPageSearch';
 import Listicles from '../../molecules/helpPage/helpPageListics';
 import HelpStrip from '../../molecules/helpPage/helpPageStrip';
-import { HELP_PAGE } from '../../Constants/constants';
+import { HELP_PAGE } from './Constants/constants';
 import { checkEmail } from '../../util/validationUtil';
 import UrlUtils from '../../util/urlUtils';
 
@@ -131,10 +131,9 @@ const getHelpPageComponent = UserReservationHelpComponent => {
                     method: 'HEAD',
                 };
                 this.setState({...this.state, retrievingBookingDetails:true});
-                const response = await fetch(
-                    `${UrlUtils.getApiBaseUrl()}/api/v5/booking/${bookingId}?emailId=${email}`,
-                    options,
-                );
+                url = `${UrlUtils.getApiBaseUrl()}/api/v5/booking/${bookingId}?emailId=${email}`;
+                console.log("Fetching: ", url);
+                const response = await fetch(url,options);
 
                 const resCode = response.status;
                 this.setState({...this.state, retrievingBookingDetails:false});

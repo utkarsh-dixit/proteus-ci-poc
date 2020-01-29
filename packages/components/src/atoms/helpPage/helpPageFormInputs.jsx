@@ -1,5 +1,5 @@
 import React from 'react';
-import { HELP_PAGE } from '../../Constants/constants';
+import { HELP_PAGE } from '../../screens/common/Constants/constants';
 import {View, Text, TextInput, StyleSheet} from "react-native";
 
 const FormInputs = props => {
