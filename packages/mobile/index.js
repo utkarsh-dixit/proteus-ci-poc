@@ -5,6 +5,6 @@
 import {AppRegistry} from 'react-native';
 import AppEntry from './entry';
 
-AppRegistry.registerComponent("ReactNativeOne", () => AppEntry);
+AppRegistry.registerComponent("HelpScreen", () => AppEntry);
 
 export default AppEntry;

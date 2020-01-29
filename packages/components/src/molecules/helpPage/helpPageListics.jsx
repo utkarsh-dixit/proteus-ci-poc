@@ -1,15 +1,24 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import ReactNative, {View, Text, StyleSheet, Platform, NativeModules, findNodeHandle } from 'react-native';
 
 import CategoryListicles from './helpPageCategoryListics';
 import Link from '../../atoms/common/Link';
 
 const MAX_ELEMENTS_VISIBLE = 5;
 
-const getListicleCategoryElements = data => {
+const getListicleCategoryElements = (data, openListicleAction) => {
 	const listicles = data.map(({ NAME, SRC }, index) => {
+		onClick = null;
+		href = null;
+		if (Platform.OS === 'ios' || Platform.OS === 'android') {
+			onClick = () => {
+				openListicleAction(SRC, NAME);
+			}
+		} else {
+			href = SRC;
+		}
 		return (
-			<Link style={styles.listicle} key={index} href={SRC}>
+			<Link style={styles.listicle} key={index} href={href} onClick={onClick}>
 				<Text style={styles.listicleText}>{NAME}</Text>
 			</Link>
 		);
@@ -22,20 +31,20 @@ const getListicleCategoryElements = data => {
 	);
 };
 
-const getListicleCategory = data => {
+const getListicleCategory = (data, openListicleAction) => {
 	const listicles = data.map(({ HEADING, OPTIONS }, index) => {
 		return (
 			<View key={index} style={styles.listicleCategory}>
 				<Text style={styles.h2}>{HEADING}</Text>
-				{getListicleCategoryElements(OPTIONS)}
+				{getListicleCategoryElements(OPTIONS, openListicleAction)}
 			</View>
 		);
 	});
 	return listicles;
 };
 
-const Listicles = ({ data }) => {
-	return <View style={styles.listicleWrapper}>{getListicleCategory(data)}</View>;
+const Listicles = ({ data, openListicleAction }) => {
+	return <View style={styles.listicleWrapper}>{getListicleCategory(data, openListicleAction)}</View>;
 };
 
 const styles = StyleSheet.create({

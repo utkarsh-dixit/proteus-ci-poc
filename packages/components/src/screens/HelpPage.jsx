@@ -14,6 +14,7 @@ class HelpPageMobile extends React.Component {
 			showPopUp: false,
 			gettingBookingDetails: false
 		};
+		console.log("Open Listicle: ", this.props.openListicle);
 	}
 
 	hideForm = () => this.setState({ showForm: false });
@@ -42,7 +43,8 @@ class HelpPageMobile extends React.Component {
 			email,
 			handleInputChange,
 			children,
-			retrievingBookingDetails
+			retrievingBookingDetails,
+			openListicle
 		} = this.props;
 		const { existingReservationFlowVisible, showForm } = this.state;
 		return (

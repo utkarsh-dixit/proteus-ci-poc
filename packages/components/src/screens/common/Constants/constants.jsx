@@ -15,7 +15,7 @@ export const HELP_PAGE = {
 			HEADING: 'Booking',
 			OPTIONS: [
 				{
-					NAME: 'Experience duration& start time',
+					NAME: 'Experience duration & start time',
 					SRC:
 						'https://headout.kb.help/1-booking-details/experience-duration-start-time/',
 				},

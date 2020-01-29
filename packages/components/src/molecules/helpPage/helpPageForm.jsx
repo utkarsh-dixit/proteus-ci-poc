@@ -1,5 +1,5 @@
 import React from 'react';
-import FormInputs from '../../atoms/helpPage/helpPageFormInputs';
+import BookingDetailsForm from '../../atoms/helpPage/helpPageFormInputs';
 import RadioButtonForm from '../../atoms/helpPage/helpPageFormRadios';
 import Button from "../../atoms/common/Button";
 import Link from "../../atoms/common/Link";
@@ -33,7 +33,7 @@ const ReservationDetailsForm = props => {
 					style={{paddingTop:16}}
 				/>
 			) : (
-				<FormInputs
+				<BookingDetailsForm
 					error={error}
 					handleInputChange={(value, component) =>
 						handleInputChange(value, component)

@@ -2,7 +2,7 @@ import React from 'react';
 import { HELP_PAGE } from '../../screens/common/Constants/constants';
 import {View, Text, TextInput, StyleSheet} from "react-native";
 
-const FormInputs = props => {
+const BookingDetailsForm = props => {
 	const {
 		error,
 		handleBlur,
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
 		marginTop: 40
 	}
 });
-export default FormInputs;
+export default BookingDetailsForm;

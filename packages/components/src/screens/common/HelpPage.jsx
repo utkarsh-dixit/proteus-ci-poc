@@ -46,6 +46,7 @@ const getHelpPageComponent = UserReservationHelpComponent => {
         };
 
         handleHelperLineClick = () => {
+            console.log("Handle ")
             const { userValidated } = this.state;
             return userValidated
                 ? this.resetStateToInitial()
@@ -247,7 +248,7 @@ const getHelpPageComponent = UserReservationHelpComponent => {
                         retrievingBookingDetails={retrievingBookingDetails}
                     >
                         <Search />
-                        <Listicles data={HELP_PAGE.LISTICLES} />
+                        <Listicles data={HELP_PAGE.LISTICLES} openListicleAction={this.props.openListicle}/>
                         <HelpStrip />
                     </UserReservationHelpComponent>
                 </>
