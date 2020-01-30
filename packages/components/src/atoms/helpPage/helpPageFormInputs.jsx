@@ -1,5 +1,5 @@
 import React from 'react';
-import { HELP_PAGE } from '../../screens/common/Constants/constants';
+import { HELP_PAGE } from '../../screens/HelpPage/HelpPageData';
 import {View, Text, TextInput, StyleSheet} from "react-native";
 
 const BookingDetailsForm = props => {

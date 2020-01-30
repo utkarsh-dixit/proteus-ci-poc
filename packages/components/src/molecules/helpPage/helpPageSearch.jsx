@@ -1,7 +1,7 @@
 import React from 'react';
 // import Fuse from 'fuse';
 import { Image, TextInput, View, Text, StyleSheet, TouchableHighlight, TouchableWithoutFeedback, Platform, Linking } from 'react-native';
-import { HELP_PAGE } from '../../screens/common/Constants/constants';
+import { HELP_PAGE } from '../../screens/HelpPage/HelpPageData';
 import Fuse from "fuse.js";
 import Link from "../../atoms/common/Link";
 import { cross } from "../../assets/icons";

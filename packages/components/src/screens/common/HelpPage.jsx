@@ -2,9 +2,9 @@ import React from 'react';
 import Search from '../../molecules/helpPage/helpPageSearch';
 import Listicles from '../../molecules/helpPage/helpPageListics';
 import HelpStrip from '../../molecules/helpPage/helpPageStrip';
-import { HELP_PAGE } from './Constants/constants';
+import { HELP_PAGE } from '../HelpPage/HelpPageData';
 import { checkEmail } from '../../util/validationUtil';
-import UrlUtils from '../../util/urlUtils';
+import UrlUtils from '../../util/Network/urlUtils';
 
 const getHelpPageComponent = UserReservationHelpComponent => {
 

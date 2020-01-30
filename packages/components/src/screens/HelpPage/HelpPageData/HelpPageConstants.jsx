@@ -1,4 +1,4 @@
-export const HELP_PAGE = {
+export const HELP_PAGE_CONSTANTS = {
 	INPUT: {
 		EMAIL: 'EMAIL',
 		BOOKINGID: 'BOOKINGID',

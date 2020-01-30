@@ -15,7 +15,6 @@ export default class FormInputTextField extends React.PureComponent {
             errorText,
             style
         } = this.props;
-        console.log(errorText);
         return (
             <View style={style}>
                 <Text style={styles.titleLabel}>{title}</Text>
@@ -55,8 +54,7 @@ const styles = StyleSheet.create({
 		fontWeight: "400",
 		fontSize: 12,
         color: "#ec1943",
-        paddingTop:8,
-        paddingBottom:8
+        paddingTop:8
     },
 	input: {
 		flex: 1,
