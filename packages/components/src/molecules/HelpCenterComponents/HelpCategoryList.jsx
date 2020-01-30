@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Link from '../../atoms/common/Link';
+import HelpTopic from './HelpTopic';
 
 const MAX_VISIBLE_TOPIC_COUNT = 4
 
@@ -22,10 +23,12 @@ export default class HelpCategoryList extends React.PureComponent {
         if (this.state.isExpanded) {
             // return all the topics in that category
             return topics.map((topic) => {
-                return <Link style={styles.topic} title={topic.NAME} onClick={() => {
-                    console.log(`Clicked on ${topic.NAME} with link ${topic.SRC}`);
-                    onLinkClicked(topic.NAME, topic.SRC);
-                }}/>
+                return <HelpTopic title={topic.NAME} 
+                            sourceLink={topic.SRC} 
+                            onClick={(title, sourceLink) => {
+                                onLinkClicked(title, sourceLink);
+                            }
+                        }/>
             })
         } else {
             // return a maximum of 4 topics
@@ -34,10 +37,12 @@ export default class HelpCategoryList extends React.PureComponent {
             views = [];
             for (i=0; i<countOfTopicsToBeShown; i++) {
                 topic = topics[i];
-                views.push(<Link style={styles.topic} title={topic.NAME} onClick={() => {
-                    console.log(`Clicked on ${topic.NAME} with link ${topic.SRC}`);
-                    onLinkClicked(topic.NAME, topic.SRC);
-                }}/>)
+                views.push(<HelpTopic title={topic.NAME} 
+                                sourceLink={topic.SRC} 
+                                onClick={(title, sourceLink) => {
+                                    onLinkClicked(title, sourceLink);
+                                }
+                            }/>)
             }
             if (topics.length > MAX_VISIBLE_TOPIC_COUNT) {
                 // Need to show a show all button
@@ -70,13 +75,6 @@ const styles = StyleSheet.create({
     heading: {
         fontWeight:"600",
         fontSize:24,
-        color:"#545454",
-        paddingTop:12,
-        paddingBottom:12
-    },
-    topic: {
-        fontWeight:"400",
-        fontSize:16,
         color:"#545454",
         paddingTop:12,
         paddingBottom:12
