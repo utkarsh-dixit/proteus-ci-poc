@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Linking } from "react-native";
+import { Text, TouchableOpacity, Linking } from "react-native";
 
 /*
     
@@ -8,22 +8,19 @@ export default class Link extends React.PureComponent {
 
     handleHref(link){
         Linking.openURL(link);
-        console.log("Some implementation for : ", link);
     }
 
     render() {
         const { 
-            children,
+            title,
             style,
+            textStyle,
             href,
-            parentStyle,
             onClick
          } = this.props;
         return (
-            <TouchableOpacity style={parentStyle} onPress={href ? this.handleHref.bind(null, href) : onClick}>
-                <View style={style}>
-                    {children}
-                </View>
+            <TouchableOpacity style={style} onPress={href ? this.handleHref.bind(null, href) : onClick}>
+                <Text style={textStyle}>{title}</Text>
             </TouchableOpacity>
         );
     }

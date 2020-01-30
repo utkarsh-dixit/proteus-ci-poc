@@ -1,35 +1,31 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 
 /*
     
 */
 export default class Button extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { 
-            children,
-            style,
-            onClick
+            title,
+            onClick,
+            style
          } = this.props;
-
+         console.log("style: ",style);
         return (
-            <TouchableOpacity onPress={onClick}>
-                <View style={[styles.container, style]}>
-                    {children}
-                </View>
+            <TouchableOpacity style={style} onPress={onClick}>
+                <Text style={styles.textStyle}>{title}</Text>
             </TouchableOpacity>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: 16,
-        paddingBottom: 16,
-        width: 164
-     }
+    textStyle: {
+        textAlign:'center',
+        color:'white',
+        fontSize:16,
+        fontWeight:"600",
+        fontStyle:'normal'
+    }
 });

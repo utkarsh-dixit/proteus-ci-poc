@@ -247,9 +247,9 @@ const getHelpPageComponent = UserReservationHelpComponent => {
                         existingReservationFlowVisible={existingReservationFlowVisible}
                         retrievingBookingDetails={retrievingBookingDetails}
                     >
-                        <Search />
-                        <Listicles data={HELP_PAGE.LISTICLES} openListicleAction={this.props.openListicle}/>
-                        <HelpStrip />
+                    <Search />
+                    <Listicles data={HELP_PAGE.LISTICLES} openListicleAction={this.props.openListicle}/>
+                    <HelpStrip />
                     </UserReservationHelpComponent>
                 </>
             );

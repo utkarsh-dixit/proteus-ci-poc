@@ -1,5 +1,5 @@
 import React from 'react';
-import Help from '../components/src/screens/HelpPage';
+import Help from '../components/src/screens/HelpPage/HelpCenter';
 import {NativeModules} from 'react-native';
 
 if (process.env.NODE_ENV !== 'production') {

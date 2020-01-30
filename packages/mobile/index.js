@@ -3,8 +3,8 @@
  */
 
 import {AppRegistry} from 'react-native';
-import AppEntry from './entry';
+import HelpScreen from '../components/src/screens/HelpPage/HelpCenter';
 
-AppRegistry.registerComponent("HelpScreen", () => AppEntry);
+AppRegistry.registerComponent("HelpScreen", () => HelpScreen);
 
-export default AppEntry;
+export default HelpScreen;
