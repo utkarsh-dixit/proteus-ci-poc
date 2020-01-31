@@ -26,7 +26,7 @@
     "react-native-css-transformer": "^1.2.4",
     "react-native-postcss-transformer": "^1.2.4",
     "react-native-slowlog": "^1.0.2",
-    "react-native-svg": "9.2.4",
+    "react-native-svg": "11.0.1",
     "react-native-web-svg": "^1.0.0",
     "typescript": "^3.7.2"
   },

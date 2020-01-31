@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Link from '../../atoms/common/Link';
+import Link from '../../../atoms/common/Link';
 import HelpTopic from './HelpTopic';
 
 const MAX_VISIBLE_TOPIC_COUNT = 4

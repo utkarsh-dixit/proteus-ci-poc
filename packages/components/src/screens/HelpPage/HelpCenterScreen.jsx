@@ -1,12 +1,13 @@
 import React from 'react';
 import {SafeAreaView, Text, StyleSheet, ScrollView, LayoutAnimation, View, Image, NativeModules} from 'react-native';
-import BookingDetailsForm from '../../molecules/HelpCenterComponents/ReservationDetailsForm';
 import Link from '../../atoms/common/Link';
 import { checkEmail } from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
 import { HELP_PAGE_CONSTANTS } from '../HelpPage/HelpPageData/HelpPageConstants';
-import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCategoryList';
+import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
+import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
+import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponent';
 
 export default class HelpScreen extends React.PureComponent {
 
@@ -21,11 +22,15 @@ export default class HelpScreen extends React.PureComponent {
         }
     }
 
-    // ==== STATE MODIFICATION METHODS =====================
+    // ==== NAVIGATION METHODS =============================
 
     openHelpPage = (title, sourceURL) => {
         NativeModules.HelpCenterNativeBridge.openLink(sourceURL,title,this.props.rootTag);
     }
+
+    // =====================================================
+
+    // ==== STATE MODIFICATION METHODS =====================
 
     showExistingeservationHelpFlow = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -84,7 +89,7 @@ export default class HelpScreen extends React.PureComponent {
                     ) : null}
                     {/* Main Reservation Details Form */}
                     {this.state.reservationFlowVisible ? (
-                            <BookingDetailsForm style={{padding:16}}
+                            <HelpCenterBookingDetailsForm style={{padding:16}}
                                 emailError={this.state.invalidEmail}
                                 bookingIdError={this.state.invalidBookingId}
                                 showLoadState={this.state.fetchingUserReservationDetails}
@@ -112,6 +117,8 @@ export default class HelpScreen extends React.PureComponent {
                             source={require('../../assets/images/help-page-wallpaper/help-page-wallpaper.png')}
                             resizeMode={'cover'}/>
                     </View>
+                    {/* Search Bar */}
+                    <HelpCenterSearchComponent style={{margin:16}}/>
                     {/* Category lists */}
                     {
                         this.getHelpTopicsContainer()

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import FormInputTextField from '../../atoms/common/FormInputTextField'
 import Button from '../../atoms/common/Button';
-import { Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 export const BookingDetailError = {
@@ -10,7 +9,7 @@ export const BookingDetailError = {
     INVALID_BOOKING_ID: {title: 'Please enter the booking ID.'}
 }
 
-export default class BookingDetailsForm extends React.PureComponent {
+export default class HelpCenterBookingDetailsForm extends React.PureComponent {
 
     constructor(props) {
         super(props)
