@@ -61,7 +61,11 @@ const styles = StyleSheet.create({
     resultsContainer: {
         shadowColor:'#545454',
         shadowOffset:{width:0, height:1}, 
-        shadowOpacity: 0.3, 
-        shadowRadius: 1
+        shadowOpacity: 0.5, 
+        shadowRadius: 1,
+        elevation:5,
+        backgroundColor:'white',
+        opacity:1.0,
+        top:4
     }
 })
