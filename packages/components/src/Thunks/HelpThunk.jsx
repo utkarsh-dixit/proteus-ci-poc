@@ -6,10 +6,8 @@ export default class HelpThunk {
         const options = {
             method: 'HEAD'
         }
-        console.log(`Fetching ${url}`);
         response = await fetch(url, options)
         const resCode = response.status;
-        console.log(resCode);
             if (resCode === 200) {
                 completion(true)
             } else {

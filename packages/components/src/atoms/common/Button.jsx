@@ -11,7 +11,6 @@ export default class Button extends React.PureComponent {
             onClick,
             style
          } = this.props;
-         console.log("style: ",style);
         return (
             <TouchableOpacity style={style} onPress={onClick}>
                 <Text style={styles.textStyle}>{title}</Text>

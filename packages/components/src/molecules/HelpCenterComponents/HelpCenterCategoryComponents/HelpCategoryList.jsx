@@ -19,7 +19,6 @@ export default class HelpCategoryList extends React.PureComponent {
             topics,
             onLinkClicked
         } = this.props;
-        console.log(topics);
         if (this.state.isExpanded) {
             // return all the topics in that category
             return topics.map((topic) => {
@@ -33,7 +32,6 @@ export default class HelpCategoryList extends React.PureComponent {
         } else {
             // return a maximum of 4 topics
             countOfTopicsToBeShown = Math.min(topics.length, MAX_VISIBLE_TOPIC_COUNT);
-            console.log(`Showing ${countOfTopicsToBeShown} for ${this.props.header} for total of ${topics}`);
             views = [];
             for (i=0; i<countOfTopicsToBeShown; i++) {
                 topic = topics[i];

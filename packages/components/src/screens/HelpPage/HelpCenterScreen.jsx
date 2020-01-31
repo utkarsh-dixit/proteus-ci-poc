@@ -7,7 +7,7 @@ import ChevronRight from '../../assets/icons/chevron-right.svg';
 import { HELP_PAGE_CONSTANTS } from '../HelpPage/HelpPageData/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
-import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponent';
+import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
 
 export default class HelpScreen extends React.PureComponent {
 
@@ -18,7 +18,13 @@ export default class HelpScreen extends React.PureComponent {
             fetchingUserReservationDetails: false,
             invalidEmail: false,
             invalidBookingId: false,
-            emailAndBookingIdCombinationExists: true
+            emailAndBookingIdCombinationExists: true,
+            searchResults: []
+        }
+
+        this.searchableItems = [];
+        for (category of HELP_PAGE_CONSTANTS.LISTICLES) {
+            this.searchableItems.push(...category.OPTIONS); 
         }
     }
 
@@ -60,11 +66,23 @@ export default class HelpScreen extends React.PureComponent {
             this.setState({...this.state, fetchingUserReservationDetails:false, emailAndBookingIdCombinationExists:exists})
         })
     }
+
+    searchTextEntered = (text) => {
+        if (text === '') {
+            this.setState({...this.state, searchResults: []});
+            return;
+        }
+        lowercaseText = text.toLowerCase();
+        results = this.searchableItems.filter((item) => {
+            return item.NAME.toLowerCase().includes(lowercaseText);
+        })
+        
+        this.setState({...this.state, searchResults: results});
+    }
     // =====================================================
 
     // ==== UI METHODS =====================================
     getHelpTopicsContainer = () => {
-        console.log("Hey")
         return HELP_PAGE_CONSTANTS.LISTICLES.map((category) => {
             return <HelpPageCategoryList style={{paddingLeft:16, paddingRight:16}}
                         header={category.HEADING}
@@ -118,7 +136,10 @@ export default class HelpScreen extends React.PureComponent {
                             resizeMode={'cover'}/>
                     </View>
                     {/* Search Bar */}
-                    <HelpCenterSearchComponent style={{margin:16}}/>
+                    <HelpCenterSearchComponent style={{margin:16}} 
+                        searchTextEntered={this.searchTextEntered}
+                        results={this.state.searchResults}
+                        onSearchTopicClicked={this.openHelpPage}/>
                     {/* Category lists */}
                     {
                         this.getHelpTopicsContainer()
