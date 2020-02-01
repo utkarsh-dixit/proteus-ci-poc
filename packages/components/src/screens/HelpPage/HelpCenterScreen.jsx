@@ -7,7 +7,9 @@ import ChevronRight from '../../assets/icons/chevron-right.svg';
 import { HELP_PAGE_CONSTANTS } from '../HelpPage/HelpPageData/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
+import BookingDetailsRadioButtonForm, {BOOKING_HELP_OPTIONS} from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
 import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
+import { textChangeRangeIsUnchanged } from 'typescript';
 
 export default class HelpScreen extends React.PureComponent {
 
@@ -15,10 +17,12 @@ export default class HelpScreen extends React.PureComponent {
         super(props);
         this.state = {
             reservationFlowVisible: false,
-            fetchingUserReservationDetails: false,
+            fetchInProgress: false,
             invalidEmail: false,
             invalidBookingId: false,
-            emailAndBookingIdCombinationExists: true,
+            error: "",
+            bookingEmail: "",
+            emailAndBookingIdCombinationFetched: false,
             searchResults: []
         }
 
@@ -34,13 +38,17 @@ export default class HelpScreen extends React.PureComponent {
         NativeModules.HelpCenterNativeBridge.openLink(sourceURL,title,this.props.rootTag);
     }
 
+    startChat = () => {
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped();
+    }
+
     // =====================================================
 
     // ==== STATE MODIFICATION METHODS =====================
 
     showExistingeservationHelpFlow = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({...this.setState, reservationFlowVisible:true});
+        this.setState({...this.setState, reservationFlowVisible:true, error:''});
     }
 
     bookingReservationsFilled = (bookingId, bookingEmail) => {
@@ -49,7 +57,7 @@ export default class HelpScreen extends React.PureComponent {
             // Have to set invalidEmail and invalidBookingId here as well due to asynchronicity issues.
             // The state set in `validateBookingFieldsAndSetState` get overriden here to incorrect values if these two fields
             // are not set.
-            this.setState({...this.state, fetchingUserReservationDetails: true, invalidEmail: false, invalidBookingId: false});
+            this.setState({...this.state, fetchInProgress: true, invalidEmail: false, invalidBookingId: false, bookingEmail: bookingEmail});
             this.fetchReservationDetails(bookingId, bookingEmail);
         }
     }
@@ -59,12 +67,6 @@ export default class HelpScreen extends React.PureComponent {
         improperBookingId = bookingId === '';
         this.setState({...this.setState, invalidEmail: improperEmailInput, invalidBookingId: improperBookingId})
         return !improperBookingId && !improperEmailInput;
-    }
-
-    fetchReservationDetails = async (bookingId, bookingEmail) => {
-        await HelpThunk.doesBookingWithEmailAndIDExist(bookingId, bookingEmail, (exists) => {
-            this.setState({...this.state, fetchingUserReservationDetails:false, emailAndBookingIdCombinationExists:exists})
-        })
     }
 
     searchTextEntered = (text) => {
@@ -93,6 +95,37 @@ export default class HelpScreen extends React.PureComponent {
                    />
         })
     }
+
+    showError = (errorText) => {
+        this.setState({...this.state, fetchInProgress: false, error:errorText});
+    }
+    // =====================================================
+
+    // ==== ACTIONS ========================================
+
+    fetchReservationDetails = async (bookingId, bookingEmail) => {
+        await HelpThunk.doesBookingWithEmailAndIDExist(bookingId, bookingEmail, (exists) => {
+            console.log("Finished fetching...", exists)
+            // this.setState({...this.state, fetchInProgress:false, error:"This email and booking ID combination does not exist."})
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+            this.setState({...this.state, fetchInProgress:false, emailAndBookingIdCombinationFetched:true})
+        })
+    }
+
+    resendTicketsForEmail = (bookingEmail) => {
+        this.setState({...this.state, error:"", fetchInProgress:true})
+    }
+
+    resendTickets = () => {
+        console.log(`Resending tickets from props ${this.state.bookingEmail}`);
+        this.resendTicketsForEmail(this.props.email);
+    }
+
+    restartBookingHelpFlow = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({...this.state, emailAndBookingIdCombinationFetched: false, reservationFlowVisible:true, error: ""})
+    }
+
     // =====================================================
 
     render() {
@@ -102,28 +135,34 @@ export default class HelpScreen extends React.PureComponent {
                     {/* Header */}
                     <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
-                    {!this.state.emailAndBookingIdCombinationExists ? (
-                        <Text style={styles.pageError}>This email and booking ID combination does not exist.</Text>
+                    {(this.state.error.length > 0) ? (
+                        <Text style={styles.pageError}>{this.state.error}</Text>
                     ) : null}
                     {/* Main Reservation Details Form */}
-                    {this.state.reservationFlowVisible ? (
+                    {this.state.reservationFlowVisible ? ( this.state.emailAndBookingIdCombinationFetched ? (
+                            <BookingDetailsRadioButtonForm style={{padding:16}}
+                                startChat={this.startChat}
+                                resendTickets={this.resendTickets}
+                                helpOptionSelectionError={() => {
+                                    this.showError('Please select an option')
+                                }}
+                                restartBookingHelpFlow={this.restartBookingHelpFlow}
+                            />
+                        ) : (
                             <HelpCenterBookingDetailsForm style={{padding:16}}
                                 emailError={this.state.invalidEmail}
                                 bookingIdError={this.state.invalidBookingId}
-                                showLoadState={this.state.fetchingUserReservationDetails}
-                                onDoneClick={(bookingId, bookingEmail) => {
-                                    this.bookingReservationsFilled(bookingId, bookingEmail);
-                                }}
-                            />
-                        ) : (
+                                showLoadState={this.state.fetchInProgress}
+                                onResendTicketsClick={this.resendTicketsForEmail}
+                                onDoneClick={this.bookingReservationsFilled}
+                            /> 
+                        )) : (
                             // Existing Reservation Link View
                             <View style={{flexDirection:'row', padding:16, marginTop:16}}>
                                 <Link title="Existing Reservation" 
                                 style={styles.existingReservationLink}
                                 textStyle={styles.existingReservationText}
-                                onClick={() => {
-                                   this.showExistingeservationHelpFlow();
-                                }}/>
+                                onClick={this.showExistingeservationHelpFlow}/>
                             <ChevronRight width={16} height={16} style={{left:4, marginTop:2}}/>
                             </View>
                         )

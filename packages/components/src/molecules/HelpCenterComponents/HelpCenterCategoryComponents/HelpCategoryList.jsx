@@ -24,10 +24,10 @@ export default class HelpCategoryList extends React.PureComponent {
             return topics.map((topic) => {
                 return <HelpTopic title={topic.NAME} 
                             sourceLink={topic.SRC} 
-                            onClick={(title, sourceLink) => {
+                            onClick={ () => (title, sourceLink) => {
                                 onLinkClicked(title, sourceLink);
-                            }
-                        }/>
+                            }}
+                        />
             })
         } else {
             // return a maximum of 4 topics

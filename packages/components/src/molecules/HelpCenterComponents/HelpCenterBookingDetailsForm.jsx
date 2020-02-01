@@ -3,6 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import FormInputTextField from '../../atoms/common/FormInputTextField'
 import Button from '../../atoms/common/Button';
 import { StyleSheet } from 'react-native';
+import Link from '../../atoms/common/Link';
 
 export const BookingDetailError = {
     INVALID_EMAIL: {title: 'Please enter a valid email address.'},
@@ -15,12 +16,33 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent {
         super(props)
         this.state = {
             bookingId: '',
-            bookingEmail: ''
+            bookingEmail: '',
+            bookingIDAvailable: true
+        }
+    }
+
+    helperLinkText = () => {
+        if(this.state.bookingIDAvailable) {
+            return "I don't have a booking ID"
+        } else {
+            return "I have a booking ID"
+        }
+    }
+
+    submitButtonText = () => {
+        if(this.state.bookingIDAvailable) {
+            return "Get Help"
+        } else {
+            return "Resend Tickets"
         }
     }
 
     onDoneClick = () => {
-        this.props.onDoneClick(this.state.bookingId, this.state.bookingEmail);
+        if (this.state.bookingIDAvailable) {
+            this.props.onDoneClick(this.state.bookingId, this.state.bookingEmail);
+        } else {
+            this.props.onResendTicketsClick(this.state.bookingEmail);
+        } 
     }
 
     render() {
@@ -43,11 +65,12 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent {
                     onChangeText={(email) => {
                         this.setState({...this.state, bookingEmail:email})
                     }}/>
-                <FormInputTextField style={{paddingTop:16, paddingBottom:16}}
+                { this.state.bookingIDAvailable ? (
+                    <FormInputTextField style={{paddingTop:16, paddingBottom:16}}
                     title='Booking ID'
-                    subTitle='Please check the confirmation email from Headout'
+                    subTitle='Please check your confirmation email from Headout'
                     value={this.bookingEmail}
-                    placeholder='XXX-XXXX'
+                    placeholder='Enter your booking ID'
                     errorText={bookingIdError ? BookingDetailError.INVALID_BOOKING_ID.title : null} 
                     keyboardType='number-pad'
 					autoCapitalize='none'
@@ -55,13 +78,20 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent {
                     onChangeText={(bookingId) => {
                         this.setState({...this.state, bookingId:bookingId})
                     }}/>
-                    { showLoadState ? (
-                        <View style={styles.buttonContainer}>
-                            <ActivityIndicator color='white'/>
-                        </View>
-                    ) : (
-                        <Button style={styles.buttonContainer} title='Get Help' onClick={this.onDoneClick}/>
-                    )}
+                ) : null}
+                { showLoadState ? (
+                    <View style={styles.buttonContainer}>
+                        <ActivityIndicator color='white'/>
+                    </View>
+                ) : (
+                    <Button style={styles.buttonContainer} title={this.submitButtonText()} onClick={this.onDoneClick}/>
+                )}
+                <Link style={{marginTop: 12}} 
+                    textStyle={styles.helperLink} 
+                    title={this.helperLinkText()} 
+                    onClick={() => {
+                        this.setState({...this.state, bookingIDAvailable:!this.state.bookingIDAvailable});
+                }}/>    
             </View>
         )
     }
@@ -77,5 +107,12 @@ const styles = StyleSheet.create({
         justifyContent:'center', 
         backgroundColor:'#24a1b2', 
         borderRadius:2
+    },
+    helperLink: {
+        fontWeight: "500",
+        fontSize: 12,
+        color: "#24A1B2",
+        textAlign:'left',
+        textDecorationLine: 'underline'
     }
 })
