@@ -48,9 +48,11 @@ export default class BoookingDetailsRadioButtonForm extends React.PureComponent 
 			case BOOKING_HELP_OPTIONS.CANCEL_BOOKING:
 			case BOOKING_HELP_OPTIONS.MODIFY_BOOKING:
 				this.props.startChat();
+				break;
 			case BOOKING_HELP_OPTIONS.RESEND:
 				console.log("Resend tickets");
 				this.props.resendTickets();
+				break;
 			default:
 				this.props.helpOptionSelectionError();
 		}

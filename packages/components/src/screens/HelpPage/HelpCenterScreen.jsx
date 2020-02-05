@@ -39,7 +39,11 @@ export default class HelpScreen extends React.PureComponent {
     }
 
     startChat = () => {
-        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped();
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(null);
+    }
+
+    resendTicketsForEmail = (bookingEmail) => {
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped({"email": bookingEmail, "action": "RESEND_TICKETS"});
     }
 
     // =====================================================
@@ -108,12 +112,13 @@ export default class HelpScreen extends React.PureComponent {
             console.log("Finished fetching...", exists)
             // this.setState({...this.state, fetchInProgress:false, error:"This email and booking ID combination does not exist."})
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-            this.setState({...this.state, fetchInProgress:false, emailAndBookingIdCombinationFetched:true})
+            if (exists) {
+                this.setState({...this.state, fetchInProgress:false, emailAndBookingIdCombinationFetched:true, error: ""})
+            } else {
+                this.setState({...this.state, fetchInProgress:false, emailAndBookingIdCombinationFetched:false, error:"This email and booking ID combination does not exist."})
+            }
+            
         })
-    }
-
-    resendTicketsForEmail = (bookingEmail) => {
-        this.setState({...this.state, error:"", fetchInProgress:true})
     }
 
     resendTickets = () => {
