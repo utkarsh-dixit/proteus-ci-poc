@@ -22,6 +22,7 @@ export default class FormInputTextField extends React.PureComponent {
                 <TextInput 
                     style={errorText ? styles.errorInput : styles.input}
                     value={value}
+                    autoCorrect={false}
                     placeholder={placeholder}
                     keyboardType={keyboardType}
                     autoCapitalize={autoCapitalize}

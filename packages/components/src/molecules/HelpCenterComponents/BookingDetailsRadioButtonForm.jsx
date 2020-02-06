@@ -6,7 +6,7 @@ import Link from '../../atoms/common/Link';
 
 export const BOOKING_HELP_OPTIONS = {
 	CHECK_STATUS:'CHECK_STATUS',
-	RESEND:'RESEND',
+	RESEND:'RESEND_TICKETS',
 	CANCEL_BOOKING:'CANCEL_BOOKING',
 	MODIFY_BOOKING:'MODIFY_BOOKING'
 };
@@ -43,19 +43,7 @@ export default class BoookingDetailsRadioButtonForm extends React.PureComponent 
 
 	handleSubmitButtonTap = () => {
 		console.log(this.state.selectedOption);
-		switch (this.state.selectedOption) {
-			case BOOKING_HELP_OPTIONS.CHECK_STATUS:
-			case BOOKING_HELP_OPTIONS.CANCEL_BOOKING:
-			case BOOKING_HELP_OPTIONS.MODIFY_BOOKING:
-				this.props.startChat();
-				break;
-			case BOOKING_HELP_OPTIONS.RESEND:
-				console.log("Resend tickets");
-				this.props.resendTickets();
-				break;
-			default:
-				this.props.helpOptionSelectionError();
-		}
+		this.props.startChatWithAction(this.state.selectedOption);
 	}
 
 	render() {

@@ -9,7 +9,6 @@ import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/H
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
 import BookingDetailsRadioButtonForm, {BOOKING_HELP_OPTIONS} from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
 import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
-import { textChangeRangeIsUnchanged } from 'typescript';
 
 export default class HelpScreen extends React.PureComponent {
 
@@ -22,12 +21,13 @@ export default class HelpScreen extends React.PureComponent {
             invalidBookingId: false,
             error: "",
             bookingEmail: "",
+            bookingId:"",
             emailAndBookingIdCombinationFetched: false,
             searchResults: []
         }
 
         this.searchableItems = [];
-        for (category of HELP_PAGE_CONSTANTS.LISTICLES) {
+        for (category of HELP_PAGE_CONSTANTS.CATEGORIES) {
             this.searchableItems.push(...category.OPTIONS); 
         }
     }
@@ -38,12 +38,12 @@ export default class HelpScreen extends React.PureComponent {
         NativeModules.HelpCenterNativeBridge.openLink(sourceURL,title,this.props.rootTag);
     }
 
-    startChat = () => {
-        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(null);
+    startChatWithAction = (action) => {
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped({"email": this.state.bookingEmail, "bookingId": this.state.bookingId, "action": action}, "14");
     }
 
     resendTicketsForEmail = (bookingEmail) => {
-        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped({"email": bookingEmail, "action": "RESEND_TICKETS"});
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped({"email": bookingEmail, "action": BOOKING_HELP_OPTIONS.RESEND}, "14");
     }
 
     // =====================================================
@@ -61,7 +61,7 @@ export default class HelpScreen extends React.PureComponent {
             // Have to set invalidEmail and invalidBookingId here as well due to asynchronicity issues.
             // The state set in `validateBookingFieldsAndSetState` get overriden here to incorrect values if these two fields
             // are not set.
-            this.setState({...this.state, fetchInProgress: true, invalidEmail: false, invalidBookingId: false, bookingEmail: bookingEmail});
+            this.setState({...this.state, fetchInProgress: true, invalidEmail: false, invalidBookingId: false, bookingEmail: bookingEmail, bookingId: bookingId});
             this.fetchReservationDetails(bookingId, bookingEmail);
         }
     }
@@ -89,7 +89,7 @@ export default class HelpScreen extends React.PureComponent {
 
     // ==== UI METHODS =====================================
     getHelpTopicsContainer = () => {
-        return HELP_PAGE_CONSTANTS.LISTICLES.map((category) => {
+        return HELP_PAGE_CONSTANTS.CATEGORIES.map((category) => {
             return <HelpPageCategoryList style={{paddingLeft:16, paddingRight:16}}
                         header={category.HEADING}
                         topics={category.OPTIONS}
@@ -121,11 +121,6 @@ export default class HelpScreen extends React.PureComponent {
         })
     }
 
-    resendTickets = () => {
-        console.log(`Resending tickets from props ${this.state.bookingEmail}`);
-        this.resendTicketsForEmail(this.props.email);
-    }
-
     restartBookingHelpFlow = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({...this.state, emailAndBookingIdCombinationFetched: false, reservationFlowVisible:true, error: ""})
@@ -146,8 +141,7 @@ export default class HelpScreen extends React.PureComponent {
                     {/* Main Reservation Details Form */}
                     {this.state.reservationFlowVisible ? ( this.state.emailAndBookingIdCombinationFetched ? (
                             <BookingDetailsRadioButtonForm style={{padding:16}}
-                                startChat={this.startChat}
-                                resendTickets={this.resendTickets}
+                                startChatWithAction={this.startChatWithAction}
                                 helpOptionSelectionError={() => {
                                     this.showError('Please select an option')
                                 }}
