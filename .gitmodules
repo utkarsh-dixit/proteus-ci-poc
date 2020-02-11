@@ -1,0 +1,6 @@
+[submodule "android"]
+	path = android
+	url = git@github.com:headout/android-chronos
+[submodule "ios"]
+	path = ios
+	url = git@github.com:headout/ios-ceres.git
