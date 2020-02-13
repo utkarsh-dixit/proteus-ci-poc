@@ -6,14 +6,14 @@
  */
 
 var path = require('path');
-const { getDefaultConfig } = require("metro-config");
+const {getDefaultConfig} = require('metro-config');
 
 module.exports = (async () => {
   const {
-    resolver: { sourceExts, assetExts },
+    resolver: {sourceExts, assetExts},
   } = await getDefaultConfig();
   return {
-    projectRoot: path.resolve(__dirname, '../../'),
+    projectRoot: path.resolve(__dirname, './'),
     transformer: {
       getTransformOptions: async () => ({
         transform: {
@@ -25,7 +25,7 @@ module.exports = (async () => {
     },
     resolver: {
       assetExts: assetExts.filter(ext => ext !== 'svg'),
-      sourceExts: [...sourceExts, "jsx", "svg", "css"],
+      sourceExts: [...sourceExts, 'jsx', 'svg', 'css'],
     },
   };
 })();
