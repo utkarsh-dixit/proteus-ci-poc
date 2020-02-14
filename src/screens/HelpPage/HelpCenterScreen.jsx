@@ -9,7 +9,7 @@ import {
   Image,
   NativeModules,
 } from 'react-native';
-import Link from '../../atoms/common/Link';
+import {Link} from '@headout/aer';
 import {checkEmail} from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
@@ -227,7 +227,7 @@ export default class HelpScreen extends React.PureComponent {
                 title="Existing Reservation"
                 style={styles.existingReservationLink}
                 textStyle={styles.existingReservationText}
-                onClick={this.showExistingeservationHelpFlow}
+                handleClick={this.showExistingeservationHelpFlow}
               />
               <ChevronRight
                 width={16}
@@ -284,6 +284,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#24A1B2',
     textAlign: 'left',
+    textDecorationLine: "none"
   },
   wallpaperContainer: {
     aspectRatio: 375 / 200,

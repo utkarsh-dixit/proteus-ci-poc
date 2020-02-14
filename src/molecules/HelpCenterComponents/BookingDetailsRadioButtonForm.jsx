@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, StyleSheet} from "react-native";
+import { View, StyleSheet } from "react-native";
 import RadioButton from '../../atoms/common/RadioButton';
-import {Link, Button} from '@headout/aer';
+import { Link, Button } from '@headout/aer';
 
 export const BOOKING_HELP_OPTIONS = {
-	CHECK_STATUS:'CHECK_STATUS',
-	RESEND:'RESEND_TICKETS',
-	CANCEL_BOOKING:'CANCEL_BOOKING',
-	MODIFY_BOOKING:'MODIFY_BOOKING'
+	CHECK_STATUS: 'CHECK_STATUS',
+	RESEND: 'RESEND_TICKETS',
+	CANCEL_BOOKING: 'CANCEL_BOOKING',
+	MODIFY_BOOKING: 'MODIFY_BOOKING'
 };
 
 export default class BoookingDetailsRadioButtonForm extends React.PureComponent {
@@ -24,7 +24,7 @@ export default class BoookingDetailsRadioButtonForm extends React.PureComponent 
 	}
 
 	handleRadioClick = (helpOption) => {
-		this.setState({selectedOption:helpOption});
+		this.setState({ selectedOption: helpOption });
 	}
 
 	submitButtonText = () => {
@@ -49,26 +49,26 @@ export default class BoookingDetailsRadioButtonForm extends React.PureComponent 
 		return (
 			<View className='help-page-radio-wrapper' style={this.props.style}>
 				<RadioButton style={styles.radioButton}
-								text='Check Status' 
-								isSelected={this.isChecked(BOOKING_HELP_OPTIONS.CHECK_STATUS)}
-								onClick={() => {this.handleRadioClick(BOOKING_HELP_OPTIONS.CHECK_STATUS)}}/>
+					text='Check Status'
+					isSelected={this.isChecked(BOOKING_HELP_OPTIONS.CHECK_STATUS)}
+					onClick={() => { this.handleRadioClick(BOOKING_HELP_OPTIONS.CHECK_STATUS) }} />
 				<RadioButton style={styles.radioButton}
-									text='Resend Tickets' 
-									isSelected={this.isChecked(BOOKING_HELP_OPTIONS.RESEND)}
-									onClick={() => {this.handleRadioClick(BOOKING_HELP_OPTIONS.RESEND)}}/>
+					text='Resend Tickets'
+					isSelected={this.isChecked(BOOKING_HELP_OPTIONS.RESEND)}
+					onClick={() => { this.handleRadioClick(BOOKING_HELP_OPTIONS.RESEND) }} />
 				<RadioButton style={styles.radioButton}
-									text='Cancel Tickets' 
-									isSelected={this.isChecked(BOOKING_HELP_OPTIONS.CANCEL_BOOKING)}
-									onClick={() => {this.handleRadioClick(BOOKING_HELP_OPTIONS.CANCEL_BOOKING)}}/>
+					text='Cancel Tickets'
+					isSelected={this.isChecked(BOOKING_HELP_OPTIONS.CANCEL_BOOKING)}
+					onClick={() => { this.handleRadioClick(BOOKING_HELP_OPTIONS.CANCEL_BOOKING) }} />
 				<RadioButton style={styles.radioButton}
-									text='Modify Date/Time' 
-									isSelected={this.isChecked(BOOKING_HELP_OPTIONS.MODIFY_BOOKING)}
-									onClick={() => {this.handleRadioClick(BOOKING_HELP_OPTIONS.MODIFY_BOOKING)}}/>
-				<Button style={styles.buttonContainer} title={this.submitButtonText()} handleClick={this.handleSubmitButtonTap}/>
-				<Link style={{marginTop: 12}} 
-                    textStyle={styles.helperLink} 
-                    title={"Start again"} 
-                    onClick={this.props.restartBookingHelpFlow}/>
+					text='Modify Date/Time'
+					isSelected={this.isChecked(BOOKING_HELP_OPTIONS.MODIFY_BOOKING)}
+					onClick={() => { this.handleRadioClick(BOOKING_HELP_OPTIONS.MODIFY_BOOKING) }} />
+				<Button style={styles.buttonContainer} title={this.submitButtonText()} handleClick={this.handleSubmitButtonTap} />
+				<Link style={{ marginTop: 12 }}
+					textStyle={styles.helperLink}
+					title={"Start again"}
+					handleClick={this.props.restartBookingHelpFlow} />
 			</View>
 		);
 	}
@@ -77,25 +77,18 @@ export default class BoookingDetailsRadioButtonForm extends React.PureComponent 
 const styles = StyleSheet.create({
 	radioButton: {
 		paddingLeft: 0,
-		paddingRight:0,
+		paddingRight: 0,
 		paddingTop: 8,
 		paddingBottom: 8
 	},
 	buttonContainer: {
-        flex:1,
-        height:48, 
-        width:164, 
-        marginTop:8,
-        alignContent:'center',
-        justifyContent:'center', 
-        backgroundColor:'#24a1b2', 
-        borderRadius:2
+		height: 48,
+		width: 164,
 	},
 	helperLink: {
-        fontWeight: "500",
-        fontSize: 12,
-        color: "#24A1B2",
-        textAlign:'left',
-        textDecorationLine: 'underline'
-    }
+		fontWeight: "500",
+		fontSize: 12,
+		color: "#24A1B2",
+		textAlign: 'left'
+	}
 })

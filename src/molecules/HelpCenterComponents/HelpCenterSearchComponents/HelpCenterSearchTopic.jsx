@@ -11,7 +11,7 @@ export default class HelpCenterSearchTopic extends React.Component {
         } = this.props;
         return (
             <View style={styles.container}>
-                <Link textStyle={styles.topic} title={title} onClick={() => {
+                <Link textStyle={styles.topic} title={title} handleClick={() => {
                     onClick(title, sourceLink);
                 }}/>
                 <View style={{height:0.0, backgroundColor:"#545454"}}></View>
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         fontWeight:"500",
         fontSize:16,
         color:"#545454",
-        padding:12
+        padding:12,
+        textDecorationLine: "none"
     }
 })

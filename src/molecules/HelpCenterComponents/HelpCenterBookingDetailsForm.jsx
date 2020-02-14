@@ -88,7 +88,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent {
                 <Link style={{marginTop: 12}} 
                     textStyle={styles.helperLink} 
                     title={this.helperLinkText()} 
-                    onClick={() => {
+                    handleClick={() => {
                         this.setState({...this.state, bookingIDAvailable:!this.state.bookingIDAvailable});
                 }}/>    
             </View>
@@ -98,20 +98,13 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        flex:1,
         height:48, 
         width:164, 
-        marginTop:8,
-        alignContent:'center',
-        justifyContent:'center', 
-        backgroundColor:'#24a1b2', 
-        borderRadius:2
     },
     helperLink: {
         fontWeight: "500",
         fontSize: 12,
         color: "#24A1B2",
-        textAlign:'left',
-        textDecorationLine: 'underline'
+        textAlign:'left'
     }
 })

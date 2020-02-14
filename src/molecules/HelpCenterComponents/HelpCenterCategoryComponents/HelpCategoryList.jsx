@@ -44,7 +44,7 @@ export default class HelpCategoryList extends React.PureComponent {
             }
             if (topics.length > MAX_VISIBLE_TOPIC_COUNT) {
                 // Need to show a show all button
-                views.push(<Link textStyle={styles.showAllButton} title={"Show all"} onClick={() => {
+                views.push(<Link textStyle={styles.showAllButton} title={"Show all"} handleClick={() => {
                     this.setState({isExpanded: true});
                 }}/>)
             }
@@ -80,8 +80,9 @@ const styles = StyleSheet.create({
     showAllButton: {
         fontWeight:"400",
         fontSize:16,
-        color:"#24a1b2",
+        color: "#24a1b2",
         paddingTop:12,
-        paddingBottom:12
+        paddingBottom:12,
+        textDecorationLine: "none"
     }
 })
