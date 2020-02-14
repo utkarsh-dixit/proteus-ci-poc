@@ -31,7 +31,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent {
                     inputStyle={styles.textInput}
                     placeholder={'Search help articles'}
                     icon={SearchIcon}
-                    handleChange={searchTextEntered}>
+                    onChangeText={searchTextEntered}>
                 </Input>
                 <View style={styles.resultsContainer}>
                     {(results.length > 0) ? (
