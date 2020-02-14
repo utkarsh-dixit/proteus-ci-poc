@@ -7,9 +7,9 @@ import { BOOKING_FLOW_HELP_OPTIONS } from '../../constants/HelpPage/HelpPageCons
 
 interface IProps {
     style: any,
-    startChatWithAction: (helpOption: string) => {}
-    restartBookingHelpFlow: () => {}
-    helpOptionSelectionError: (errorMessage: string) => {}
+    startChatWithAction: (helpOption: string) => void
+    restartBookingHelpFlow: () => void
+    helpOptionSelectionError: (errorMessage: string) => void
 }
 
 interface IState {

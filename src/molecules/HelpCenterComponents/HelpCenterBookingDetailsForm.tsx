@@ -15,8 +15,8 @@ interface IProps {
     emailError: boolean;
     bookingIdError: boolean;
     showLoadState: boolean;
-    onResendTicketsClick: (bookingEmail: string) => {};
-    onDoneClick: (bookingId: string, bookingEmail: string) => {};
+    onResendTicketsClick: (bookingEmail: string) => void;
+    onDoneClick: (bookingId: string, bookingEmail: string) => void;
 }
 
 interface IState {
