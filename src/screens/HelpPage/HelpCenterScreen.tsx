@@ -59,7 +59,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
 
     // ==== NAVIGATION METHODS =============================
 
-    openHelpPage = (title, sourceURL) => {
+    openHelpPage = (title: string, sourceURL: string) => {
         NativeModules.HelpCenterNativeBridge.openLink(
             sourceURL,
             title,
@@ -67,7 +67,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
         );
     };
 
-    startChatWithAction = action => {
+    startChatWithAction = (action: string) => {
         NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
             {
                 email: this.state.bookingEmail,
@@ -78,7 +78,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
         );
     };
 
-    resendTicketsForEmail = bookingEmail => {
+    resendTicketsForEmail = (bookingEmail: string) => {
         NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
             { email: bookingEmail, action: BOOKING_FLOW_HELP_OPTIONS.RESEND },
             '14',
@@ -94,7 +94,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
         this.setState({ ...this.setState, showReservationHelpForm: true, error: '' });
     };
 
-    bookingReservationsFilled = (bookingId, bookingEmail) => {
+    bookingReservationsFilled = (bookingId: string, bookingEmail: string) => {
         const canFetchBookingDetails = this.validateBookingFieldsAndSetState(
             bookingId,
             bookingEmail,
@@ -127,7 +127,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
         return !improperBookingId && !improperEmailInput;
     };
 
-    searchTextEntered = text => {
+    searchTextEntered = (text: string) => {
         if (text === '') {
             this.setState({ ...this.state, searchResults: [] });
             return;
@@ -200,7 +200,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
         }
     };
 
-    showError = errorText => {
+    showError = (errorText: string) => {
         this.setState({ ...this.state, fetchInProgress: false, error: errorText });
     };
     // =====================================================
