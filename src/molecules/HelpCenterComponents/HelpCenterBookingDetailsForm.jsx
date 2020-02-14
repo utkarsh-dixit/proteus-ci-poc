@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import FormInputTextField from '../../atoms/common/FormInputTextField'
-import Button from '../../atoms/common/Button';
 import { StyleSheet } from 'react-native';
-import {Link} from '@headout/aer';
+import {Link, Button} from '@headout/aer';
 
 export const BookingDetailError = {
     INVALID_EMAIL: {title: 'Please enter a valid email address.'},
@@ -84,7 +83,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent {
                         <ActivityIndicator color='white'/>
                     </View>
                 ) : (
-                    <Button style={styles.buttonContainer} title={this.submitButtonText()} onClick={this.onDoneClick}/>
+                    <Button style={styles.buttonContainer} title={this.submitButtonText()} handleClick={this.onDoneClick}/>
                 )}
                 <Link style={{marginTop: 12}} 
                     textStyle={styles.helperLink} 
