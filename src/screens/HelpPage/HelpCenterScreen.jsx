@@ -151,9 +151,7 @@ export default class HelpScreen extends React.PureComponent {
                     <BookingDetailsRadioButtonForm
                         style={{ padding: 16 }}
                         startChatWithAction={this.startChatWithAction}
-                        helpOptionSelectionError={() => {
-                            this.showError('Please select an option');
-                        }}
+                        helpOptionSelectionError={this.showError}
                         restartBookingHelpFlow={this.restartBookingHelpFlow}
                     />
                 );
