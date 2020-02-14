@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import FormInputTextField from '../../atoms/common/FormInputTextField'
 import Button from '../../atoms/common/Button';
 import { StyleSheet } from 'react-native';
-import Link from '../../atoms/common/Link';
+import {Link} from '@headout/aer';
 
 export const BookingDetailError = {
     INVALID_EMAIL: {title: 'Please enter a valid email address.'},

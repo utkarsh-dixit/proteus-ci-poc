@@ -1,9 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, Linking } from "react-native";
 
-/*
-    
-*/
 export default class Link extends React.PureComponent {
 
     handleHref(link){

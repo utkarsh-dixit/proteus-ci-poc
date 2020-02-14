@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from "react-native";
 import RadioButton from '../../atoms/common/RadioButton';
 import Button from '../../atoms/common/Button';
-import Link from '../../atoms/common/Link';
+import {Link} from '@headout/aer';
 
 export const BOOKING_HELP_OPTIONS = {
 	CHECK_STATUS:'CHECK_STATUS',

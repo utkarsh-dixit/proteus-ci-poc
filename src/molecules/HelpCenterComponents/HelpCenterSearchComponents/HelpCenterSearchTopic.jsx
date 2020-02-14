@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Link from '../../../atoms/common/Link';
+import {Link} from '@headout/aer';
 
 export default class HelpCenterSearchTopic extends React.Component {
     render() {

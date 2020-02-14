@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '../../../atoms/common/Link';
+import {Link} from '@headout/aer';
 import { StyleSheet } from 'react-native';
 
 export default class HelpTopic extends React.PureComponent {
