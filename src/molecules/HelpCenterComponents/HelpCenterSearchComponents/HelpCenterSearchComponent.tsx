@@ -4,6 +4,7 @@ import SearchIcon from '../../../assets/icons/search.svg';
 import HelpCenterSearchTopic from './HelpCenterSearchTopic';
 
 interface IProps {
+    style: any
     results: Array<{ NAME, SRC }>
     searchTextEntered: (text: string) => void
     onSearchTopicClicked: (title: string, sourceLink: string) => void
@@ -15,7 +16,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
         this.props.onSearchTopicClicked(title, sourceLink);
     }
 
-    getSearchResultViews = (results, onSearchTopicClicked) => {
+    getSearchResultViews = (results) => {
         return results.map(helpTopic => {
             return (
                 <HelpCenterSearchTopic
@@ -28,7 +29,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
     };
 
     render() {
-        const { results, searchTextEntered, onSearchTopicClicked } = this.props;
+        const { results, searchTextEntered } = this.props;
         return (
             <View style={{ backgroundColor: 'white', margin: 16 }}>
                 <View style={[styles.searchBox]}>
@@ -41,7 +42,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
                 <View style={styles.resultsContainer}>
                     {results.length > 0 ? (
                         <View>
-                            {this.getSearchResultViews(results, onSearchTopicClicked)}
+                            {this.getSearchResultViews(results)}
                         </View>
                     ) : null}
                 </View>

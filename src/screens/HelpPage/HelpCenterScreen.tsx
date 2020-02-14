@@ -13,18 +13,32 @@ import Link from '../../atoms/common/Link';
 import { checkEmail } from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
-import {
-    BOOKING_FLOW_HELP_OPTIONS,
-    HELP_PAGE_CATEGORIES,
-} from '../../constants/HelpPage/HelpPageConstants';
+import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/HelpPage/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
-import BookingDetailsRadioButtonForm, {
-    BOOKING_HELP_OPTIONS,
-} from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
+import BookingDetailsRadioButtonForm from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
 import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
 
-export default class HelpScreen extends React.PureComponent {
+interface IState {
+    showReservationHelpForm: boolean,
+    fetchInProgress: boolean,
+    invalidEmail: boolean,
+    invalidBookingId: boolean,
+    error: string,
+    bookingEmail: string,
+    bookingId: string,
+    emailAndBookingIdCombinationFetched: boolean,
+    searchResults: Array<{ NAME, SRC }>,
+}
+
+interface IProps {
+    rootTag: number
+}
+
+export default class HelpScreen extends React.PureComponent<IProps, IState> {
+
+    private searchableItems: Array<{ NAME, SRC }> = [];
+
     constructor(props) {
         super(props);
         this.state = {
@@ -38,9 +52,7 @@ export default class HelpScreen extends React.PureComponent {
             emailAndBookingIdCombinationFetched: false,
             searchResults: [],
         };
-
-        this.searchableItems = [];
-        for (category of HELP_PAGE_CATEGORIES) {
+        for (const category of HELP_PAGE_CATEGORIES) {
             this.searchableItems.push(...category.OPTIONS);
         }
     }
@@ -68,7 +80,7 @@ export default class HelpScreen extends React.PureComponent {
 
     resendTicketsForEmail = bookingEmail => {
         NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
-            { email: bookingEmail, action: BOOKING_HELP_OPTIONS.RESEND },
+            { email: bookingEmail, action: BOOKING_FLOW_HELP_OPTIONS.RESEND },
             '14',
         );
     };
@@ -79,14 +91,15 @@ export default class HelpScreen extends React.PureComponent {
 
     showExistingeservationHelpFlow = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ ...this.setState, reservationFlowVisible: true, error: '' });
+        this.setState({ ...this.setState, showReservationHelpForm: true, error: '' });
     };
 
     bookingReservationsFilled = (bookingId, bookingEmail) => {
-        canFetchBookingDetails = this.validateBookingFieldsAndSetState(
+        const canFetchBookingDetails = this.validateBookingFieldsAndSetState(
             bookingId,
             bookingEmail,
         );
+        console.log(`Can fetch for details : ${bookingId}, ${bookingEmail}: ${canFetchBookingDetails}`);
         if (canFetchBookingDetails) {
             // Have to set invalidEmail and invalidBookingId here as well due to asynchronicity issues.
             // The state set in `validateBookingFieldsAndSetState` get overriden here to incorrect values if these two fields
@@ -103,9 +116,9 @@ export default class HelpScreen extends React.PureComponent {
         }
     };
 
-    validateBookingFieldsAndSetState = (bookingId, bookingEmail) => {
-        improperEmailInput = bookingEmail === '' || !checkEmail(bookingEmail);
-        improperBookingId = bookingId === '';
+    validateBookingFieldsAndSetState = (bookingId: string, bookingEmail: string) => {
+        const improperEmailInput = bookingEmail === '' || !checkEmail(bookingEmail);
+        const improperBookingId = bookingId === '';
         this.setState({
             ...this.setState,
             invalidEmail: improperEmailInput,
@@ -119,8 +132,8 @@ export default class HelpScreen extends React.PureComponent {
             this.setState({ ...this.state, searchResults: [] });
             return;
         }
-        lowercaseText = text.toLowerCase();
-        results = this.searchableItems.filter(item => {
+        const lowercaseText = text.toLowerCase();
+        const results = this.searchableItems.filter(item => {
             return item.NAME.toLowerCase().includes(lowercaseText);
         });
 
@@ -226,7 +239,7 @@ export default class HelpScreen extends React.PureComponent {
         this.setState({
             ...this.state,
             emailAndBookingIdCombinationFetched: false,
-            reservationFlowVisible: true,
+            showReservationHelpForm: true,
             error: '',
         });
     };

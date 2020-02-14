@@ -20,8 +20,6 @@ interface IProps {
 }
 
 interface IState {
-    bookingId: string;
-    bookingEmail: string;
     bookingIDAvailable: boolean;
 }
 
@@ -29,11 +27,13 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
     IProps,
     IState
     > {
+
+    private bookingEmail: string = '';
+    private bookingId: string = '';
+
     constructor(props) {
         super(props);
         this.state = {
-            bookingId: '',
-            bookingEmail: '',
             bookingIDAvailable: true,
         };
     }
@@ -54,11 +54,21 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
         }
     };
 
+    updateBookingId = (bookingId: string) => {
+        this.bookingId = bookingId;
+        console.log("new booking ID:", this.bookingId);
+    }
+
+    updateBookingEmail = (bookingEmail: string) => {
+        this.bookingEmail = bookingEmail;
+        console.log("new booking email:", this.bookingEmail);
+    }
+
     onDoneClick = () => {
         if (this.state.bookingIDAvailable) {
-            this.props.onDoneClick(this.state.bookingId, this.state.bookingEmail);
+            this.props.onDoneClick(this.bookingId, this.bookingEmail);
         } else {
-            this.props.onResendTicketsClick(this.state.bookingEmail);
+            this.props.onResendTicketsClick(this.bookingEmail);
         }
     };
 
@@ -69,22 +79,18 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                 <FormInputTextField
                     style={{ paddingTop: 16, paddingBottom: 16 }}
                     title="Email"
-                    value={this.state.bookingEmail}
                     placeholder="Enter booking email address"
                     errorText={emailError ? BookingDetailError.INVALID_EMAIL.title : null}
                     keyboardType="email-address"
                     autoCapitalize="none"
                     returnKeyType="done"
-                    onChangeText={email => {
-                        this.setState({ ...this.state, bookingEmail: email });
-                    }}
+                    onChangeText={this.updateBookingEmail}
                 />
                 {this.state.bookingIDAvailable ? (
                     <FormInputTextField
                         style={{ paddingTop: 16, paddingBottom: 16 }}
                         title="Booking ID"
                         subTitle="Please check your confirmation email from Headout"
-                        value={this.state.bookingEmail}
                         placeholder="Enter your booking ID"
                         errorText={
                             bookingIdError
@@ -94,9 +100,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                         keyboardType="number-pad"
                         autoCapitalize="none"
                         returnKeyType="done"
-                        onChangeText={bookingId => {
-                            this.setState({ ...this.state, bookingId: bookingId });
-                        }}
+                        onChangeText={this.updateBookingId}
                     />
                 ) : null}
                 {showLoadState ? (
