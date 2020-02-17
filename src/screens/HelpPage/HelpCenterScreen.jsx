@@ -6,14 +6,15 @@ import {
   ScrollView,
   LayoutAnimation,
   View,
+  Linking,
   Image,
   NativeModules,
 } from 'react-native';
-import {Link} from '@headout/aer';
-import {checkEmail} from '../../util/validationUtil';
+import { Link } from '@headout/aer';
+import { checkEmail } from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';
-import {chevronRight as ChevronRight} from '../../assets/icons';
-import {HELP_PAGE_CONSTANTS} from '../HelpPage/HelpPageData/HelpPageConstants';
+import { chevronRight as ChevronRight } from '../../assets/icons';
+import { HELP_PAGE_CONSTANTS } from '../HelpPage/HelpPageData/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
 import BookingDetailsRadioButtonForm, {
@@ -45,29 +46,37 @@ export default class HelpScreen extends React.PureComponent {
   // ==== NAVIGATION METHODS =============================
 
   openHelpPage = (title, sourceURL) => {
-    NativeModules.HelpCenterNativeBridge.openLink(
-      sourceURL,
-      title,
-      this.props.rootTag,
-    );
+    if (NativeModules.HelpCenterNativeBridge) {
+      NativeModules.HelpCenterNativeBridge.openLink(
+        sourceURL,
+        title,
+        this.props.rootTag,
+      );
+    } else {
+      Linking.openURL(sourceURL);
+    }
   };
 
   startChatWithAction = action => {
-    NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
-      {
-        email: this.state.bookingEmail,
-        bookingId: this.state.bookingId,
-        action: action,
-      },
-      '14',
-    );
+    if (NativeModules.HelpCenterNativeBridge) {
+      NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
+        {
+          email: this.state.bookingEmail,
+          bookingId: this.state.bookingId,
+          action: action,
+        },
+        '14',
+      );
+    }
   };
 
   resendTicketsForEmail = bookingEmail => {
-    NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
-      {email: bookingEmail, action: BOOKING_HELP_OPTIONS.RESEND},
-      '14',
-    );
+    if (NativeModules.HelpCenterNativeBridge) {
+      NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
+        { email: bookingEmail, action: BOOKING_HELP_OPTIONS.RESEND },
+        '14',
+      );
+    }
   };
 
   // =====================================================
@@ -76,7 +85,7 @@ export default class HelpScreen extends React.PureComponent {
 
   showExistingeservationHelpFlow = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    this.setState({...this.setState, reservationFlowVisible: true, error: ''});
+    this.setState({ ...this.setState, reservationFlowVisible: true, error: '' });
   };
 
   bookingReservationsFilled = (bookingId, bookingEmail) => {
@@ -113,7 +122,7 @@ export default class HelpScreen extends React.PureComponent {
 
   searchTextEntered = text => {
     if (text === '') {
-      this.setState({...this.state, searchResults: []});
+      this.setState({ ...this.state, searchResults: [] });
       return;
     }
     const lowercaseText = text.toLowerCase();
@@ -121,7 +130,7 @@ export default class HelpScreen extends React.PureComponent {
       return item.NAME.toLowerCase().includes(lowercaseText);
     });
 
-    this.setState({...this.state, searchResults: results});
+    this.setState({ ...this.state, searchResults: results });
   };
   // =====================================================
 
@@ -130,7 +139,7 @@ export default class HelpScreen extends React.PureComponent {
     return HELP_PAGE_CONSTANTS.CATEGORIES.map(category => {
       return (
         <HelpPageCategoryList
-          style={{paddingLeft: 16, paddingRight: 16}}
+          style={{ paddingLeft: 16, paddingRight: 16 }}
           header={category.HEADING}
           topics={category.OPTIONS}
           onLinkClicked={(title, sourceURL) => {
@@ -142,7 +151,7 @@ export default class HelpScreen extends React.PureComponent {
   };
 
   showError = errorText => {
-    this.setState({...this.state, fetchInProgress: false, error: errorText});
+    this.setState({ ...this.state, fetchInProgress: false, error: errorText });
   };
   // =====================================================
 
@@ -189,10 +198,10 @@ export default class HelpScreen extends React.PureComponent {
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{paddingTop: 10, marginBottom: 80}}>
+          style={{ paddingTop: 10, marginBottom: 80 }}>
           {/* Header */}
           <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
           {/* Main error */}
@@ -203,7 +212,7 @@ export default class HelpScreen extends React.PureComponent {
           {this.state.reservationFlowVisible ? (
             this.state.emailAndBookingIdCombinationFetched ? (
               <BookingDetailsRadioButtonForm
-                style={{padding: 16}}
+                style={{ padding: 16 }}
                 startChatWithAction={this.startChatWithAction}
                 helpOptionSelectionError={() => {
                   this.showError('Please select an option');
@@ -211,31 +220,31 @@ export default class HelpScreen extends React.PureComponent {
                 restartBookingHelpFlow={this.restartBookingHelpFlow}
               />
             ) : (
-              <HelpCenterBookingDetailsForm
-                style={{padding: 16}}
-                emailError={this.state.invalidEmail}
-                bookingIdError={this.state.invalidBookingId}
-                showLoadState={this.state.fetchInProgress}
-                onResendTicketsClick={this.resendTicketsForEmail}
-                onDoneClick={this.bookingReservationsFilled}
-              />
-            )
+                <HelpCenterBookingDetailsForm
+                  style={{ padding: 16 }}
+                  emailError={this.state.invalidEmail}
+                  bookingIdError={this.state.invalidBookingId}
+                  showLoadState={this.state.fetchInProgress}
+                  onResendTicketsClick={this.resendTicketsForEmail}
+                  onDoneClick={this.bookingReservationsFilled}
+                />
+              )
           ) : (
-            // Existing Reservation Link View
-            <View style={{flexDirection: 'row', padding: 16, marginTop: 16}}>
-              <Link
-                title="Existing Reservation"
-                style={styles.existingReservationLink}
-                textStyle={styles.existingReservationText}
-                handleClick={this.showExistingeservationHelpFlow}
-              />
-              <ChevronRight
-                width={16}
-                height={16}
-                style={{left: 4, marginTop: 2}}
-              />
-            </View>
-          )}
+              // Existing Reservation Link View
+              <View style={{ flexDirection: 'row', padding: 16, marginTop: 16 }}>
+                <Link
+                  title="Existing Reservation"
+                  style={styles.existingReservationLink}
+                  textStyle={styles.existingReservationText}
+                  handleClick={this.showExistingeservationHelpFlow}
+                />
+                <ChevronRight
+                  width={16}
+                  height={16}
+                  style={{ left: 4, marginTop: 2 }}
+                />
+              </View>
+            )}
           {/* Wallpaper */}
           <View style={styles.wallpaperContainer}>
             <Image
@@ -246,7 +255,7 @@ export default class HelpScreen extends React.PureComponent {
           </View>
           {/* Search Bar */}
           <HelpCenterSearchComponent
-            style={{margin: 16}}
+            style={{ margin: 16 }}
             searchTextEntered={this.searchTextEntered}
             results={this.state.searchResults}
             onSearchTopicClicked={this.openHelpPage}
