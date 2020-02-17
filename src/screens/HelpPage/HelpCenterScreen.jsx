@@ -37,7 +37,7 @@ export default class HelpScreen extends React.PureComponent {
     };
 
     this.searchableItems = [];
-    for (category of HELP_PAGE_CONSTANTS.CATEGORIES) {
+    for (let category of HELP_PAGE_CONSTANTS.CATEGORIES) {
       this.searchableItems.push(...category.OPTIONS);
     }
   }
@@ -116,8 +116,8 @@ export default class HelpScreen extends React.PureComponent {
       this.setState({...this.state, searchResults: []});
       return;
     }
-    lowercaseText = text.toLowerCase();
-    results = this.searchableItems.filter(item => {
+    const lowercaseText = text.toLowerCase();
+    const results = this.searchableItems.filter(item => {
       return item.NAME.toLowerCase().includes(lowercaseText);
     });
 
@@ -229,11 +229,11 @@ export default class HelpScreen extends React.PureComponent {
                 textStyle={styles.existingReservationText}
                 handleClick={this.showExistingeservationHelpFlow}
               />
-              <ChevronRight
+              {/* <ChevronRight
                 width={16}
                 height={16}
                 style={{left: 4, marginTop: 2}}
-              />
+              /> */}
             </View>
           )}
           {/* Wallpaper */}

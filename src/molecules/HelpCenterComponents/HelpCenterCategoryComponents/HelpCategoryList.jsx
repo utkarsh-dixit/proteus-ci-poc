@@ -31,10 +31,10 @@ export default class HelpCategoryList extends React.PureComponent {
             })
         } else {
             // return a maximum of 4 topics
-            countOfTopicsToBeShown = Math.min(topics.length, MAX_VISIBLE_TOPIC_COUNT);
-            views = [];
-            for (i=0; i<countOfTopicsToBeShown; i++) {
-                topic = topics[i];
+            const countOfTopicsToBeShown = Math.min(topics.length, MAX_VISIBLE_TOPIC_COUNT);
+            const views = [];
+            for (let i=0; i<countOfTopicsToBeShown; i++) {
+                const topic = topics[i];
                 views.push(<HelpTopic title={topic.NAME} 
                                 sourceLink={topic.SRC} 
                                 onClick={(title, sourceLink) => {
