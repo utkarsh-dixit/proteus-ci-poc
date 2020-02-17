@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input } from "@headout/aer";
-// import SearchIcon from '../../../assets/icons/search.svg';
+import {search} from "../../../assets/icons";
 import HelpCenterSearchTopic from './HelpCenterSearchTopic';
 
 export default class HelpCenterSearchComponent extends React.PureComponent {
@@ -30,7 +30,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent {
                     style={styles.searchBox}
                     inputStyle={styles.textInput}
                     placeholder={'Search help articles'}
-                    // icon={SearchIcon}
+                    icon={search}
                     onChangeText={searchTextEntered}>
                 </Input>
                 <View style={styles.resultsContainer}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Platform } from 'react-native';
 import FormInputTextField from '../../atoms/common/FormInputTextField'
 import { StyleSheet } from 'react-native';
 import {Link, Button} from '@headout/aer';
@@ -100,6 +100,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         height:48, 
         width:164, 
+        ...Platform.select({
+            web: {
+                paddingTop: 16,
+                paddingBottom: 16
+            }
+        })
     },
     helperLink: {
         fontWeight: "500",

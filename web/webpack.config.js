@@ -31,7 +31,6 @@ const babelLoaderConfiguration = {
                 '@babel/preset-flow',
             ],
             plugins: [
-                'react-native-web',
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-proposal-object-rest-spread',
             ],
@@ -68,8 +67,8 @@ module.exports = {
         rules: [babelLoaderConfiguration, imageLoaderConfiguration],
     },
     externals: [
-        /^react-dom/,
         /^react/,
+        /^react-dom/
     ],
     optimization: {
         usedExports: true,
@@ -86,6 +85,7 @@ module.exports = {
             '.js',
         ],
         alias: {
+            'react-native$': "react-native-web",
             '@headout/aer': path.resolve(rootDir, "node_modules/@headout/aer/dist/libNative.js"),
             '@headout/aer/': path.resolve(rootDir, "node_modules/@headout/aer/dist/libNative.js")
         }

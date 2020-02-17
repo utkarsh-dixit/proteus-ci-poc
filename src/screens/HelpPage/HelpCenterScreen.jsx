@@ -12,7 +12,7 @@ import {
 import {Link} from '@headout/aer';
 import {checkEmail} from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';
-import ChevronRight from '../../assets/icons/chevron-right.svg';
+import {chevronRight as ChevronRight} from '../../assets/icons';
 import {HELP_PAGE_CONSTANTS} from '../HelpPage/HelpPageData/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
@@ -80,7 +80,7 @@ export default class HelpScreen extends React.PureComponent {
   };
 
   bookingReservationsFilled = (bookingId, bookingEmail) => {
-    canFetchBookingDetails = this.validateBookingFieldsAndSetState(
+    const canFetchBookingDetails = this.validateBookingFieldsAndSetState(
       bookingId,
       bookingEmail,
     );
@@ -101,8 +101,8 @@ export default class HelpScreen extends React.PureComponent {
   };
 
   validateBookingFieldsAndSetState = (bookingId, bookingEmail) => {
-    improperEmailInput = bookingEmail === '' || !checkEmail(bookingEmail);
-    improperBookingId = bookingId === '';
+    const improperEmailInput = bookingEmail === '' || !checkEmail(bookingEmail);
+    const improperBookingId = bookingId === '';
     this.setState({
       ...this.setState,
       invalidEmail: improperEmailInput,
@@ -229,11 +229,11 @@ export default class HelpScreen extends React.PureComponent {
                 textStyle={styles.existingReservationText}
                 handleClick={this.showExistingeservationHelpFlow}
               />
-              {/* <ChevronRight
+              <ChevronRight
                 width={16}
                 height={16}
                 style={{left: 4, marginTop: 2}}
-              /> */}
+              />
             </View>
           )}
           {/* Wallpaper */}
