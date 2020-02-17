@@ -1,3 +1,6 @@
+import {Platform} from "react-native";
+import UrlUtils from "../../../util/Network/urlUtils";
+
 export const HELP_PAGE_CONSTANTS = {
 	INPUT: {
 		EMAIL: 'EMAIL',
@@ -178,4 +181,7 @@ export const HELP_PAGE_CONSTANTS = {
 			],
 		},
 	],
+	IMAGES: {
+		WALLPAPER: Platform.OS === "web" ?{uri: `${UrlUtils.getCdnBaseUrl()}/help-page-wallpaper@3x.png?auto=compress&fm=pjpg&w=720`} : require('../../../assets/images/help-page-wallpaper/help-page-wallpaper.png')
+	}
 };

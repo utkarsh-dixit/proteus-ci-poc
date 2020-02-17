@@ -45,13 +45,8 @@ const babelLoaderConfiguration = {
 
 // This is needed for webpack to import static images in JavaScript files.
 const imageLoaderConfiguration = {
-    test: /\.(gif|jpe?g|png|svg)$/,
-    use: {
-        loader: 'url-loader',
-        options: {
-            name: '[name].[ext]',
-        },
-    },
+    test: /\.(jpe?g|png|gif|svg)$/,
+    loader: "url-loader"
 };
 
 module.exports = {
@@ -75,10 +70,6 @@ module.exports = {
     },
     resolve: {
         extensions: [
-            '.web.tsx',
-            '.web.ts',
-            '.web.jsx',
-            '.web.js',
             '.tsx',
             '.ts',
             '.jsx',

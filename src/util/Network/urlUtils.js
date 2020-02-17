@@ -8,6 +8,10 @@ class UrlUtils {
   static getApiBaseUrl() {
     return 'https://www.test-headout.com/';
   }
+
+  static getCdnBaseUrl() {
+    return 'https://cdn-imgix-open.headout.com/proteus';
+  }
 }
 
 export default UrlUtils;

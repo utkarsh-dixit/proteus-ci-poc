@@ -249,7 +249,7 @@ export default class HelpScreen extends React.PureComponent {
           <View style={styles.wallpaperContainer}>
             <Image
               style={styles.wallpaperImage}
-              source={require('../../assets/images/help-page-wallpaper/help-page-wallpaper.png')}
+              source={HELP_PAGE_CONSTANTS.IMAGES.WALLPAPER}
               resizeMode={'cover'}
             />
           </View>
@@ -303,6 +303,6 @@ const styles = StyleSheet.create({
   },
   wallpaperImage: {
     width: '100%',
-    height: '100%',
+    height: 200
   },
 });
