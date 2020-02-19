@@ -31,7 +31,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
     render() {
         const { results, searchTextEntered } = this.props;
         return (
-            <View style={{ backgroundColor: 'white', margin: 16 }}>
+            <View style={styles.searchContainer}>
                 <View style={[styles.searchBox]}>
                     <SearchIcon width={16} height={16} style={{ margin: 16, bottom: 1 }} />
                     <TextInput
@@ -52,6 +52,10 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
 }
 
 const styles = StyleSheet.create({
+    searchContainer: {
+        backgroundColor: 'white',
+        margin: 16
+    },
     searchBox: {
         flexDirection: 'row',
         fontSize: 16,

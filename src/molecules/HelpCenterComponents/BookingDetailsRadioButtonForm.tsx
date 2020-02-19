@@ -16,7 +16,7 @@ interface IState {
     selectedOption: string
 }
 
-export default class BookingDetailsRadioButtonForm extends React.PureComponent<any, IState> {
+export default class BookingDetailsRadioButtonForm extends React.PureComponent<IProps, IState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,8 +94,8 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<a
                     onClick={this.handleSubmitButtonTap}
                 />
                 <Link
-                    style={{ marginTop: 12 }}
-                    textStyle={styles.helperLink}
+                    style={styles.helperLinkContainer}
+                    textStyle={styles.helperLinkTextStyle}
                     title={'Start again'}
                     onClick={this.props.restartBookingHelpFlow}
                 />
@@ -121,11 +121,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#24a1b2',
         borderRadius: 2,
     },
-    helperLink: {
+    helperLinkTextStyle: {
         fontWeight: '500',
         fontSize: 12,
         color: '#24A1B2',
         textAlign: 'left',
         textDecorationLine: 'underline',
     },
+    helperLinkContainer: {
+        marginTop: 12
+    }
 });
