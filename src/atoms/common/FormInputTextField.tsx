@@ -3,8 +3,8 @@ import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOp
 
 interface IProps {
     title: string,
-    subTitle: string,
-    value: string,
+    subTitle?: string,
+    value?: string,
     placeholder: string,
     keyboardType: KeyboardTypeOptions,
     autoCapitalize: 'none' | 'sentences' | 'words' | 'characters',

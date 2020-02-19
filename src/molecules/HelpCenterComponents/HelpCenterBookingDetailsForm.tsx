@@ -56,12 +56,10 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
 
     updateBookingId = (bookingId: string) => {
         this.bookingId = bookingId;
-        console.log("new booking ID:", this.bookingId);
     }
 
     updateBookingEmail = (bookingEmail: string) => {
         this.bookingEmail = bookingEmail;
-        console.log("new booking email:", this.bookingEmail);
     }
 
     onDoneClick = () => {

@@ -9,6 +9,7 @@ import {
     Image,
     NativeModules,
 } from 'react-native';
+import { HEADOUT_CHATBOT_GROUP } from '../../config/index';
 import Link from '../../atoms/common/Link';
 import { checkEmail } from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';
@@ -74,14 +75,14 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
                 bookingId: this.state.bookingId,
                 action: action,
             },
-            '14',
+            HEADOUT_CHATBOT_GROUP,
         );
     };
 
     resendTicketsForEmail = (bookingEmail: string) => {
         NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
             { email: bookingEmail, action: BOOKING_FLOW_HELP_OPTIONS.RESEND },
-            '14',
+            HEADOUT_CHATBOT_GROUP,
         );
     };
 
@@ -99,7 +100,6 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
             bookingId,
             bookingEmail,
         );
-        console.log(`Can fetch for details : ${bookingId}, ${bookingEmail}: ${canFetchBookingDetails}`);
         if (canFetchBookingDetails) {
             // Have to set invalidEmail and invalidBookingId here as well due to asynchronicity issues.
             // The state set in `validateBookingFieldsAndSetState` get overriden here to incorrect values if these two fields
@@ -212,7 +212,6 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
             bookingId,
             bookingEmail,
             exists => {
-                console.log('Finished fetching...', exists);
                 // this.setState({...this.state, fetchInProgress:false, error:"This email and booking ID combination does not exist."})
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
                 if (exists) {
