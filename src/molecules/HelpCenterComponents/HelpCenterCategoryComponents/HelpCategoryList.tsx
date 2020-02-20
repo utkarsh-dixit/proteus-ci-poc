@@ -16,13 +16,10 @@ interface IState {
     isExpanded: boolean
 }
 
-export default class HelpCategoryList extends React.PureComponent<IProps, IState> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isExpanded: false,
-        };
-    }
+export default class HelpCategoryList extends React.PureComponent<IProps> {
+    state: IState = {
+        isExpanded: false,
+    };
 
     linkClicked = (title: string, sourceLink: string) => {
         const { onLinkClicked } = this.props;

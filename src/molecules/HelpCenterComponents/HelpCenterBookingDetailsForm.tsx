@@ -24,19 +24,15 @@ interface IState {
 }
 
 export default class HelpCenterBookingDetailsForm extends React.PureComponent<
-    IProps,
-    IState
+    IProps
     > {
 
     private bookingEmail: string = '';
     private bookingId: string = '';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            bookingIDAvailable: true,
-        };
-    }
+    state: IState = {
+        bookingIDAvailable: true
+    };
 
     helperLinkText = () => {
         if (this.state.bookingIDAvailable) {

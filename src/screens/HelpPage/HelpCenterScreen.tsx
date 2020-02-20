@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import Link from '../../atoms/common/Link';
-import { checkEmail } from '../../util/validationUtil';
+import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
 import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/HelpPage/HelpPageConstants';
@@ -36,23 +36,23 @@ interface IProps {
     rootTag: number
 }
 
-export default class HelpScreen extends React.PureComponent<IProps, IState> {
+export default class HelpScreen extends React.PureComponent<IProps> {
 
     private searchableItems: Array<{ NAME, SRC }> = [];
+    state: IState = {
+        showReservationHelpForm: false,
+        fetchInProgress: false,
+        invalidEmail: false,
+        invalidBookingId: false,
+        error: '',
+        bookingEmail: '',
+        bookingId: '',
+        emailAndBookingIdCombinationFetched: false,
+        searchResults: [],
+    };
 
     constructor(props) {
         super(props);
-        this.state = {
-            showReservationHelpForm: false,
-            fetchInProgress: false,
-            invalidEmail: false,
-            invalidBookingId: false,
-            error: '',
-            bookingEmail: '',
-            bookingId: '',
-            emailAndBookingIdCombinationFetched: false,
-            searchResults: [],
-        };
         for (const category of HELP_PAGE_CATEGORIES) {
             this.searchableItems.push(...category.OPTIONS);
         }
