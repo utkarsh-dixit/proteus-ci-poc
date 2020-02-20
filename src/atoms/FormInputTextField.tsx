@@ -48,24 +48,24 @@ export const FormInputTextField = (props: IProps) => {
 
 const styles = StyleSheet.create({
     titleLabel: {
-        fontStyle: "normal",
-        fontWeight: "700",
+        fontStyle: 'normal',
+        fontWeight: '700',
         fontSize: 16,
-        color: "#545454",
+        color: '#545454',
         paddingBottom: 8
     },
     subTitleLabel: {
-        fontStyle: "normal",
-        fontWeight: "400",
+        fontStyle: 'normal',
+        fontWeight: '400',
         fontSize: 12,
-        color: "#545454",
+        color: '#545454',
         paddingBottom: 8
     },
     errorLabel: {
-        fontStyle: "normal",
-        fontWeight: "400",
+        fontStyle: 'normal',
+        fontWeight: '400',
         fontSize: 12,
-        color: "#ec1943",
+        color: '#ec1943',
         paddingTop: 8
     },
     input: {
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         height: 48,
         borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#dadada",
+        borderStyle: 'solid',
+        borderColor: '#dadada',
         borderRadius: 2
     },
     errorInput: {
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         height: 48,
         borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#ec1943",
+        borderStyle: 'solid',
+        borderColor: '#ec1943',
         borderRadius: 2
     },
     inputContainer: {

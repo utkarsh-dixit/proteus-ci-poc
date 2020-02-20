@@ -20,15 +20,14 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
     }
 
     getSearchResultViews = (results: Array<{ NAME, SRC }>) => {
-        return results.map(helpTopic => {
-            return (
-                <HelpCenterSearchTopic
-                    title={helpTopic.NAME}
-                    sourceLink={helpTopic.SRC}
-                    onClick={this.searchTopicClicked}
-                />
-            );
-        });
+        return results.map(helpTopic => (
+            <HelpCenterSearchTopic
+                title={helpTopic.NAME}
+                sourceLink={helpTopic.SRC}
+                onClick={this.searchTopicClicked}
+            />
+        )
+        );
     };
 
     render() {

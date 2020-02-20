@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import RadioButton from '../../atoms/common/RadioButton';
-import Button from '../../atoms/common/Button';
-import Link from '../../atoms/common/Link';
-import { BOOKING_FLOW_HELP_OPTIONS } from '../../constants/HelpPage/HelpPageConstants';
+import RadioButton from '../../atoms//RadioButton';
+import Button from '../../atoms//Button';
+import Link from '../../atoms/Link';
+import { BOOKING_FLOW_HELP_OPTIONS } from '../../constants/HelpPageConstants';
 
 interface IProps {
     style: any,
@@ -59,7 +59,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
             <View style={this.props.style}>
                 <RadioButton
                     style={styles.radioButton}
-                    text="Check Status"
+                    text='Check Status'
                     isSelected={this.isChecked(BOOKING_FLOW_HELP_OPTIONS.CHECK_STATUS)}
                     onClick={() => {
                         this.handleRadioClick(BOOKING_FLOW_HELP_OPTIONS.CHECK_STATUS);
@@ -67,7 +67,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                 />
                 <RadioButton
                     style={styles.radioButton}
-                    text="Resend Tickets"
+                    text='Resend Tickets'
                     isSelected={this.isChecked(BOOKING_FLOW_HELP_OPTIONS.RESEND)}
                     onClick={() => {
                         this.handleRadioClick(BOOKING_FLOW_HELP_OPTIONS.RESEND);
@@ -75,7 +75,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                 />
                 <RadioButton
                     style={styles.radioButton}
-                    text="Cancel Tickets"
+                    text='Cancel Tickets'
                     isSelected={this.isChecked(BOOKING_FLOW_HELP_OPTIONS.CANCEL_BOOKING)}
                     onClick={() => {
                         this.handleRadioClick(BOOKING_FLOW_HELP_OPTIONS.CANCEL_BOOKING);
@@ -83,7 +83,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                 />
                 <RadioButton
                     style={styles.radioButton}
-                    text="Modify Date/Time"
+                    text='Modify Date/Time'
                     isSelected={this.isChecked(BOOKING_FLOW_HELP_OPTIONS.MODIFY_BOOKING)}
                     onClick={() => {
                         this.handleRadioClick(BOOKING_FLOW_HELP_OPTIONS.MODIFY_BOOKING);

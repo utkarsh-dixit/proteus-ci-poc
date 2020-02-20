@@ -10,11 +10,11 @@ import {
     NativeModules,
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
-import Link from '../../atoms/common/Link';
+import Link from '../../atoms//Link';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
-import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/HelpPage/HelpPageConstants';
+import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
 import BookingDetailsRadioButtonForm from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
@@ -142,16 +142,14 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     // ==== UI METHODS =====================================
     getHelpTopicsContainer = () => {
-        return HELP_PAGE_CATEGORIES.map(category => {
-            return (
-                <HelpPageCategoryList
-                    style={{ paddingLeft: 16, paddingRight: 16 }}
-                    header={category.HEADING}
-                    topics={category.OPTIONS}
-                    onLinkClicked={this.openHelpPage}
-                />
-            );
-        });
+        return HELP_PAGE_CATEGORIES.map(category => (
+            <HelpPageCategoryList
+                style={{ paddingLeft: 16, paddingRight: 16 }}
+                header={category.HEADING}
+                topics={category.OPTIONS}
+                onLinkClicked={this.openHelpPage}
+            />)
+        );
     };
 
     renderExistingReservationHelpForm = () => {
@@ -182,7 +180,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 // Existing Reservation Link View
                 <View style={{ flexDirection: 'row', padding: 16, marginTop: 16 }}>
                     <Link
-                        title="Existing Reservation"
+                        title='Existing Reservation'
                         style={styles.existingReservationLink}
                         textStyle={styles.existingReservationText}
                         onClick={this.showExistingeservationHelpFlow}

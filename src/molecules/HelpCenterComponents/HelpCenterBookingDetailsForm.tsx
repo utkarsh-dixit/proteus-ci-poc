@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import FormInputTextField from '../../atoms/common/FormInputTextField';
-import Button from '../../atoms/common/Button';
+import FormInputTextField from '../../atoms//FormInputTextField';
+import Button from '../../atoms//Button';
 import { StyleSheet } from 'react-native';
-import Link from '../../atoms/common/Link';
+import Link from '../../atoms/Link';
 
 export const BookingDetailError = {
     INVALID_EMAIL: { title: 'Please enter a valid email address.' },
@@ -36,7 +36,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
 
     helperLinkText = () => {
         if (this.state.bookingIDAvailable) {
-            return "I don't have a booking ID";
+            return 'I don\'t have a booking ID';
         } else {
             return 'I have a booking ID';
         }
@@ -80,34 +80,34 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
             <View style={style}>
                 <FormInputTextField
                     style={{ paddingTop: 16, paddingBottom: 16 }}
-                    title="Email"
-                    placeholder="Enter booking email address"
+                    title='Email'
+                    placeholder='Enter booking email address'
                     errorText={emailError ? BookingDetailError.INVALID_EMAIL.title : null}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    returnKeyType="done"
+                    keyboardType='email-address'
+                    autoCapitalize='none'
+                    returnKeyType='done'
                     onChangeText={this.updateBookingEmail}
                 />
                 {this.state.bookingIDAvailable ? (
                     <FormInputTextField
                         style={{ paddingTop: 16, paddingBottom: 16 }}
-                        title="Booking ID"
-                        subTitle="Please check your confirmation email from Headout"
-                        placeholder="Enter your booking ID"
+                        title='Booking ID'
+                        subTitle='Please check your confirmation email from Headout'
+                        placeholder='Enter your booking ID'
                         errorText={
                             bookingIdError
                                 ? BookingDetailError.INVALID_BOOKING_ID.title
                                 : null
                         }
-                        keyboardType="number-pad"
-                        autoCapitalize="none"
-                        returnKeyType="done"
+                        keyboardType='number-pad'
+                        autoCapitalize='none'
+                        returnKeyType='done'
                         onChangeText={this.updateBookingId}
                     />
                 ) : null}
                 {showLoadState ? (
                     <View style={styles.buttonContainer}>
-                        <ActivityIndicator color="white" />
+                        <ActivityIndicator color='white' />
                     </View>
                 ) : (
                         <Button

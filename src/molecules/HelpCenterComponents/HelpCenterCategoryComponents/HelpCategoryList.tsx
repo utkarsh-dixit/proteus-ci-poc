@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Link from '../../../atoms/common/Link';
+import Link from '../../../atoms/Link';
 import HelpTopic from './HelpTopic';
 
 const MAX_VISIBLE_TOPIC_COUNT = 4;
@@ -30,22 +30,22 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
         const { topics } = this.props;
         if (this.state.isExpanded) {
             // return all the topics in that category
-            return topics.map(topic => {
+            return topics.map(topic => (
                 <HelpTopic
                     title={topic.NAME}
                     sourceLink={topic.SRC}
                     onClick={this.linkClicked}
                 />
-            });
+            ));
         } else {
             // return a maximum of 4 topics
-            const views: Array<any> = topics.slice(0, MAX_VISIBLE_TOPIC_COUNT).map(topic => {
+            const views: Array<any> = topics.slice(0, MAX_VISIBLE_TOPIC_COUNT).map(topic => (
                 <HelpTopic
                     title={topic.NAME}
                     sourceLink={topic.SRC}
                     onClick={this.linkClicked}
                 />
-            })
+            ));
             if (topics.length > MAX_VISIBLE_TOPIC_COUNT) {
                 // Need to show a show all button
                 views.push(

@@ -20,7 +20,7 @@ export const RadioButton = (props: IProps) => {
             <View style={(isSelected ? styles.outerCircleSelected : styles.outerCircleUnSelected)}>
                 {isSelected ? (<View style={styles.innerCircle}></View>) : null}
             </View>
-            <Text style={[{ left: 8 }, (isSelected ? styles.selectedText : styles.unselectedText)]}>{text || "<Insert content>"}</Text>
+            <Text style={[{ left: 8 }, (isSelected ? styles.selectedText : styles.unselectedText)]}>{text || '<Insert content>'}</Text>
         </TouchableOpacity>
     )
 }

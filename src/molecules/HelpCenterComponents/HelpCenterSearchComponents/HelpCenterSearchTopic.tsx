@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Link from '../../../atoms/common/Link';
+import Link from '../../../atoms/Link';
 
 interface IProps {
     title: string,
@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
         paddingTop: 8
     },
     topic: {
-        fontWeight: "500",
+        fontWeight: '500',
         fontSize: 16,
-        color: "#545454",
+        color: '#545454',
         padding: 12
     },
     searchTopicSeperator: {
         height: 1.0,
-        backgroundColor: "#545454"
+        backgroundColor: '#545454'
     }
 })

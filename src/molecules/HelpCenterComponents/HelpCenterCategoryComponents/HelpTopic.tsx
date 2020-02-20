@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '../../../atoms/common/Link';
+import Link from '../../../atoms/Link';
 import { StyleSheet } from 'react-native';
 
 interface IProps {
