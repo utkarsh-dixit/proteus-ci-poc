@@ -29,7 +29,7 @@ interface IState {
     bookingEmail: string,
     bookingId: string,
     emailAndBookingIdCombinationFetched: boolean,
-    searchResults: Array<{ NAME, SRC }>,
+    searchResults: Array<{ NAME: string, SRC: string }>,
 }
 
 interface IProps {
@@ -38,7 +38,8 @@ interface IProps {
 
 export default class HelpScreen extends React.PureComponent<IProps> {
 
-    private searchableItems: Array<{ NAME, SRC }> = [];
+    private searchableItemsIndex: Array<{ NAME, SRC }> = [];
+
     state: IState = {
         showReservationHelpForm: false,
         fetchInProgress: false,
@@ -53,9 +54,9 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     constructor(props) {
         super(props);
-        for (const category of HELP_PAGE_CATEGORIES) {
-            this.searchableItems.push(...category.OPTIONS);
-        }
+        HELP_PAGE_CATEGORIES.forEach((category) => {
+            this.searchableItemsIndex.push(...category.OPTIONS)
+        })
     }
 
     // ==== NAVIGATION METHODS =============================
@@ -131,7 +132,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
             return;
         }
         const lowercaseText = text.toLowerCase();
-        const results = this.searchableItems.filter(item => {
+        const results = this.searchableItemsIndex.filter(item => {
             return item.NAME.toLowerCase().includes(lowercaseText);
         });
 
