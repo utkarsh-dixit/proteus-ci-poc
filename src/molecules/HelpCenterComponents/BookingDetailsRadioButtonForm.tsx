@@ -17,18 +17,15 @@ interface IState {
 }
 
 export default class BookingDetailsRadioButtonForm extends React.PureComponent<IProps, IState> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedOption: '',
-        };
-    }
+    state = {
+        selectedOption: '',
+    };
 
-    isChecked = radio => {
+    isChecked = (radio: string) => {
         return radio === this.state.selectedOption;
     };
 
-    handleRadioClick = helpOption => {
+    handleRadioClick = (helpOption: string) => {
         this.setState({ selectedOption: helpOption });
     };
 
@@ -46,10 +43,14 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
     };
 
     handleSubmitButtonTap = () => {
+        const {
+            helpOptionSelectionError,
+            startChatWithAction
+        } = this.props;
         if (this.state.selectedOption === '') {
-            this.props.helpOptionSelectionError('Please select an option');
+            helpOptionSelectionError('Please select an option');
         } else {
-            this.props.startChatWithAction(this.state.selectedOption);
+            startChatWithAction(this.state.selectedOption);
         }
     };
 

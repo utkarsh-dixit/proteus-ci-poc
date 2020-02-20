@@ -12,7 +12,7 @@ import {
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import Link from '../../atoms/common/Link';
 import { checkEmail } from '../../util/validationUtil';
-import HelpThunk from '../../Thunks/HelpThunk';
+import { doesBookingWithEmailAndIDExist } from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
 import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/HelpPage/HelpPageConstants';
 import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
@@ -92,7 +92,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
 
     showExistingeservationHelpFlow = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ ...this.setState, showReservationHelpForm: true, error: '' });
+        this.setState({ showReservationHelpForm: true, error: '' });
     };
 
     bookingReservationsFilled = (bookingId: string, bookingEmail: string) => {
@@ -105,7 +105,6 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
             // The state set in `validateBookingFieldsAndSetState` get overriden here to incorrect values if these two fields
             // are not set.
             this.setState({
-                ...this.state,
                 fetchInProgress: true,
                 invalidEmail: false,
                 invalidBookingId: false,
@@ -120,7 +119,6 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
         const improperEmailInput = bookingEmail === '' || !checkEmail(bookingEmail);
         const improperBookingId = bookingId === '';
         this.setState({
-            ...this.setState,
             invalidEmail: improperEmailInput,
             invalidBookingId: improperBookingId,
         });
@@ -129,7 +127,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
 
     searchTextEntered = (text: string) => {
         if (text === '') {
-            this.setState({ ...this.state, searchResults: [] });
+            this.setState({ searchResults: [] });
             return;
         }
         const lowercaseText = text.toLowerCase();
@@ -137,7 +135,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
             return item.NAME.toLowerCase().includes(lowercaseText);
         });
 
-        this.setState({ ...this.state, searchResults: results });
+        this.setState({ searchResults: results });
     };
     // =====================================================
 
@@ -149,9 +147,7 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
                     style={{ paddingLeft: 16, paddingRight: 16 }}
                     header={category.HEADING}
                     topics={category.OPTIONS}
-                    onLinkClicked={(title, sourceURL) => {
-                        this.openHelpPage(title, sourceURL);
-                    }}
+                    onLinkClicked={this.openHelpPage}
                 />
             );
         });
@@ -201,29 +197,26 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
     };
 
     showError = (errorText: string) => {
-        this.setState({ ...this.state, fetchInProgress: false, error: errorText });
+        this.setState({ fetchInProgress: false, error: errorText });
     };
     // =====================================================
 
     // ==== ACTIONS ========================================
 
-    fetchReservationDetails = async (bookingId, bookingEmail) => {
-        await HelpThunk.doesBookingWithEmailAndIDExist(
+    fetchReservationDetails = async (bookingId: string, bookingEmail: string) => {
+        await doesBookingWithEmailAndIDExist(
             bookingId,
             bookingEmail,
             exists => {
-                // this.setState({...this.state, fetchInProgress:false, error:"This email and booking ID combination does not exist."})
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
                 if (exists) {
                     this.setState({
-                        ...this.state,
                         fetchInProgress: false,
                         emailAndBookingIdCombinationFetched: true,
                         error: '',
                     });
                 } else {
                     this.setState({
-                        ...this.state,
                         fetchInProgress: false,
                         emailAndBookingIdCombinationFetched: false,
                         error: 'This email and booking ID combination does not exist.',
@@ -236,7 +229,6 @@ export default class HelpScreen extends React.PureComponent<IProps, IState> {
     restartBookingHelpFlow = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
-            ...this.state,
             emailAndBookingIdCombinationFetched: false,
             showReservationHelpForm: true,
             error: '',

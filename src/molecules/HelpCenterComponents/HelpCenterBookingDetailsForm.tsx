@@ -62,11 +62,19 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
         this.bookingEmail = bookingEmail;
     }
 
-    onDoneClick = () => {
+    toggleFormView = () => {
+        this.setState({ bookingIDAvailable: !this.state.bookingIDAvailable });
+    }
+
+    formSubmitButtonClicked = () => {
+        const {
+            onDoneClick,
+            onResendTicketsClick
+        } = this.props;
         if (this.state.bookingIDAvailable) {
-            this.props.onDoneClick(this.bookingId, this.bookingEmail);
+            onDoneClick(this.bookingId, this.bookingEmail);
         } else {
-            this.props.onResendTicketsClick(this.bookingEmail);
+            onResendTicketsClick(this.bookingEmail);
         }
     };
 
@@ -109,19 +117,14 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                         <Button
                             style={styles.buttonContainer}
                             title={this.submitButtonText()}
-                            onClick={this.onDoneClick}
+                            onClick={this.formSubmitButtonClicked}
                         />
                     )}
                 <Link
                     style={{ marginTop: 12 }}
                     textStyle={styles.helperLink}
                     title={this.helperLinkText()}
-                    onClick={() => {
-                        this.setState({
-                            ...this.state,
-                            bookingIDAvailable: !this.state.bookingIDAvailable,
-                        });
-                    }}
+                    onClick={this.toggleFormView}
                 />
             </View>
         );

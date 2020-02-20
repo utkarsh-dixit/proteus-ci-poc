@@ -11,7 +11,12 @@ interface IProps {
 export default class HelpCenterSearchTopic extends React.Component<IProps, any> {
 
     openHelpTopic = () => {
-        this.props.onClick(this.props.title, this.props.sourceLink);
+        const {
+            onClick,
+            title,
+            sourceLink
+        } = this.props;
+        onClick(title, sourceLink);
     }
 
     render() {

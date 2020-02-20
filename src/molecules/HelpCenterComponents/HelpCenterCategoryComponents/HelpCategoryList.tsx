@@ -24,28 +24,29 @@ export default class HelpCategoryList extends React.PureComponent<IProps, IState
         };
     }
 
+    linkClicked = (title: string, sourceLink: string) => {
+        const { onLinkClicked } = this.props;
+        onLinkClicked(title, sourceLink);
+    }
+
     getListView = () => {
-        const { topics, onLinkClicked } = this.props;
+        const { topics } = this.props;
         if (this.state.isExpanded) {
             // return all the topics in that category
             return topics.map(topic => {
-                return (
-                    <HelpTopic
-                        title={topic.NAME}
-                        sourceLink={topic.SRC}
-                        onClick={() => (title, sourceLink) => {
-                            onLinkClicked(title, sourceLink);
-                        }}
-                    />
-                );
+                <HelpTopic
+                    title={topic.NAME}
+                    sourceLink={topic.SRC}
+                    onClick={this.linkClicked}
+                />
             });
         } else {
             // return a maximum of 4 topics
-            var views: Array<any> = topics.slice(0, MAX_VISIBLE_TOPIC_COUNT).map(topic => {
-                return <HelpTopic
+            const views: Array<any> = topics.slice(0, MAX_VISIBLE_TOPIC_COUNT).map(topic => {
+                <HelpTopic
                     title={topic.NAME}
                     sourceLink={topic.SRC}
-                    onClick={onLinkClicked}
+                    onClick={this.linkClicked}
                 />
             })
             if (topics.length > MAX_VISIBLE_TOPIC_COUNT) {

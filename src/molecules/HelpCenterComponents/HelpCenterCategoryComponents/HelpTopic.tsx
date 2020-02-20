@@ -11,7 +11,12 @@ interface IProps {
 export default class HelpTopic extends React.PureComponent<IProps, any> {
 
     helpTopicClicked = () => {
-        this.props.onClick(this.props.title, this.props.sourceLink);
+        const {
+            onClick,
+            title,
+            sourceLink
+        } = this.props;
+        onClick(title, sourceLink);
     }
 
     render() {

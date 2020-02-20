@@ -14,38 +14,36 @@ interface IProps {
     style: any
 }
 
-export default class FormInputTextField extends React.PureComponent<IProps, {}> {
-    render() {
-        const {
-            title,
-            subTitle,
-            value,
-            placeholder,
-            keyboardType,
-            autoCapitalize,
-            returnKeyType,
-            onChangeText,
-            errorText,
-            style
-        } = this.props;
-        return (
-            <View style={style}>
-                <Text style={styles.titleLabel}>{title}</Text>
-                {subTitle ? <Text style={styles.subTitleLabel}>{subTitle || ''}</Text> : null}
-                <TextInput
-                    style={errorText ? styles.errorInput : styles.input}
-                    value={value}
-                    autoCorrect={false}
-                    placeholder={placeholder}
-                    keyboardType={keyboardType}
-                    autoCapitalize={autoCapitalize}
-                    returnKeyType={returnKeyType}
-                    onChangeText={onChangeText}>
-                </TextInput>
-                {errorText ? <Text style={styles.errorLabel}>{errorText}</Text> : null}
-            </View>
-        )
-    }
+export const FormInputTextField = (props: IProps) => {
+    const {
+        title,
+        subTitle,
+        value,
+        placeholder,
+        keyboardType,
+        autoCapitalize,
+        returnKeyType,
+        onChangeText,
+        errorText,
+        style
+    } = this.props;
+    return (
+        <View style={style}>
+            <Text style={styles.titleLabel}>{title}</Text>
+            {subTitle ? <Text style={styles.subTitleLabel}>{subTitle || ''}</Text> : null}
+            <TextInput
+                style={errorText ? styles.errorInput : styles.input}
+                value={value}
+                autoCorrect={false}
+                placeholder={placeholder}
+                keyboardType={keyboardType}
+                autoCapitalize={autoCapitalize}
+                returnKeyType={returnKeyType}
+                onChangeText={onChangeText}>
+            </TextInput>
+            {errorText ? <Text style={styles.errorLabel}>{errorText}</Text> : null}
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

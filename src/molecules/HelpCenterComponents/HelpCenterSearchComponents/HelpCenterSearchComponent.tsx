@@ -13,10 +13,13 @@ interface IProps {
 export default class HelpCenterSearchComponent extends React.PureComponent<IProps, any> {
 
     searchTopicClicked = (title: string, sourceLink: string) => {
-        this.props.onSearchTopicClicked(title, sourceLink);
+        const {
+            onSearchTopicClicked
+        } = this.props;
+        onSearchTopicClicked(title, sourceLink);
     }
 
-    getSearchResultViews = (results) => {
+    getSearchResultViews = (results: Array<{ NAME, SRC }>) => {
         return results.map(helpTopic => {
             return (
                 <HelpCenterSearchTopic
