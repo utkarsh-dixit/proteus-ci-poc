@@ -9,7 +9,7 @@ import {
     Image,
     NativeModules,
 } from 'react-native';
-import { HEADOUT_CHATBOT_GROUP } from '../../config/index';
+import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import Link from '../../atoms/common/Link';
 import { checkEmail } from '../../util/validationUtil';
 import HelpThunk from '../../Thunks/HelpThunk';

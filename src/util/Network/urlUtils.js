@@ -1,4 +1,4 @@
-import { BASE_API_URL } from "../../config/index";
+import { BASE_API_URL } from "../../../config";
 class UrlUtils {
     /**
      * Returns internal host for server-side calls, else the public endpoint

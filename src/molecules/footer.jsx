@@ -1,19 +1,19 @@
 import React from "react";
 import { View, StyleSheet, Text, Dimensions } from "react-native";
-import {shadowgiver} from "../util/helpers";
+import { shadowgiver } from "../util/helpers";
 
-export default class Footer extends React.PureComponent{
-    
+export default class Footer extends React.PureComponent {
+
     render() {
         return (
             <View data-sticky data-isfooter style={[styles.container]}>
                 {this.props.items.map((value, index) => {
                     const active = value.id === this.props.active;
-                    const activeColor = this.props.activeColor ? this.props.activeColor: "#ec1943";
+                    const activeColor = this.props.activeColor ? this.props.activeColor : "#ec1943";
                     return (
                         <View key={index} style={styles.item}>
-                            <View style={styles.icon}>{ !active ? value.icon(22, "#545454") : value.icon(22, activeColor)}</View>
-                            <View><Text style={[styles.text, {color: active ? activeColor : "#545454"}]}>{value.text}</Text></View>
+                            <View style={styles.icon}>{!active ? value.icon(22, "#545454") : value.icon(22, activeColor)}</View>
+                            <View><Text style={[styles.text, { color: active ? activeColor : "#545454" }]}>{value.text}</Text></View>
                         </View>
                     );
                 })}

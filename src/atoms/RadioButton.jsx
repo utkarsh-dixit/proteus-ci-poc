@@ -10,14 +10,14 @@ export default class RadioButton extends React.PureComponent {
             onClick
         } = this.props;
         return (
-        <TouchableOpacity 
-            style={[{flexDirection:'row', alignItems:'center'}, this.props.style]}
-            onPress={onClick}>
+            <TouchableOpacity
+                style={[{ flexDirection: 'row', alignItems: 'center' }, this.props.style]}
+                onPress={onClick}>
                 <View style={(isSelected ? styles.outerCircleSelected : styles.outerCircleUnSelected)}>
                     {isSelected ? (<View style={styles.innerCircle}></View>) : null}
                 </View>
-                <Text style={[{left:8}, (isSelected ? styles.selectedText : styles.unselectedText)]}>{text || "<Insert content>"}</Text>
-        </TouchableOpacity>
+                <Text style={[{ left: 8 }, (isSelected ? styles.selectedText : styles.unselectedText)]}>{text || "<Insert content>"}</Text>
+            </TouchableOpacity>
         )
     }
 }
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#24A1B2'
     },
     unselectedText: {
-        color:'#545454',
-        fontSize:16,
+        color: '#545454',
+        fontSize: 16,
     },
     selectedText: {
-        color:'#24A1B2',
-        fontSize:16,
+        color: '#24A1B2',
+        fontSize: 16,
     }
 })
