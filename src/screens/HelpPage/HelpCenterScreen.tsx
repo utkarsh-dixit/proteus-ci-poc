@@ -8,6 +8,7 @@ import {
     View,
     Image,
     NativeModules,
+    Platform,
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import Link from '../../atoms//Link';
@@ -257,7 +258,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
                     onScroll={this.setScrollViewContentOffset}
-                    style={{ paddingTop: 10, marginBottom: 80 }}>
+                    style={styles.scrollContainer}>
                     {/* Header */}
                     <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
@@ -306,6 +307,17 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
+    },
+    scrollContainer: {
+        paddingTop: 10,
+        ...Platform.select({
+            ios: {
+                marginBottom: 80
+            },
+            android: {
+                marginBottom: 20
+            }
+        })
     },
     existingReservationLink: {
         justifyContent: 'flex-start',
