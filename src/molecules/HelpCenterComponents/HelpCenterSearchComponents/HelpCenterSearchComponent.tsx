@@ -42,7 +42,6 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
                     icon={SearchIcon}
                     iconWidth={16}
                     iconHeight={16}
-                    iconStyle={{ margin: 16, bottom: 1 }}
                     onChangeText={searchTextEntered}>
                 </Input>
                 <View style={styles.resultsContainer}>

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: 16,
         color: '#545454',
+        textDecorationLine: "none",
         padding: 12
     },
     searchTopicSeperator: {

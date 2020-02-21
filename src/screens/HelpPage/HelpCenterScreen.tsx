@@ -297,6 +297,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
         color: '#24A1B2',
+        textDecorationLine: "none",
         textAlign: 'left',
     },
     wallpaperContainer: {

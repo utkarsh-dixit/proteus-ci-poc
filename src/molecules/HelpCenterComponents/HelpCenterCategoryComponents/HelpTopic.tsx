@@ -23,7 +23,7 @@ export default class HelpTopic extends React.PureComponent<IProps, any> {
         const { title } = this.props;
         return (
             <Link
-                style={styles.topic}
+                textStyle={styles.topic}
                 title={title}
                 handleClick={this.helpTopicClicked}
             />
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 16,
         color: '#545454',
+        textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
     },

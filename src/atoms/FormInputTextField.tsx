@@ -15,7 +15,7 @@ interface IProps {
     style: any
 }
 
-export const FormInputTextField = (props: IProps) => {
+export default FormInputTextField = (props: IProps) => {
     const {
         title,
         subTitle,
@@ -27,7 +27,7 @@ export const FormInputTextField = (props: IProps) => {
         onChangeText,
         errorText,
         style
-    } = this.props;
+    } = props;
     return (
         <View style={style}>
             <Text style={styles.titleLabel}>{title}</Text>
