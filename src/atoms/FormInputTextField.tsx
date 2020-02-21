@@ -26,7 +26,7 @@ export const FormInputTextField = (props: IProps) => {
         onChangeText,
         errorText,
         style
-    } = this.props;
+    } = props;
     return (
         <View style={style}>
             <Text style={styles.titleLabel}>{title}</Text>

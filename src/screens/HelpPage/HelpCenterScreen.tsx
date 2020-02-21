@@ -19,6 +19,7 @@ import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/H
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
 import BookingDetailsRadioButtonForm from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
 import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
+import { Conditional } from '../../atoms/Conditional';
 
 interface IState {
     showReservationHelpForm: boolean,
@@ -245,9 +246,9 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     {/* Header */}
                     <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
-                    {this.state.error.length > 0 ? (
+                    <Conditional if={this.state.error.length > 0}>
                         <Text style={styles.pageError}>{this.state.error}</Text>
-                    ) : null}
+                    </Conditional>
                     {/* Main Reservation Details Form */}
                     {this.renderExistingReservationHelpForm()}
                     {/* Wallpaper */}

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import SearchIcon from '../../../assets/icons/search.svg';
 import HelpCenterSearchTopic from './HelpCenterSearchTopic';
+import { Conditional } from '../../../atoms/Conditional';
 
 interface IProps {
     style: any
@@ -42,11 +43,11 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
                         onChangeText={searchTextEntered}></TextInput>
                 </View>
                 <View style={styles.resultsContainer}>
-                    {results.length > 0 ? (
+                    <Conditional if={results.length > 0}>
                         <View>
                             {this.getSearchResultViews(results)}
                         </View>
-                    ) : null}
+                    </Conditional>
                 </View>
             </View>
         );

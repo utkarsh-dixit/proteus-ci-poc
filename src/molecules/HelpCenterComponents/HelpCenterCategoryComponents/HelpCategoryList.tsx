@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Link from '../../../atoms/Link';
 import HelpTopic from './HelpTopic';
+import { Conditional } from '../../../atoms/Conditional';
 
 const MAX_VISIBLE_TOPIC_COUNT = 4;
 
@@ -26,40 +27,36 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
         onLinkClicked(title, sourceLink);
     }
 
-    getListView = () => {
+    getAllTopicsForHelpCategory = () => {
         const { topics } = this.props;
-        if (this.state.isExpanded) {
-            // return all the topics in that category
-            return topics.map(topic => (
-                <HelpTopic
-                    title={topic.NAME}
-                    sourceLink={topic.SRC}
-                    onClick={this.linkClicked}
-                />
-            ));
-        } else {
-            // return a maximum of 4 topics
-            const views: Array<any> = topics.slice(0, MAX_VISIBLE_TOPIC_COUNT).map(topic => (
-                <HelpTopic
-                    title={topic.NAME}
-                    sourceLink={topic.SRC}
-                    onClick={this.linkClicked}
-                />
-            ));
-            if (topics.length > MAX_VISIBLE_TOPIC_COUNT) {
-                // Need to show a show all button
-                views.push(
-                    <Link
-                        textStyle={styles.showAllButton}
-                        title={'Show all'}
-                        onClick={() => {
-                            this.setState({ isExpanded: true });
-                        }}
-                    />,
-                );
-            }
-            return views;
-        }
+        return topics.map(topic => (
+            <HelpTopic
+                title={topic.NAME}
+                sourceLink={topic.SRC}
+                onClick={this.linkClicked}
+            />
+        ));
+    }
+
+    getNonExpandedViewForHelpCategory = () => {
+        const { topics } = this.props;
+        return topics.slice(0, MAX_VISIBLE_TOPIC_COUNT).map(topic => (
+            <HelpTopic
+                title={topic.NAME}
+                sourceLink={topic.SRC}
+                onClick={this.linkClicked}
+            />
+        ));
+    }
+
+    getShowAllButton = () => {
+        return <Link
+            textStyle={styles.showAllButton}
+            title={'Show all'}
+            onClick={() => {
+                this.setState({ isExpanded: true });
+            }}
+        />
     };
 
     render() {
@@ -67,7 +64,13 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
         return (
             <View style={style}>
                 <Text style={styles.heading}>{header}</Text>
-                {this.getListView()}
+                <Conditional if={this.state.isExpanded}>
+                    {this.getAllTopicsForHelpCategory()}
+                </Conditional>
+                <Conditional if={!this.state.isExpanded}>
+                    {this.getNonExpandedViewForHelpCategory()}
+                    {this.getShowAllButton()}
+                </Conditional>
             </View>
         );
     }
