@@ -3,15 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import { Input } from "@headout/aer";
 import SearchIcon from '../../../assets/icons/search.svg';
 import HelpCenterSearchTopic from './HelpCenterSearchTopic';
+import { Conditional } from '../../../atoms/Conditional';
 
 interface IProps {
     style: any
     results: Array<{ NAME, SRC }>
+    scrollToYOffset: (y: number) => void
     searchTextEntered: (text: string) => void
     onSearchTopicClicked: (title: string, sourceLink: string) => void
 }
 
 export default class HelpCenterSearchComponent extends React.PureComponent<IProps, any> {
+
+    private _textInput;
 
     searchTopicClicked = (title: string, sourceLink: string) => {
         const {
@@ -31,25 +35,35 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
         );
     };
 
+    scrollSearchBarToTop = () => {
+        const { scrollToYOffset } = this.props;
+        this._textInput.measure((x, y, width, height, pageX, pageY) => {
+            scrollToYOffset(pageY)
+        })
+    }
+
     render() {
         const { results, searchTextEntered } = this.props;
         return (
             <View style={styles.searchContainer}>
                 <Input
+                    ref={component => this._textInput = component}
                     style={styles.searchBox}
                     inputStyle={styles.textInput}
                     placeholder={'Search help articles'}
                     icon={SearchIcon}
                     iconWidth={16}
                     iconHeight={16}
-                    onChangeText={searchTextEntered}>
+                    onChangeText={searchTextEntered}
+                    onFocus={this.scrollSearchBarToTop}
+                >
                 </Input>
                 <View style={styles.resultsContainer}>
-                    {results.length > 0 ? (
+                    <Conditional if={results.length > 0}>
                         <View>
                             {this.getSearchResultViews(results)}
                         </View>
-                    ) : null}
+                    </Conditional>
                 </View>
             </View>
         );

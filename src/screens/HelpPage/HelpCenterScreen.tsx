@@ -19,6 +19,7 @@ import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/H
 import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
 import BookingDetailsRadioButtonForm from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
 import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
+import { Conditional } from '../../atoms/Conditional';
 
 interface IState {
     showReservationHelpForm: boolean,
@@ -39,6 +40,8 @@ interface IProps {
 export default class HelpScreen extends React.PureComponent<IProps> {
 
     private searchableItemsIndex: Array<{ NAME, SRC }> = [];
+    private currentScrollViewYOffset: number = 0;
+    private _scrollView;
 
     state: IState = {
         showReservationHelpForm: false,
@@ -141,6 +144,17 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     // =====================================================
 
     // ==== UI METHODS =====================================
+
+    setScrollViewContentOffset = (event) => {
+        this.currentScrollViewYOffset = event.nativeEvent.contentOffset.y;
+        console.log(this.currentScrollViewYOffset)
+    }
+
+    scrollToYOffset = (y: number) => {
+        console.log("Scrolling to: ", this.currentScrollViewYOffset + y - 20)
+        this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 20, animated: true })
+    }
+
     getHelpTopicsContainer = () => {
         return HELP_PAGE_CATEGORIES.map(category => (
             <HelpPageCategoryList
@@ -178,7 +192,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         } else {
             return (
                 // Existing Reservation Link View
-                <View style={{ flexDirection: 'row', padding: 16, marginTop: 16 }}>
+                <View style={styles.existingReservationContainer}>
                     <Link
                         title='Existing Reservation'
                         style={styles.existingReservationLink}
@@ -240,14 +254,16 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <ScrollView
+                    ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
+                    onScroll={this.setScrollViewContentOffset}
                     style={{ paddingTop: 10, marginBottom: 80 }}>
                     {/* Header */}
                     <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
-                    {this.state.error.length > 0 ? (
+                    <Conditional if={this.state.error.length > 0}>
                         <Text style={styles.pageError}>{this.state.error}</Text>
-                    ) : null}
+                    </Conditional>
                     {/* Main Reservation Details Form */}
                     {this.renderExistingReservationHelpForm()}
                     {/* Wallpaper */}
@@ -264,6 +280,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                         searchTextEntered={this.searchTextEntered}
                         results={this.state.searchResults}
                         onSearchTopicClicked={this.openHelpPage}
+                        scrollToYOffset={this.scrollToYOffset}
                     />
                     {/* Category lists */}
                     {this.getHelpTopicsContainer()}
@@ -299,6 +316,11 @@ const styles = StyleSheet.create({
         color: '#24A1B2',
         textDecorationLine: "none",
         textAlign: 'left',
+    },
+    existingReservationContainer: {
+        flexDirection: 'row',
+        padding: 16,
+        marginTop: 16
     },
     wallpaperContainer: {
         aspectRatio: 375 / 200,

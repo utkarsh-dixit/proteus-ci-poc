@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from '../util/Network/urlUtils'
+import { getApiBaseUrl } from '../util/urlUtils'
 
 export const doesBookingWithEmailAndIDExist = async (bookingId: string, bookingEmail: string, completion: (bookingExists: boolean) => void) => {
     const url = `${getApiBaseUrl()}/api/v5/booking/${bookingId}?emailId=${bookingEmail}`;

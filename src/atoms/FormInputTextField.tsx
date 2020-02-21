@@ -15,7 +15,7 @@ interface IProps {
     style: any
 }
 
-export default FormInputTextField = (props: IProps) => {
+export const FormInputTextField = (props: IProps) => {
     const {
         title,
         subTitle,

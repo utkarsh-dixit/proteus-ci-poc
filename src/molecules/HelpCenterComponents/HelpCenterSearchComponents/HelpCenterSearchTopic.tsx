@@ -26,7 +26,6 @@ export default class HelpCenterSearchTopic extends React.Component<IProps, any> 
         return (
             <View style={styles.container}>
                 <Link textStyle={styles.topic} title={title} handleClick={this.openHelpTopic} />
-                <View style={styles.searchTopicSeperator}></View>
             </View>
         )
     }
@@ -44,9 +43,5 @@ const styles = StyleSheet.create({
         color: '#545454',
         textDecorationLine: "none",
         padding: 12
-    },
-    searchTopicSeperator: {
-        height: 1.0,
-        backgroundColor: '#545454'
     }
 })

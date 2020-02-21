@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import FormInputTextField from '../../atoms/FormInputTextField';
+import {FormInputTextField} from '../../atoms/FormInputTextField';
 import {Link, Button} from '@headout/aer';
+
+import { Conditional } from '../../atoms/Conditional';
 
 export const BookingDetailError = {
     INVALID_EMAIL: { title: 'Please enter a valid email address.' },
@@ -86,7 +89,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                     returnKeyType='done'
                     onChangeText={this.updateBookingEmail}
                 />
-                {this.state.bookingIDAvailable ? (
+                <Conditional if={this.state.bookingIDAvailable}>
                     <FormInputTextField
                         style={{ paddingTop: 16, paddingBottom: 16 }}
                         title='Booking ID'
@@ -102,18 +105,19 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                         returnKeyType='done'
                         onChangeText={this.updateBookingId}
                     />
-                ) : null}
-                {showLoadState ? (
+                </Conditional>
+                <Conditional if={showLoadState}>
                     <View style={styles.buttonContainer}>
                         <ActivityIndicator color='white' />
                     </View>
-                ) : (
-                        <Button
-                            style={styles.buttonContainer}
-                            title={this.submitButtonText()}
-                            handleClick={this.formSubmitButtonClicked}
-                        />
-                    )}
+
+                </Conditional>
+                <Conditional if={!showLoadState}>
+                    <Button
+                        style={styles.buttonContainer}
+                        title={this.submitButtonText()}
+                        handleClick={this.formSubmitButtonClicked} />
+                </Conditional>
                 <Link
                     style={{ marginTop: 12 }}
                     textStyle={styles.helperLink}
