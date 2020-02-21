@@ -9,7 +9,7 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "build:web": "webpack-cli --config ./web/webpack.config.js -p"
+    "build:web": "webpack-cli --config ./web/webpack.config.js"
   },
   "dependencies": {
     "@babel/cli": "^7.0.0",

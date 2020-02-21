@@ -1,5 +1,6 @@
 const path = require('path');
 const rootDir = path.join(__dirname, '..');
+const webpack = require('webpack');
 const webpackEnv = process.env.NODE_ENV || 'development';
 var nodeExternals = require('webpack-node-externals');
 
@@ -9,7 +10,7 @@ const babelLoaderConfiguration = {
         path.resolve(__dirname, 'index.js'),
         path.resolve(rootDir, 'src'),
         path.resolve(rootDir, 'node_modules/@headout/aer'),
-        path.resolve(rootDir, 'node_modules/react-native-uncompiled'),
+        path.resolve(rootDir, 'node_modules/react-native')
     ],
 
     // Add every directory that needs to be compiled by Babel during the build.
@@ -31,6 +32,7 @@ const babelLoaderConfiguration = {
                 '@babel/preset-flow',
             ],
             plugins: [
+                'react-native-web',
                 '@babel/plugin-proposal-class-properties',
                 '@babel/plugin-proposal-object-rest-spread',
             ],
@@ -55,15 +57,15 @@ module.exports = {
     output: {
         path: path.resolve(rootDir, 'build'),
         filename: 'web.bundle.js',
-        library: 'libpack',
+        library: 'proteus',
         libraryTarget: 'umd',
     },
     module: {
         rules: [babelLoaderConfiguration, imageLoaderConfiguration],
     },
     externals: [
-        /^react/,
-        /^react-dom/
+        "react",
+        /^react-dom$/
     ],
     optimization: {
         usedExports: true,
@@ -75,8 +77,9 @@ module.exports = {
             '.jsx',
             '.js',
         ],
+        modules: [path.resolve(rootDir, 'node_modules')],
         alias: {
-            'react-native$': "react-native-web",
+            'react-native-svg$': 'react-native-web-svg',
             '@headout/aer': path.resolve(rootDir, "node_modules/@headout/aer/dist/libNative.js"),
             '@headout/aer/': path.resolve(rootDir, "node_modules/@headout/aer/dist/libNative.js")
         }
