@@ -7,11 +7,14 @@ import { Conditional } from '../../../atoms/Conditional';
 interface IProps {
     style: any
     results: Array<{ NAME, SRC }>
+    scrollToYOffset: (y: number) => void
     searchTextEntered: (text: string) => void
     onSearchTopicClicked: (title: string, sourceLink: string) => void
 }
 
 export default class HelpCenterSearchComponent extends React.PureComponent<IProps, any> {
+
+    private _textInput;
 
     searchTopicClicked = (title: string, sourceLink: string) => {
         const {
@@ -31,6 +34,13 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
         );
     };
 
+    scrollSearchBarToTop = () => {
+        const { scrollToYOffset } = this.props;
+        this._textInput.measure((x, y, width, height, pageX, pageY) => {
+            scrollToYOffset(pageY)
+        })
+    }
+
     render() {
         const { results, searchTextEntered } = this.props;
         return (
@@ -38,9 +48,12 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
                 <View style={[styles.searchBox]}>
                     <SearchIcon width={16} height={16} style={{ margin: 16, bottom: 1 }} />
                     <TextInput
+                        ref={component => this._textInput = component}
                         style={styles.textInput}
                         placeholder={'Search help articles'}
-                        onChangeText={searchTextEntered}></TextInput>
+                        onChangeText={searchTextEntered}
+                        onFocus={this.scrollSearchBarToTop}
+                    ></TextInput>
                 </View>
                 <View style={styles.resultsContainer}>
                     <Conditional if={results.length > 0}>
