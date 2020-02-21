@@ -75,7 +75,7 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
                 <Conditional if={!this.state.isExpanded}>
                     {this.getNonExpandedViewForHelpCategory()}
                 </Conditional>
-                <Conditional if={this.canShowExpandButton}>
+                <Conditional if={this.canShowExpandButton()}>
                     {this.getShowAllButton()}
                 </Conditional>
             </View>
