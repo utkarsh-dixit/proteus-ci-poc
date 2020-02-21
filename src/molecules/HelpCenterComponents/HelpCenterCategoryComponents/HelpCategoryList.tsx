@@ -59,6 +59,11 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
         />
     };
 
+    canShowExpandButton = () => {
+        const { topics } = this.props
+        return topics.length > MAX_VISIBLE_TOPIC_COUNT && !this.state.isExpanded
+    }
+
     render() {
         const { style, header } = this.props;
         return (
@@ -69,6 +74,8 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
                 </Conditional>
                 <Conditional if={!this.state.isExpanded}>
                     {this.getNonExpandedViewForHelpCategory()}
+                </Conditional>
+                <Conditional if={this.canShowExpandButton}>
                     {this.getShowAllButton()}
                 </Conditional>
             </View>
