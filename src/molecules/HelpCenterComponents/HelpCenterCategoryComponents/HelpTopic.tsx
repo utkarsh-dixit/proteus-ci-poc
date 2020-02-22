@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '../../../atoms/Link';
+import {Link} from '@headout/aer';
 import { StyleSheet } from 'react-native';
 
 interface IProps {
@@ -23,9 +23,9 @@ export default class HelpTopic extends React.PureComponent<IProps, any> {
         const { title } = this.props;
         return (
             <Link
-                style={styles.topic}
+                textStyle={styles.topic}
                 title={title}
-                onClick={this.helpTopicClicked}
+                handleClick={this.helpTopicClicked}
             />
         );
     }
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 16,
         color: '#545454',
+        textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
     },

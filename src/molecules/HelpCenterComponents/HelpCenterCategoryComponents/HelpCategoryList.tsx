@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Link from '../../../atoms/Link';
+import {Link} from '@headout/aer';
 import HelpTopic from './HelpTopic';
 import { Conditional } from '../../../atoms/Conditional';
 
@@ -53,7 +53,7 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
         return <Link
             textStyle={styles.showAllButton}
             title={'Show all'}
-            onClick={() => {
+            handleClick={() => {
                 this.setState({ isExpanded: true });
             }}
         />
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 16,
         color: '#24a1b2',
+        textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
     },

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Input } from "@headout/aer";
 import SearchIcon from '../../../assets/icons/search.svg';
 import HelpCenterSearchTopic from './HelpCenterSearchTopic';
 import { Conditional } from '../../../atoms/Conditional';
@@ -45,16 +46,18 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
         const { results, searchTextEntered } = this.props;
         return (
             <View style={styles.searchContainer}>
-                <View style={[styles.searchBox]}>
-                    <SearchIcon width={16} height={16} style={{ margin: 16, bottom: 1 }} />
-                    <TextInput
-                        ref={component => this._textInput = component}
-                        style={styles.textInput}
-                        placeholder={'Search help articles'}
-                        onChangeText={searchTextEntered}
-                        onFocus={this.scrollSearchBarToTop}
-                    ></TextInput>
-                </View>
+                <Input
+                    ref={component => this._textInput = component}
+                    style={styles.searchBox}
+                    inputStyle={styles.textInput}
+                    placeholder={'Search help articles'}
+                    icon={SearchIcon}
+                    iconWidth={16}
+                    iconHeight={16}
+                    onChangeText={searchTextEntered}
+                    onFocus={this.scrollSearchBarToTop}
+                >
+                </Input>
                 <View style={styles.resultsContainer}>
                     <Conditional if={results.length > 0}>
                         <View>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Link from '../../../atoms/Link';
+import {Link} from '@headout/aer';
 
 interface IProps {
     title: string,
@@ -25,7 +25,7 @@ export default class HelpCenterSearchTopic extends React.Component<IProps, any> 
         } = this.props;
         return (
             <View style={styles.container}>
-                <Link textStyle={styles.topic} title={title} onClick={this.openHelpTopic} />
+                <Link textStyle={styles.topic} title={title} handleClick={this.openHelpTopic} />
             </View>
         )
     }
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: 16,
         color: '#545454',
+        textDecorationLine: "none",
         padding: 12
     }
 })

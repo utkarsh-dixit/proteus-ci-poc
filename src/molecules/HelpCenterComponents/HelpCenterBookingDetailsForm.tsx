@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { FormInputTextField } from '../../atoms/FormInputTextField';
-import Button from '../../atoms//Button';
-import { StyleSheet } from 'react-native';
-import Link from '../../atoms/Link';
+
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import {FormInputTextField} from '../../atoms/FormInputTextField';
+import {Link, Button} from '@headout/aer';
+
 import { Conditional } from '../../atoms/Conditional';
 
 export const BookingDetailError = {
@@ -110,18 +110,19 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                     <View style={styles.buttonContainer}>
                         <ActivityIndicator color='white' />
                     </View>
+
                 </Conditional>
                 <Conditional if={!showLoadState}>
                     <Button
                         style={styles.buttonContainer}
                         title={this.submitButtonText()}
-                        onClick={this.formSubmitButtonClicked} />
+                        handleClick={this.formSubmitButtonClicked} />
                 </Conditional>
                 <Link
                     style={{ marginTop: 12 }}
                     textStyle={styles.helperLink}
                     title={this.helperLinkText()}
-                    onClick={this.toggleFormView}
+                    handleClick={this.toggleFormView}
                 />
             </View>
         );

@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import RadioButton from '../../atoms//RadioButton';
-import Button from '../../atoms//Button';
-import Link from '../../atoms/Link';
+import RadioButton from '../../atoms/RadioButton';
+import { Link, Button } from '@headout/aer';
 import { BOOKING_FLOW_HELP_OPTIONS } from '../../constants/HelpPageConstants';
 
 interface IProps {
@@ -92,13 +91,13 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                 <Button
                     style={styles.buttonContainer}
                     title={this.submitButtonText()}
-                    onClick={this.handleSubmitButtonTap}
+                    handleClick={this.handleSubmitButtonTap}
                 />
                 <Link
                     style={styles.helperLinkContainer}
                     textStyle={styles.helperLinkTextStyle}
                     title={'Start again'}
-                    onClick={this.props.restartBookingHelpFlow}
+                    handleClick={this.props.restartBookingHelpFlow}
                 />
             </View>
         );

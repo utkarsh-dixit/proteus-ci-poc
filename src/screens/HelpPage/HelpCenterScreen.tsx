@@ -11,7 +11,7 @@ import {
     Platform,
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
-import Link from '../../atoms//Link';
+import {Link} from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
@@ -198,7 +198,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                         title='Existing Reservation'
                         style={styles.existingReservationLink}
                         textStyle={styles.existingReservationText}
-                        onClick={this.showExistingeservationHelpFlow}
+                        handleClick={this.showExistingeservationHelpFlow}
                     />
                     <ChevronRight
                         width={16}
@@ -326,6 +326,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
         color: '#24A1B2',
+        textDecorationLine: "none",
         textAlign: 'left',
     },
     existingReservationContainer: {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions } from 'react-native';
+import { View, Text, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions } from 'react-native';
+import {Input} from "@headout/aer";
 
 interface IProps {
     title: string,
@@ -31,7 +32,7 @@ export const FormInputTextField = (props: IProps) => {
         <View style={style}>
             <Text style={styles.titleLabel}>{title}</Text>
             {subTitle ? <Text style={styles.subTitleLabel}>{subTitle || ''}</Text> : null}
-            <TextInput
+            <Input
                 style={errorText ? styles.errorInput : styles.input}
                 value={value}
                 autoCorrect={false}
@@ -40,7 +41,7 @@ export const FormInputTextField = (props: IProps) => {
                 autoCapitalize={autoCapitalize}
                 returnKeyType={returnKeyType}
                 onChangeText={onChangeText}>
-            </TextInput>
+            </Input>
             {errorText ? <Text style={styles.errorLabel}>{errorText}</Text> : null}
         </View>
     )
