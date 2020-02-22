@@ -38,7 +38,7 @@
         "react-native-web-svg": "^1.0.0",
         "rimraf": "^3.0.0",
         "typescript": "^3.7.2",
-        "@headout/aer": "git+https://79a51ca7a1dd4d382d4719fc1e4f50f24605ab7a:x-oauth-basic@github.com/headout/aer.git#ft-react-native",
+        "@headout/aer": "git+https://79a51ca7a1dd4d382d4719fc1e4f50f24605ab7a:x-oauth-basic@github.com/headout/aer.git#ft-react-native"
     },
     "devDependencies": {
         "@react-native-community/eslint-config": "^0.0.5",
