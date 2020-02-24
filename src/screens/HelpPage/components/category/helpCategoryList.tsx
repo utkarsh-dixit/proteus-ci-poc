@@ -1,20 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import { Link } from '@headout/aer';
-import HelpTopic from './HelpTopic';
-import { Conditional } from '../../../atoms/Conditional';
+import HelpTopic from './helpTopic';
+import { Conditional } from '../../../../atoms/conditional';
 
 const MAX_VISIBLE_TOPIC_COUNT = 4;
 
 interface IProps {
-    style: any,
-    header: string,
-    topics: Array<{ NAME, SRC }>,
-    onLinkClicked: (title: string, sourceLink: string) => void,
+    style: ViewStyle;
+    header: string;
+    topics: Array<{ NAME: string; SRC: string }>;
+    onLinkClicked: (title: string, sourceLink: string) => void;
 }
 
 interface IState {
-    isExpanded: boolean
+    isExpanded: boolean;
 }
 
 export default class HelpCategoryList extends React.PureComponent<IProps> {
@@ -61,18 +61,20 @@ export default class HelpCategoryList extends React.PureComponent<IProps> {
 
     canShowExpandButton = () => {
         const { topics } = this.props
-        return topics.length > MAX_VISIBLE_TOPIC_COUNT && !this.state.isExpanded
+        const { isExpanded } = this.state
+        return topics.length > MAX_VISIBLE_TOPIC_COUNT && !isExpanded
     }
 
     render() {
         const { style, header } = this.props;
+        const { isExpanded } = this.state
         return (
             <View style={style}>
                 <Text style={styles.heading}>{header}</Text>
-                <Conditional if={this.state.isExpanded}>
+                <Conditional if={isExpanded}>
                     {this.getAllTopicsForHelpCategory()}
                 </Conditional>
-                <Conditional if={!this.state.isExpanded}>
+                <Conditional if={!isExpanded}>
                     {this.getNonExpandedViewForHelpCategory()}
                 </Conditional>
                 <Conditional if={this.canShowExpandButton()}>

@@ -1,14 +1,14 @@
 import React from 'react';
-import {Link} from '@headout/aer';
+import { Link } from '@headout/aer';
 import { StyleSheet } from 'react-native';
 
 interface IProps {
-    title: string,
-    sourceLink: string,
-    onClick: (title: string, sourceLink: string) => void
+    title: string;
+    sourceLink: string;
+    onClick: (title: string, sourceLink: string) => void;
 }
 
-export default class HelpTopic extends React.PureComponent<IProps, any> {
+export default class HelpTopic extends React.PureComponent<IProps> {
 
     helpTopicClicked = () => {
         const {

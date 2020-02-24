@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import {Link} from '@headout/aer';
+import { Link } from '@headout/aer';
 
 interface IProps {
-    title: string,
-    sourceLink: string,
-    onClick: (title: string, sourceLink: string) => void
+    title: string;
+    sourceLink: string;
+    onClick: (title: string, sourceLink: string) => void;
 }
 
-export default class HelpCenterSearchTopic extends React.Component<IProps, any> {
+export default class HelpCenterSearchItem extends React.Component<IProps> {
 
     openHelpTopic = () => {
         const {

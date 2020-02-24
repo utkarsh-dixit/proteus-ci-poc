@@ -1,19 +1,19 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Input } from "@headout/aer";
-import SearchIcon from '../../../assets/icons/search.svg';
-import HelpCenterSearchTopic from './HelpCenterSearchTopic';
-import { Conditional } from '../../../atoms/Conditional';
+import SearchIcon from '../../../../assets/icons/search';
+import HelpCenterSearchItem from './helpCenterSearchItem';
+import { Conditional } from '../../../../atoms/conditional';
 
 interface IProps {
-    style: any
-    results: Array<{ NAME, SRC }>
-    scrollToYOffset: (y: number) => void
-    searchTextEntered: (text: string) => void
-    onSearchTopicClicked: (title: string, sourceLink: string) => void
+    style: ViewStyle;
+    results: Array<{ NAME: string, SRC: string }>;
+    scrollToYOffset: (y: number) => void;
+    searchTextEntered: (text: string) => void;
+    onSearchTopicClicked: (title: string, sourceLink: string) => void;
 }
 
-export default class HelpCenterSearchComponent extends React.PureComponent<IProps, any> {
+export default class HelpCenterSearchComponent extends React.PureComponent<IProps> {
 
     private _textInput;
 
@@ -24,9 +24,9 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
         onSearchTopicClicked(title, sourceLink);
     }
 
-    getSearchResultViews = (results: Array<{ NAME, SRC }>) => {
+    getSearchResultViews = (results: Array<{ NAME: string, SRC: string }>) => {
         return results.map(helpTopic => (
-            <HelpCenterSearchTopic
+            <HelpCenterSearchItem
                 title={helpTopic.NAME}
                 sourceLink={helpTopic.SRC}
                 onClick={this.searchTopicClicked}

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions, Platform, ViewStyle } from 'react-native';
 import { Input } from "@headout/aer";
 
@@ -15,7 +15,7 @@ interface IProps {
     style: ViewStyle;
 }
 
-export const FormInputTextField = (props: IProps): ReactElement => {
+export const FormInputTextField = (props: IProps) => {
     const {
         title,
         subTitle,

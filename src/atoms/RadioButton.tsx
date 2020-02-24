@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
     onClick: () => void;
 }
 
-export const RadioButton = (props: IProps): ReactElement => {
+export const RadioButton = (props: IProps) => {
     const {
         isSelected,
         text,

@@ -1,18 +1,18 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import RadioButton from '../../atoms/RadioButton';
+import { View, StyleSheet, ViewStyle } from 'react-native';
+import { RadioButton } from '../../../atoms/radioButton';
 import { Link, Button } from '@headout/aer';
-import { BOOKING_FLOW_HELP_OPTIONS } from '../../constants/HelpPageConstants';
+import { BOOKING_FLOW_HELP_OPTIONS } from '../../../constants/helpPageConstants';
 
 interface IProps {
-    style: any,
-    startChatWithAction: (helpOption: string) => void
-    restartBookingHelpFlow: () => void
-    helpOptionSelectionError: (errorMessage: string) => void
+    style: ViewStyle;
+    startChatWithAction: (helpOption: string) => void;
+    restartBookingHelpFlow: () => void;
+    helpOptionSelectionError: (errorMessage: string) => void;
 }
 
 interface IState {
-    selectedOption: string
+    selectedOption: string;
 }
 
 export default class BookingDetailsRadioButtonForm extends React.PureComponent<IProps, IState> {
@@ -21,7 +21,8 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
     };
 
     isChecked = (radio: string) => {
-        return radio === this.state.selectedOption;
+        const { selectedOption } = this.state;
+        return radio === selectedOption;
     };
 
     handleRadioClick = (helpOption: string) => {
@@ -29,7 +30,8 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
     };
 
     submitButtonText = () => {
-        switch (this.state.selectedOption) {
+        const { selectedOption } = this.state;
+        switch (selectedOption) {
             case BOOKING_FLOW_HELP_OPTIONS.CHECK_STATUS:
             case BOOKING_FLOW_HELP_OPTIONS.CANCEL_BOOKING:
             case BOOKING_FLOW_HELP_OPTIONS.MODIFY_BOOKING:
@@ -46,16 +48,21 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
             helpOptionSelectionError,
             startChatWithAction
         } = this.props;
-        if (this.state.selectedOption === '') {
+        const { selectedOption } = this.state;
+        if (selectedOption === '') {
             helpOptionSelectionError('Please select an option');
         } else {
-            startChatWithAction(this.state.selectedOption);
+            startChatWithAction(selectedOption);
         }
     };
 
     render() {
+        const {
+            style,
+            restartBookingHelpFlow
+        } = this.props;
         return (
-            <View style={this.props.style}>
+            <View style={style}>
                 <RadioButton
                     style={styles.radioButton}
                     text='Check Status'
@@ -97,7 +104,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                     style={styles.helperLinkContainer}
                     textStyle={styles.helperLinkTextStyle}
                     title={'Start again'}
-                    handleClick={this.props.restartBookingHelpFlow}
+                    handleClick={restartBookingHelpFlow}
                 />
             </View>
         );

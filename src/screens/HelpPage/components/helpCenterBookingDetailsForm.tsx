@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { View, ActivityIndicator, StyleSheet, Platform } from 'react-native';
-import {FormInputTextField} from '../../atoms/FormInputTextField';
-import {Link, Button} from '@headout/aer';
+import { View, ActivityIndicator, StyleSheet, Platform, ViewStyle } from 'react-native';
+import { FormInputTextField } from '../../../atoms/formInputTextField';
+import { Link, Button } from '@headout/aer';
 
-import { Conditional } from '../../atoms/Conditional';
+import { Conditional } from '../../../atoms/conditional';
 
 export const BookingDetailError = {
     INVALID_EMAIL: { title: 'Please enter a valid email address.' },
@@ -12,7 +12,7 @@ export const BookingDetailError = {
 };
 
 interface IProps {
-    style: any;
+    style: ViewStyle;
     emailError: boolean;
     bookingIdError: boolean;
     showLoadState: boolean;
@@ -28,15 +28,18 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
     IProps
     > {
 
-    private bookingEmail: string = '';
-    private bookingId: string = '';
+    private bookingEmail = '';
+    private bookingId = '';
 
     state: IState = {
         bookingIDAvailable: true
     };
 
     helperLinkText = () => {
-        if (this.state.bookingIDAvailable) {
+        const {
+            bookingIDAvailable
+        } = this.state;
+        if (bookingIDAvailable) {
             return 'I don\'t have a booking ID';
         } else {
             return 'I have a booking ID';
@@ -44,7 +47,10 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
     };
 
     submitButtonText = () => {
-        if (this.state.bookingIDAvailable) {
+        const {
+            bookingIDAvailable
+        } = this.state;
+        if (bookingIDAvailable) {
             return 'Get Help';
         } else {
             return 'Resend Tickets';
@@ -60,7 +66,10 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
     }
 
     toggleFormView = () => {
-        this.setState({ bookingIDAvailable: !this.state.bookingIDAvailable });
+        const {
+            bookingIDAvailable
+        } = this.state;
+        this.setState({ bookingIDAvailable: !bookingIDAvailable });
     }
 
     formSubmitButtonClicked = () => {
@@ -68,7 +77,10 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
             onDoneClick,
             onResendTicketsClick
         } = this.props;
-        if (this.state.bookingIDAvailable) {
+        const {
+            bookingIDAvailable
+        } = this.state;
+        if (bookingIDAvailable) {
             onDoneClick(this.bookingId, this.bookingEmail);
         } else {
             onResendTicketsClick(this.bookingEmail);
@@ -77,6 +89,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
 
     render() {
         const { style, showLoadState, emailError, bookingIdError } = this.props;
+        const { bookingIDAvailable } = this.state;
         return (
             <View style={style}>
                 <FormInputTextField
@@ -89,7 +102,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                     returnKeyType='done'
                     onChangeText={this.updateBookingEmail}
                 />
-                <Conditional if={this.state.bookingIDAvailable}>
+                <Conditional if={bookingIDAvailable}>
                     <FormInputTextField
                         style={{ paddingTop: 16, paddingBottom: 16 }}
                         title='Booking ID'

@@ -13,35 +13,35 @@ import {
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import { Link } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
-import { doesBookingWithEmailAndIDExist } from '../../Thunks/HelpThunk';
+import { doesBookingWithEmailAndIDExist } from '../../thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
-import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/HelpPageConstants';
-import HelpCenterBookingDetailsForm from '../../molecules/HelpCenterComponents/HelpCenterBookingDetailsForm';
-import HelpPageCategoryList from '../../molecules/HelpCenterComponents/HelpCenterCategoryComponents/HelpCategoryList';
-import BookingDetailsRadioButtonForm from '../../molecules/HelpCenterComponents/BookingDetailsRadioButtonForm';
-import HelpCenterSearchComponent from '../../molecules/HelpCenterComponents/HelpCenterSearchComponents/HelpCenterSearchComponent';
-import { Conditional } from '../../atoms/Conditional';
+import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/helpPageConstants';
+import HelpCenterBookingDetailsForm from './components/helpCenterBookingDetailsForm';
+import HelpPageCategoryList from './components/category/helpCategoryList';
+import BookingDetailsRadioButtonForm from './components/bookingDetailsRadioButtonForm';
+import HelpCenterSearchComponent from './components/search/helpCenterSearch';
+import { Conditional } from '../../atoms/conditional';
 
 interface IState {
-    showReservationHelpForm: boolean,
-    fetchInProgress: boolean,
-    invalidEmail: boolean,
-    invalidBookingId: boolean,
-    error: string,
-    bookingEmail: string,
-    bookingId: string,
-    emailAndBookingIdCombinationFetched: boolean,
-    searchResults: Array<{ NAME: string, SRC: string }>,
+    showReservationHelpForm: boolean;
+    fetchInProgress: boolean;
+    invalidEmail: boolean;
+    invalidBookingId: boolean;
+    error: string;
+    bookingEmail: string;
+    bookingId: string;
+    emailAndBookingIdCombinationFetched: boolean;
+    searchResults: Array<{ NAME: string; SRC: string }>;
 }
 
 interface IProps {
-    rootTag: number
+    rootTag: number;
 }
 
 export default class HelpScreen extends React.PureComponent<IProps> {
 
-    private searchableItemsIndex: Array<{ NAME, SRC }> = [];
-    private currentScrollViewYOffset: number = 0;
+    private searchableItemsIndex: Array<{ NAME: string; SRC: string }> = [];
+    private currentScrollViewYOffset = 0;
     private _scrollView;
 
     state: IState = {
@@ -65,26 +65,33 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     // ==== NAVIGATION METHODS =============================
 
-    openHelpPage = (title: string, sourceURL: string) => {
+    openHelpPage = (title: string, sourceURL: string): void => {
+        const {
+            rootTag
+        } = this.props;
         NativeModules.HelpCenterNativeBridge.openLink(
             sourceURL,
             title,
-            this.props.rootTag,
+            rootTag,
         );
     };
 
-    startChatWithAction = (action: string) => {
+    startChatWithAction = (action: string): void => {
+        const {
+            bookingEmail,
+            bookingId
+        } = this.state;
         NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
             {
-                email: this.state.bookingEmail,
-                bookingId: this.state.bookingId,
+                email: bookingEmail,
+                bookingId: bookingId,
                 action: action,
             },
             HEADOUT_CHATBOT_GROUP,
         );
     };
 
-    resendTicketsForEmail = (bookingEmail: string) => {
+    resendTicketsForEmail = (bookingEmail: string): void => {
         NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
             { email: bookingEmail, action: BOOKING_FLOW_HELP_OPTIONS.RESEND },
             HEADOUT_CHATBOT_GROUP,
@@ -95,12 +102,12 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     // ==== STATE MODIFICATION METHODS =====================
 
-    showExistingeservationHelpFlow = () => {
+    showExistingeservationHelpFlow = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ showReservationHelpForm: true, error: '' });
     };
 
-    bookingReservationsFilled = (bookingId: string, bookingEmail: string) => {
+    bookingReservationsFilled = (bookingId: string, bookingEmail: string): void => {
         const canFetchBookingDetails = this.validateBookingFieldsAndSetState(
             bookingId,
             bookingEmail,
@@ -120,7 +127,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         }
     };
 
-    validateBookingFieldsAndSetState = (bookingId: string, bookingEmail: string) => {
+    validateBookingFieldsAndSetState = (bookingId: string, bookingEmail: string): boolean => {
         const improperEmailInput = bookingEmail === '' || !checkEmail(bookingEmail);
         const improperBookingId = bookingId === '';
         this.setState({
@@ -130,7 +137,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         return !improperBookingId && !improperEmailInput;
     };
 
-    searchTextEntered = (text: string) => {
+    searchTextEntered = (text: string): void => {
         if (text === '') {
             this.setState({ searchResults: [] });
             return;
@@ -146,15 +153,15 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     // ==== UI METHODS =====================================
 
-    setScrollViewContentOffset = (event) => {
+    setScrollViewContentOffset = (event): void => {
         this.currentScrollViewYOffset = event.nativeEvent.contentOffset.y;
     }
 
-    scrollToYOffset = (y: number) => {
+    scrollToYOffset = (y: number): void => {
         this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 20, animated: true })
     }
 
-    getHelpTopicsContainer = () => {
+    getHelpTopicsContainer = (): JSX.Element[] => {
         return HELP_PAGE_CATEGORIES.map(category => (
             <HelpPageCategoryList
                 style={{ paddingLeft: 16, paddingRight: 16 }}
@@ -165,9 +172,16 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         );
     };
 
-    renderExistingReservationHelpForm = () => {
-        if (this.state.showReservationHelpForm) {
-            if (this.state.emailAndBookingIdCombinationFetched) {
+    renderExistingReservationHelpForm = (): JSX.Element => {
+        const {
+            showReservationHelpForm,
+            emailAndBookingIdCombinationFetched,
+            invalidEmail,
+            invalidBookingId,
+            fetchInProgress
+        } = this.state;
+        if (showReservationHelpForm) {
+            if (emailAndBookingIdCombinationFetched) {
                 return (
                     <BookingDetailsRadioButtonForm
                         style={{ padding: 16 }}
@@ -180,9 +194,9 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 return (
                     <HelpCenterBookingDetailsForm
                         style={{ padding: 16 }}
-                        emailError={this.state.invalidEmail}
-                        bookingIdError={this.state.invalidBookingId}
-                        showLoadState={this.state.fetchInProgress}
+                        emailError={invalidEmail}
+                        bookingIdError={invalidBookingId}
+                        showLoadState={fetchInProgress}
                         onResendTicketsClick={this.resendTicketsForEmail}
                         onDoneClick={this.bookingReservationsFilled}
                     />
@@ -208,14 +222,14 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         }
     };
 
-    showError = (errorText: string) => {
+    showError = (errorText: string): void => {
         this.setState({ fetchInProgress: false, error: errorText });
     };
     // =====================================================
 
     // ==== ACTIONS ========================================
 
-    fetchReservationDetails = (bookingId: string, bookingEmail: string) => {
+    fetchReservationDetails = (bookingId: string, bookingEmail: string): void => {
         doesBookingWithEmailAndIDExist(
             bookingId,
             bookingEmail).then((bookingExists: boolean) => {
@@ -236,7 +250,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
             })
     };
 
-    restartBookingHelpFlow = () => {
+    restartBookingHelpFlow = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({
             emailAndBookingIdCombinationFetched: false,
@@ -245,26 +259,25 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         });
     };
 
-    getHelpWallpaper() {
-        return Platform.OS === "web" ? { uri: "https://cdn-imgix-open.headout.com/proteus/help-page-wallpaper@3x.png?auto=compress&fm=pjpg&height=256" } : require('../../assets/images/help-page-wallpaper/help-page-wallpaper.png');
-    }
-
     // =====================================================
 
     render() {
+        const {
+            error,
+            searchResults
+        } = this.state;
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <ScrollView
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
                     onScroll={this.setScrollViewContentOffset}
-                    scrollEventThrottle={32}
                     style={styles.scrollContainer}>
                     {/* Header */}
                     <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
-                    <Conditional if={this.state.error.length > 0}>
-                        <Text style={styles.pageError}>{this.state.error}</Text>
+                    <Conditional if={error.length > 0}>
+                        <Text style={styles.pageError}>{error}</Text>
                     </Conditional>
                     {/* Main Reservation Details Form */}
                     {this.renderExistingReservationHelpForm()}
@@ -272,7 +285,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <View style={styles.wallpaperContainer}>
                         <Image
                             style={styles.wallpaperImage}
-                            source={this.getHelpWallpaper()}
+                            source={require('../../assets/images/help-page-wallpaper/help-page-wallpaper.png')}
                             resizeMode={'cover'}
                         />
                     </View>
@@ -280,7 +293,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <HelpCenterSearchComponent
                         style={{ margin: 16 }}
                         searchTextEntered={this.searchTextEntered}
-                        results={this.state.searchResults}
+                        results={searchResults}
                         onSearchTopicClicked={this.openHelpPage}
                         scrollToYOffset={this.scrollToYOffset}
                     />
@@ -344,10 +357,5 @@ const styles = StyleSheet.create({
     wallpaperImage: {
         width: '100%',
         height: '100%',
-        ...Platform.select({
-            web: {
-                height: 200
-            }
-        })
     },
 });
