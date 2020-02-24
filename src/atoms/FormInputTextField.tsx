@@ -1,21 +1,21 @@
-import React from 'react';
-import { View, Text, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions } from 'react-native';
-import {Input} from "@headout/aer";
+import React, { ReactElement } from 'react';
+import { View, Text, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions, ViewStyle } from 'react-native';
+import { Input } from "@headout/aer";
 
 interface IProps {
-    title: string,
-    subTitle?: string,
-    value?: string,
-    placeholder: string,
-    keyboardType: KeyboardTypeOptions,
-    autoCapitalize: 'none' | 'sentences' | 'words' | 'characters',
-    returnKeyType: ReturnKeyTypeOptions,
-    onChangeText: (text: string) => void,
-    errorText: string,
-    style: any
+    title: string;
+    subTitle?: string;
+    value?: string;
+    placeholder: string;
+    keyboardType: KeyboardTypeOptions;
+    autoCapitalize: 'none' | 'sentences' | 'words' | 'characters';
+    returnKeyType: ReturnKeyTypeOptions;
+    onChangeText: (text: string) => void;
+    errorText: string;
+    style: ViewStyle;
 }
 
-export const FormInputTextField = (props: IProps) => {
+export const FormInputTextField = (props: IProps): ReactElement => {
     const {
         title,
         subTitle,

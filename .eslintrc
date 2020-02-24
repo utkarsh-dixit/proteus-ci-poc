@@ -1,0 +1,51 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "react/destructuring-assignment": [
+            2,
+            "always"
+        ],
+        "react/jsx-filename-extension": [
+            2,
+            {
+                "extensions": [
+                    ".jsx",
+                    ".tsx"
+                ]
+            }
+        ],
+        "@typescript-eslint/interface-name-prefix": [
+            2,
+            {
+                "prefixWithI": "always"
+            }
+        ],
+        "@typescript-eslint/no-use-before-define": [
+            "error",
+            {
+                "variables": false
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+            2,
+            {
+                "allowExpressions": false
+            }
+        ]
+    }
+}

@@ -1,21 +1,23 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import React, { ReactElement } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
 
 interface IProps {
-    isSelected: boolean,
-    text: string,
-    onClick: () => void
+    style: ViewStyle;
+    isSelected: boolean;
+    text: string;
+    onClick: () => void;
 }
 
-export const RadioButton = (props: IProps) => {
+export const RadioButton = (props: IProps): ReactElement => {
     const {
         isSelected,
         text,
-        onClick
+        onClick,
+        style
     } = props;
     return (
         <TouchableOpacity
-            style={[{ flexDirection: 'row', alignItems: 'center' }, this.props.style]}
+            style={[{ flexDirection: 'row', alignItems: 'center' }, style]}
             onPress={onClick}>
             <View style={(isSelected ? styles.outerCircleSelected : styles.outerCircleUnSelected)}>
                 {isSelected ? (<View style={styles.innerCircle}></View>) : null}

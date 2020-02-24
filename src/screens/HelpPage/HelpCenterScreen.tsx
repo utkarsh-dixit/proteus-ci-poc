@@ -11,7 +11,7 @@ import {
     Platform,
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
-import {Link} from '@headout/aer';
+import { Link } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../Thunks/HelpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
@@ -217,13 +217,12 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     // ==== ACTIONS ========================================
 
-    fetchReservationDetails = async (bookingId: string, bookingEmail: string) => {
-        await doesBookingWithEmailAndIDExist(
+    fetchReservationDetails = (bookingId: string, bookingEmail: string) => {
+        doesBookingWithEmailAndIDExist(
             bookingId,
-            bookingEmail,
-            exists => {
+            bookingEmail).then((bookingExists: boolean) => {
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-                if (exists) {
+                if (bookingExists) {
                     this.setState({
                         fetchInProgress: false,
                         emailAndBookingIdCombinationFetched: true,
@@ -236,8 +235,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                         error: 'This email and booking ID combination does not exist.',
                     });
                 }
-            },
-        );
+            })
     };
 
     restartBookingHelpFlow = () => {

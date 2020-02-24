@@ -1,6 +1,6 @@
-import React, { Component, PureComponent } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {Link} from '@headout/aer';
+import { Link } from '@headout/aer';
 import HelpTopic from './HelpTopic';
 import { Conditional } from '../../../atoms/Conditional';
 
