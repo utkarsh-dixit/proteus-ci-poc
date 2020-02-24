@@ -13,7 +13,7 @@ import {
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import { Link } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
-import { doesBookingWithEmailAndIDExist } from '../../thunks/HelpThunk';
+import { doesBookingWithEmailAndIDExist } from '../../thunks/helpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
 import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/helpPageConstants';
 import HelpCenterBookingDetailsForm from './components/helpCenterBookingDetailsForm';
@@ -272,6 +272,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
                     onScroll={this.setScrollViewContentOffset}
+                    scrollEventThrottle={32}
                     style={styles.scrollContainer}>
                     {/* Header */}
                     <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
