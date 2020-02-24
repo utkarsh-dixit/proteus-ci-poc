@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { View, Text, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, KeyboardTypeOptions, ReturnKeyTypeOptions, Platform, ViewStyle } from 'react-native';
 import { Input } from "@headout/aer";
 
 interface IProps {
@@ -77,17 +77,27 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: 'solid',
         borderColor: '#dadada',
-        borderRadius: 2
+        borderRadius: 2,
+        ...Platform.select({
+            web: {
+                padding: 16
+            }
+        })
     },
     errorInput: {
         flex: 1,
         fontSize: 16,
-        paddingLeft: 15,
+        paddingLeft: 16,
         height: 48,
         borderWidth: 1,
         borderStyle: 'solid',
         borderColor: '#ec1943',
-        borderRadius: 2
+        borderRadius: 2,
+        ...Platform.select({
+            web: {
+                padding: 16
+            }
+        })
     },
     inputContainer: {
         marginTop: 24

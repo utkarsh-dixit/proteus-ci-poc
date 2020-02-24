@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Platform } from 'react-native';
 import {FormInputTextField} from '../../atoms/FormInputTextField';
 import {Link, Button} from '@headout/aer';
 
@@ -139,6 +139,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#24a1b2',
         borderRadius: 2,
+        ...Platform.select({
+            web: {
+                paddingTop: 16,
+                paddingBottom: 16
+            }
+        })
     },
     helperLink: {
         fontWeight: '500',

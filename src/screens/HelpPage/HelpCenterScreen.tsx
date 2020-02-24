@@ -247,6 +247,10 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         });
     };
 
+    getHelpWallpaper(){
+        return Platform.OS === "web" ? {uri: "https://cdn-imgix-open.headout.com/proteus/help-page-wallpaper@3x.png?auto=compress&fm=pjpg&height=256"} : require('../../assets/images/help-page-wallpaper/help-page-wallpaper.png');
+    }
+
     // =====================================================
 
     render() {
@@ -269,7 +273,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <View style={styles.wallpaperContainer}>
                         <Image
                             style={styles.wallpaperImage}
-                            source={require('../../assets/images/help-page-wallpaper/help-page-wallpaper.png')}
+                            source={this.getHelpWallpaper()}
                             resizeMode={'cover'}
                         />
                     </View>
@@ -341,5 +345,10 @@ const styles = StyleSheet.create({
     wallpaperImage: {
         width: '100%',
         height: '100%',
+        ...Platform.select({
+            web: {
+                height: 200
+            }
+        })
     },
 });
