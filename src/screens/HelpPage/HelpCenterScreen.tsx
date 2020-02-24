@@ -9,20 +9,24 @@ import {
     Image,
     NativeModules,
     Platform,
+    Linking,
+    TouchableOpacity
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
-import { Link } from '@headout/aer';
+import { Link, Button } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../thunks/helpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
-import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES } from '../../constants/helpPageConstants';
+import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES, HELPLINE_NUMBERS } from '../../constants/helpPageConstants';
 import HelpCenterBookingDetailsForm from './components/helpCenterBookingDetailsForm';
 import HelpPageCategoryList from './components/category/helpCategoryList';
 import BookingDetailsRadioButtonForm from './components/bookingDetailsRadioButtonForm';
 import HelpCenterSearchComponent from './components/search/helpCenterSearch';
 import { Conditional } from '../../atoms/conditional';
+import { ImageButton } from '../../atoms/imageButton';
 
 interface IState {
+    helplineNumbersViewVisible: boolean;
     showReservationHelpForm: boolean;
     fetchInProgress: boolean;
     invalidEmail: boolean;
@@ -45,6 +49,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     private _scrollView;
 
     state: IState = {
+        helplineNumbersViewVisible: false,
         showReservationHelpForm: false,
         fetchInProgress: false,
         invalidEmail: false,
@@ -76,6 +81,22 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         );
     };
 
+    openChat = (): void => {
+        NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
+            null,
+            null
+        );
+    }
+
+    showHelplineNumbers = (): void => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ helplineNumbersViewVisible: true })
+    }
+
+    openMailForSupport = (): void => {
+        Linking.openURL('mailto:support@headout.com')
+    }
+
     startChatWithAction = (action: string): void => {
         const {
             bookingEmail,
@@ -102,7 +123,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     // ==== STATE MODIFICATION METHODS =====================
 
-    showExistingeservationHelpFlow = (): void => {
+    showExistingReservationHelpFlow = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({ showReservationHelpForm: true, error: '' });
     };
@@ -161,7 +182,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 20, animated: true })
     }
 
-    getHelpTopicsContainer = (): JSX.Element[] => {
+    getHelpTopicsContainer = () => {
         return HELP_PAGE_CATEGORIES.map(category => (
             <HelpPageCategoryList
                 style={{ paddingLeft: 16, paddingRight: 16 }}
@@ -172,7 +193,59 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         );
     };
 
-    renderExistingReservationHelpForm = (): JSX.Element => {
+    getExtraHelpOptionsContainer = () => {
+        return (
+            <View style={styles.helpOptionsContainer}>
+                <Text style={styles.helpOptionsText}>Still need help?</Text>
+                <Button style={styles.helpOptionsButtonStyle}
+                    textStyle={styles.helpOptionsButtonTextStyle}
+                    title={'EMAIL US'}
+                    handleClick={this.openMailForSupport}></Button>
+                <Button style={styles.helpOptionsButtonStyle}
+                    textStyle={styles.helpOptionsButtonTextStyle}
+                    title={'CHAT WITH US'}
+                    handleClick={this.openChat}></Button>
+                <Button style={styles.helpOptionsButtonStyle}
+                    textStyle={styles.helpOptionsButtonTextStyle}
+                    title={'CALL US'}
+                    handleClick={this.showHelplineNumbers}></Button>
+            </View >
+        )
+    }
+
+    getHelplineNumbersContainer = () => {
+        return (
+            <View style={styles.helplineNumbersBackground}>
+                <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32 }}>Call us on our 24/7 helpline</Text>
+                <ImageButton imageStyle={styles.helplineNumberImageStyle}
+                    imageSource={require('../../assets/images/us-flag/us-flag.png')}
+                    text={HELPLINE_NUMBERS.USA}
+                    textStyle={styles.helplineNumberTextStyle}
+                    style={styles.helplineNumberButtonStyle}
+                    onPress={() => {
+                        Linking.openURL(`tel:${HELPLINE_NUMBERS.USA}`)
+                    }} />
+                <ImageButton imageStyle={styles.helplineNumberImageStyle}
+                    imageSource={require('../../assets/images/uk-flag/uk-flag.png')}
+                    text={HELPLINE_NUMBERS.UK}
+                    textStyle={styles.helplineNumberTextStyle}
+                    style={styles.helplineNumberButtonStyle}
+                    onPress={() => {
+                        Linking.openURL(`tel:${HELPLINE_NUMBERS.UK}`)
+                    }} />
+                <ImageButton imageStyle={styles.helplineNumberImageStyle}
+                    imageSource={require('../../assets/images/clipperton-flag/clipperton-flag.png')}
+                    text={HELPLINE_NUMBERS.CLIPPERTON}
+                    textStyle={styles.helplineNumberTextStyle}
+                    style={styles.helplineNumberButtonStyle}
+                    onPress={() => {
+                        Linking.openURL(`tel:${HELPLINE_NUMBERS.CLIPPERTON}`)
+                    }} />
+            </View >
+        )
+    }
+
+    renderExistingReservationHelpForm = () => {
         const {
             showReservationHelpForm,
             emailAndBookingIdCombinationFetched,
@@ -210,7 +283,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                         title='Existing Reservation'
                         style={styles.existingReservationLink}
                         textStyle={styles.existingReservationText}
-                        handleClick={this.showExistingeservationHelpFlow}
+                        handleClick={this.showExistingReservationHelpFlow}
                     />
                     <ChevronRight
                         width={16}
@@ -264,8 +337,10 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     render() {
         const {
             error,
-            searchResults
+            searchResults,
+            helplineNumbersViewVisible
         } = this.state;
+        console.log(helplineNumbersViewVisible);
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <ScrollView
@@ -300,7 +375,12 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     />
                     {/* Category lists */}
                     {this.getHelpTopicsContainer()}
+                    {/* Still need help section */}
+                    {this.getExtraHelpOptionsContainer()}
                 </ScrollView>
+                <Conditional if={true}>
+                    {this.getHelplineNumbersContainer()}
+                </Conditional>
             </SafeAreaView>
         );
     }
@@ -359,4 +439,60 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    helpOptionsText: {
+        color: '#545454',
+        textAlign: 'center',
+        fontSize: 32,
+        padding: 16
+    },
+    helpOptionsContainer: {
+        margin: 32,
+        alignItems: 'center'
+    },
+    helpOptionsButtonStyle: {
+        width: 180,
+        height: 56,
+        borderWidth: 1.5,
+        borderColor: '#ebebeb',
+        backgroundColor: 'white',
+        margin: 16
+    },
+    helpOptionsButtonTextStyle: {
+        color: '#545454',
+        fontSize: 16,
+        fontWeight: '400'
+    },
+    helplineNumbersBackground: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    helplineNumberTextStyle: {
+        flex: 8,
+        fontSize: 16,
+        fontWeight: '400',
+        color: '#545454',
+        textAlign: 'left',
+        marginRight: 16
+    },
+    helplineNumberImageStyle: {
+        flex: 1.5,
+        aspectRatio: 1.5,
+        margin: 16
+    },
+    helplineNumberButtonStyle: {
+        margin: 16,
+        flexDirection: 'row',
+        width: '50%',
+        height: 56,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 2,
+        borderColor: '#ebebeb',
+        borderWidth: 1.5
+    }
 });
