@@ -10,6 +10,7 @@ import {
     NativeModules,
     Platform,
     Linking,
+    Modal,
     TouchableOpacity
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
@@ -17,6 +18,7 @@ import { Link, Button } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../thunks/helpThunk';
 import ChevronRight from '../../assets/icons/chevron-right.svg';
+import Cross from '../../assets/icons/cross.svg'
 import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES, HELPLINE_NUMBERS } from '../../constants/helpPageConstants';
 import HelpCenterBookingDetailsForm from './components/helpCenterBookingDetailsForm';
 import HelpPageCategoryList from './components/category/helpCategoryList';
@@ -215,33 +217,40 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     getHelplineNumbersContainer = () => {
         return (
-            <View style={styles.helplineNumbersBackground}>
-                <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32 }}>Call us on our 24/7 helpline</Text>
-                <ImageButton imageStyle={styles.helplineNumberImageStyle}
-                    imageSource={require('../../assets/images/us-flag/us-flag.png')}
-                    text={HELPLINE_NUMBERS.USA}
-                    textStyle={styles.helplineNumberTextStyle}
-                    style={styles.helplineNumberButtonStyle}
-                    onPress={() => {
-                        Linking.openURL(`tel:${HELPLINE_NUMBERS.USA}`)
-                    }} />
-                <ImageButton imageStyle={styles.helplineNumberImageStyle}
-                    imageSource={require('../../assets/images/uk-flag/uk-flag.png')}
-                    text={HELPLINE_NUMBERS.UK}
-                    textStyle={styles.helplineNumberTextStyle}
-                    style={styles.helplineNumberButtonStyle}
-                    onPress={() => {
-                        Linking.openURL(`tel:${HELPLINE_NUMBERS.UK}`)
-                    }} />
-                <ImageButton imageStyle={styles.helplineNumberImageStyle}
-                    imageSource={require('../../assets/images/clipperton-flag/clipperton-flag.png')}
-                    text={HELPLINE_NUMBERS.CLIPPERTON}
-                    textStyle={styles.helplineNumberTextStyle}
-                    style={styles.helplineNumberButtonStyle}
-                    onPress={() => {
-                        Linking.openURL(`tel:${HELPLINE_NUMBERS.CLIPPERTON}`)
-                    }} />
-            </View >
+            <View>
+                <TouchableOpacity style={{ width: 20, height: 20, marginTop: 32, marginLeft: 16 }} onPress={() => {
+                    this.setState({ helplineNumbersViewVisible: false })
+                }}>
+                    <Cross width={20} height={20}></Cross>
+                </TouchableOpacity>
+                <View style={styles.helplineNumbersBackground}>
+                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32 }}>Call us on our 24/7 helpline</Text>
+                    <ImageButton imageStyle={styles.helplineNumberImageStyle}
+                        imageSource={require('../../assets/images/us-flag/us-flag.png')}
+                        text={HELPLINE_NUMBERS.USA}
+                        textStyle={styles.helplineNumberTextStyle}
+                        style={styles.helplineNumberButtonStyle}
+                        onPress={() => {
+                            Linking.openURL(`tel:${HELPLINE_NUMBERS.USA}`)
+                        }} />
+                    <ImageButton imageStyle={styles.helplineNumberImageStyle}
+                        imageSource={require('../../assets/images/uk-flag/uk-flag.png')}
+                        text={HELPLINE_NUMBERS.UK}
+                        textStyle={styles.helplineNumberTextStyle}
+                        style={styles.helplineNumberButtonStyle}
+                        onPress={() => {
+                            Linking.openURL(`tel:${HELPLINE_NUMBERS.UK}`)
+                        }} />
+                    <ImageButton imageStyle={styles.helplineNumberImageStyle}
+                        imageSource={require('../../assets/images/clipperton-flag/clipperton-flag.png')}
+                        text={HELPLINE_NUMBERS.CLIPPERTON}
+                        textStyle={styles.helplineNumberTextStyle}
+                        style={styles.helplineNumberButtonStyle}
+                        onPress={() => {
+                            Linking.openURL(`tel:${HELPLINE_NUMBERS.CLIPPERTON}`)
+                        }} />
+                </View >
+            </View>
         )
     }
 
@@ -378,9 +387,9 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     {/* Still need help section */}
                     {this.getExtraHelpOptionsContainer()}
                 </ScrollView>
-                <Conditional if={true}>
+                <Modal visible={helplineNumbersViewVisible} animationType={'slide'}>
                     {this.getHelplineNumbersContainer()}
-                </Conditional>
+                </Modal>
             </SafeAreaView>
         );
     }
@@ -465,7 +474,6 @@ const styles = StyleSheet.create({
     helplineNumbersBackground: {
         width: '100%',
         height: '100%',
-        position: 'absolute',
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center'
