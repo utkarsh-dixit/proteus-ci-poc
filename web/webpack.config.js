@@ -8,9 +8,10 @@ const babelLoaderConfiguration = {
     test: /\.(ts|tsx|js|jsx|web.ts|web.js|web.jsx)?$/,
     include: [
         path.resolve(__dirname, 'index.js'),
+        path.resolve(rootDir, 'config.js'),
         path.resolve(rootDir, 'src'),
-        path.resolve(rootDir, 'node_modules/@headout/aer'),
-        path.resolve(rootDir, 'node_modules/react-native')
+        path.resolve(rootDir, './node_modules/@headout/aer'),
+        path.resolve(rootDir, './node_modules/react-native')
     ],
 
     // Add every directory that needs to be compiled by Babel during the build.
@@ -29,6 +30,7 @@ const babelLoaderConfiguration = {
             presets: [
                 ['@babel/preset-env', { useBuiltIns: 'usage', corejs: 3 }],
                 '@babel/preset-react',
+                '@babel/preset-typescript',
                 '@babel/preset-flow',
             ],
             plugins: [
@@ -47,8 +49,21 @@ const babelLoaderConfiguration = {
 
 // This is needed for webpack to import static images in JavaScript files.
 const imageLoaderConfiguration = {
-    test: /\.(jpe?g|png|gif|svg)$/,
+    test: /\.(jpe?g|png|gif)$/,
     loader: "url-loader"
+};
+
+const svgLoaderConfig =  {
+    test: /\.svg$/,
+    use: [
+        'babel-loader',
+      {
+        loader: "react-svg-loader",
+        options: {
+          jsx: true // true outputs JSX tags
+        }
+      }
+    ]
 };
 
 module.exports = {
@@ -61,8 +76,13 @@ module.exports = {
         libraryTarget: 'umd',
     },
     module: {
-        rules: [babelLoaderConfiguration, imageLoaderConfiguration],
+        rules: [babelLoaderConfiguration, svgLoaderConfig, imageLoaderConfiguration],
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.DEV': JSON.stringify(webpackEnv === 'development')
+        }),
+    ],
     externals: [
         "react",
         /^react-dom$/
@@ -80,8 +100,9 @@ module.exports = {
         modules: [path.resolve(rootDir, 'node_modules')],
         alias: {
             'react-native-svg$': 'react-native-web-svg',
-            '@headout/aer': path.resolve(rootDir, "node_modules/@headout/aer/dist/libNative.js"),
-            '@headout/aer/': path.resolve(rootDir, "node_modules/@headout/aer/dist/libNative.js")
+            'node-modules': path.resolve(rootDir, "node_modules"),
+            '@headout/aer': path.resolve(rootDir, "node_modules/@headout/aer/index.native.js"),
+            '@headout/aer/': path.resolve(rootDir, "node_modules/@headout/aer/index.native.js")
         }
     },
 };
