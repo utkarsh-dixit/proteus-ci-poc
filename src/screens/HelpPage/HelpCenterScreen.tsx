@@ -218,7 +218,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     getHelplineNumbersContainer = () => {
         return (
             <View>
-                <TouchableOpacity style={{ width: 20, height: 20, marginTop: 32, marginLeft: 16 }} onPress={() => {
+                <TouchableOpacity style={{ width: 20, height: 20, marginTop: 48, marginLeft: 16 }} onPress={() => {
                     this.setState({ helplineNumbersViewVisible: false })
                 }}>
                     <Cross width={20} height={20}></Cross>
