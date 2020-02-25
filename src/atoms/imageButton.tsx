@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageStyle, ImageProps, ViewStyle, TextProps, TextStyle, TouchableOpacity, Image, Text, ImageSourcePropType } from 'react-native';
+import { ImageStyle, ViewStyle, TextStyle, TouchableOpacity, Image, Text, ImageSourcePropType } from 'react-native';
 
 interface IProps {
     imageStyle: ImageStyle;
@@ -7,7 +7,7 @@ interface IProps {
     style: ViewStyle;
     textStyle: TextStyle;
     text: string;
-    onPress: () => void
+    onPress: () => void;
 }
 
 export const ImageButton = (props: IProps) => {
