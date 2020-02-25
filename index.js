@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
-import HelpScreen from './src/screens/HelpPage/helpCenterScreen';
+import HelpScreen from './src/screens/helpPage/helpCenterScreen';
 
 console.disableYellowBox = true;
 
