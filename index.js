@@ -5,5 +5,4 @@ import ReservationDetailsScreen from './src/screens/reservationDetails/reservati
 console.disableYellowBox = true;
 
 AppRegistry.registerComponent('HelpScreen', () => HelpScreen);
-
-export default HelpScreen;
+AppRegistry.registerComponent('ReservationDetailsScreen', () => ReservationDetailsScreen);
