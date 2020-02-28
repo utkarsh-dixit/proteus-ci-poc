@@ -141,7 +141,7 @@ export const HELP_PAGE_CATEGORIES = [
             {
                 NAME: 'Group Bookings',
                 SRC:
-                    'https://headout.kb.help/6-general-queries/customise-an-experience/',
+                    'https://headout.kb.help/6-general-queries/group-bookings/',
             },
             {
                 NAME: 'Gift an experience',
