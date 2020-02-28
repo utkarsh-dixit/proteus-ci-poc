@@ -359,7 +359,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     scrollEventThrottle={32}
                     style={styles.scrollContainer}>
                     {/* Header */}
-                    <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
+                    <Text style={styles.pageHeader}>Welcome to Help Desk</Text>
                     {/* Main error */}
                     <Conditional if={error.length > 0}>
                         <Text style={styles.pageError}>{error}</Text>
