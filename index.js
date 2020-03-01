@@ -7,8 +7,7 @@ console.disableYellowBox = true;
 AppRegistry.registerComponent('HelpScreen', () => HelpScreen);
 
 CodePush.sync({
-    updateDialog: true,
-    installMode: CodePush.InstallMode.IMMEDIATE
+    installMode: CodePush.InstallMode.ON_NEXT_RESTART
 });
 
 export default HelpScreen;
