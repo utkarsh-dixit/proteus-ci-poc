@@ -75,3 +75,6 @@ packages/mobile/*.log
 debug/
 *.log
 *.orig
+*.pem
+
+aer/
