@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import { RadioButton } from '../../../atoms/radioButton';
-import { Link, Button } from '@headout/aer';
+import { Link, Button } from './node_modules/@headout/aer';
 import { BOOKING_FLOW_HELP_OPTIONS } from '../../../constants/helpPageConstants';
 
 interface IProps {
