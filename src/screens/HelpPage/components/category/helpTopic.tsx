@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
+        fontFamily: 'graphik-regular'
     },
 });

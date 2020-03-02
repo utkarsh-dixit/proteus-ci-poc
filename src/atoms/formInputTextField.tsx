@@ -60,14 +60,18 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 12,
         color: '#545454',
-        paddingBottom: 8
+        paddingBottom: 8,
+        letterSpacing: 0.2,
+        fontFamily: 'avenir-roman'
     },
     errorLabel: {
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
         color: '#ec1943',
-        paddingTop: 8
+        paddingTop: 8,
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2
     },
     input: {
         flex: 1,

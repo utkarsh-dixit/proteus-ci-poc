@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    SafeAreaView,
     Text,
     StyleSheet,
     ScrollView,
@@ -201,15 +200,15 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 <Text style={styles.helpOptionsText}>Still need help?</Text>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'EMAIL US'}
+                    title={'Email us'}
                     handleClick={this.openMailForSupport}></Button>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'CHAT WITH US'}
+                    title={'Chat with us'}
                     handleClick={this.openChat}></Button>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'CALL US'}
+                    title={'Call us'}
                     handleClick={this.showHelplineNumbers}></Button>
             </View >
         )
@@ -349,9 +348,8 @@ export default class HelpScreen extends React.PureComponent<IProps> {
             searchResults,
             helplineNumbersViewVisible
         } = this.state;
-        console.log(helplineNumbersViewVisible);
         return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
                 <ScrollView
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
@@ -376,7 +374,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     </View>
                     {/* Search Bar */}
                     <HelpCenterSearchComponent
-                        style={{ margin: 16 }}
+                        style={{ margin: 16, marginTop: 40, marginBottom: 32 }}
                         searchTextEntered={this.searchTextEntered}
                         results={searchResults}
                         onSearchTopicClicked={this.openHelpPage}
@@ -390,7 +388,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 <Modal visible={helplineNumbersViewVisible} animationType={'slide'}>
                     {this.getHelplineNumbersContainer()}
                 </Modal>
-            </SafeAreaView>
+            </View>
         );
     }
 }
@@ -403,6 +401,8 @@ const styles = StyleSheet.create({
         letterSpacing: -0.08,
         color: '#545454',
         textAlign: 'center',
+        padding: 16,
+        fontFamily: 'graphik-regular'
     },
     pageError: {
         color: '#ec1943',
@@ -411,9 +411,11 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2
     },
     scrollContainer: {
-        paddingTop: 10,
+        paddingTop: 16,
         ...Platform.select({
             ios: {
                 marginBottom: 80
@@ -435,12 +437,12 @@ const styles = StyleSheet.create({
     },
     existingReservationContainer: {
         flexDirection: 'row',
-        padding: 16,
-        marginTop: 16
+        marginLeft: 16,
+        marginRight: 16
     },
     wallpaperContainer: {
         aspectRatio: 375 / 200,
-        marginTop: 16,
+        marginTop: 40,
         marginBottom: 16,
         width: '100%',
     },
@@ -452,7 +454,8 @@ const styles = StyleSheet.create({
         color: '#545454',
         textAlign: 'center',
         fontSize: 32,
-        padding: 16
+        padding: 16,
+        fontFamily: 'avenir-roman'
     },
     helpOptionsContainer: {
         margin: 32,
@@ -484,7 +487,8 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: '#545454',
         textAlign: 'left',
-        marginRight: 16
+        marginRight: 16,
+        fontFamily: 'avenir-roman'
     },
     helplineNumberImageStyle: {
         flex: 1.5,
@@ -494,7 +498,7 @@ const styles = StyleSheet.create({
     helplineNumberButtonStyle: {
         margin: 16,
         flexDirection: 'row',
-        width: '50%',
+        width: '55%',
         height: 56,
         backgroundColor: 'white',
         justifyContent: 'center',

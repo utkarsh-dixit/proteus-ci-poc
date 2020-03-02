@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
         color: '#24A1B2',
         textAlign: 'left',
         textDecorationLine: 'underline',
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2
     },
     helperLinkContainer: {
         marginTop: 12

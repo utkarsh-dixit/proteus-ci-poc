@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#545454',
         textDecorationLine: "none",
-        padding: 12
+        padding: 12,
+        fontFamily: 'avenir-roman'
     }
 })
