@@ -223,7 +223,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <Cross width={20} height={20}></Cross>
                 </TouchableOpacity>
                 <View style={styles.helplineNumbersBackground}>
-                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32 }}>Call us on our 24/7 helpline</Text>
+                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32, fontFamily: 'avenir-roman' }}>Call us on our 24/7 helpline</Text>
                     <ImageButton imageStyle={styles.helplineNumberImageStyle}
                         imageSource={require('../../assets/images/us-flag/us-flag.png')}
                         text={HELPLINE_NUMBERS.USA}
