@@ -25,6 +25,8 @@ import BookingDetailsRadioButtonForm from './components/bookingDetailsRadioButto
 import HelpCenterSearchComponent from './components/search/helpCenterSearch';
 import { Conditional } from '../../atoms/conditional';
 import { ImageButton } from '../../atoms/imageButton';
+import { PageAlert } from '../../atoms/pageAlert';
+import { triggerAsyncId } from 'async_hooks';
 
 interface IState {
     helplineNumbersViewVisible: boolean;
@@ -36,6 +38,7 @@ interface IState {
     bookingEmail: string;
     bookingId: string;
     emailAndBookingIdCombinationFetched: boolean;
+    shouldShowAlert: boolean;
     searchResults: Array<{ NAME: string; SRC: string }>;
 }
 
@@ -59,6 +62,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         bookingEmail: '',
         bookingId: '',
         emailAndBookingIdCombinationFetched: false,
+        shouldShowAlert: true,
         searchResults: [],
     };
 
@@ -70,6 +74,10 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     }
 
     // ==== NAVIGATION METHODS =============================
+
+    openCoronavirusAlertHelpPage = () => {
+        this.openHelpPage('Coronavirus Outbreak', 'https://headout.kb.help/8-coronavirus-outbreak/');
+    }
 
     openHelpPage = (title: string, sourceURL: string): void => {
         const {
@@ -123,6 +131,10 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     // =====================================================
 
     // ==== STATE MODIFICATION METHODS =====================
+
+    hideAlert = (): void => {
+        this.setState({ shouldShowAlert: false });
+    }
 
     showExistingReservationHelpFlow = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -346,7 +358,8 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         const {
             error,
             searchResults,
-            helplineNumbersViewVisible
+            helplineNumbersViewVisible,
+            shouldShowAlert
         } = this.state;
         return (
             <View style={{ flex: 1 }}>
@@ -356,8 +369,15 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     onScroll={this.setScrollViewContentOffset}
                     scrollEventThrottle={32}
                     style={styles.scrollContainer}>
+                    {/* Coronovirus alert */}
+                    <Conditional if={shouldShowAlert}>
+                        <PageAlert title={'Coronavirus alert'}
+                            subtitle={'Click here to read the updated policy for cancelation & refunds'}
+                            onClick={this.openCoronavirusAlertHelpPage}
+                            onClose={this.hideAlert} />
+                    </Conditional>
                     {/* Header */}
-                    <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
+                    < Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
                     <Conditional if={error.length > 0}>
                         <Text style={styles.pageError}>{error}</Text>
