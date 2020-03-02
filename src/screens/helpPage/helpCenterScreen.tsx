@@ -434,6 +434,7 @@ const styles = StyleSheet.create({
         color: '#24A1B2',
         textDecorationLine: "none",
         textAlign: 'left',
+        fontFamily: 'avenir-roman'
     },
     existingReservationContainer: {
         flexDirection: 'row',

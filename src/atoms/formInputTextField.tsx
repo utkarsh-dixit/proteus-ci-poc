@@ -50,10 +50,11 @@ export const FormInputTextField = (props: IProps) => {
 const styles = StyleSheet.create({
     titleLabel: {
         fontStyle: 'normal',
-        fontWeight: '700',
+        fontWeight: '800',
         fontSize: 16,
         color: '#545454',
-        paddingBottom: 8
+        paddingBottom: 8,
+        fontFamily: 'avenir-medium'
     },
     subTitleLabel: {
         fontStyle: 'normal',
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         color: '#545454',
         paddingBottom: 8,
         letterSpacing: 0.2,
-        fontFamily: 'avenir-roman'
+        fontFamily: 'avenir-medium'
     },
     errorLabel: {
         fontStyle: 'normal',

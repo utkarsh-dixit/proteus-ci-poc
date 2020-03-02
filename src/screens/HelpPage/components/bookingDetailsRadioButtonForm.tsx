@@ -97,6 +97,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                 />
                 <Button
                     style={styles.buttonContainer}
+                    textStyle={styles.buttonTextStyle}
                     title={this.submitButtonText()}
                     handleClick={this.handleSubmitButtonTap}
                 />
@@ -126,11 +127,11 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         backgroundColor: '#24a1b2',
-        borderRadius: 2,
+        borderRadius: 4,
     },
     helperLinkTextStyle: {
         fontWeight: '500',
-        fontSize: 12,
+        fontSize: 14,
         color: '#24A1B2',
         textAlign: 'left',
         textDecorationLine: 'underline',
@@ -139,5 +140,10 @@ const styles = StyleSheet.create({
     },
     helperLinkContainer: {
         marginTop: 12
+    },
+    buttonTextStyle: {
+        fontFamily: 'avenir-roman',
+        fontSize: 16,
+        color: 'white'
     }
 });

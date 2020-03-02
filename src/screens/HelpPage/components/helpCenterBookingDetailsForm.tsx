@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     },
     helperLink: {
         fontWeight: '500',
-        fontSize: 12,
+        fontSize: 14,
         color: '#24A1B2',
         textAlign: 'left',
         textDecorationLine: 'underline',
