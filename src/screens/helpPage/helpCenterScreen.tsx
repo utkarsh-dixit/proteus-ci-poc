@@ -25,8 +25,11 @@ import BookingDetailsRadioButtonForm from './components/bookingDetailsRadioButto
 import HelpCenterSearchComponent from './components/search/helpCenterSearch';
 import { Conditional } from '../../atoms/conditional';
 import { ImageButton } from '../../atoms/imageButton';
+import { HeaderBackButton } from '../../atoms/headerBackButton';
 import { PageAlert } from '../../atoms/pageAlert';
-import { triggerAsyncId } from 'async_hooks';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { HelpNavigationStack } from './helpCenterNavigation';
+import { RouteProp } from '@react-navigation/native';
 
 interface IState {
     helplineNumbersViewVisible: boolean;
@@ -41,9 +44,14 @@ interface IState {
     shouldShowAlert: boolean;
     searchResults: Array<{ NAME: string; SRC: string }>;
 }
+type HelpCenterScreenNavigationProp = StackNavigationProp<HelpNavigationStack, 'HelpScreen'>
+
+type HelpCenterRouteProp = RouteProp<HelpNavigationStack, 'HelpScreen'>
 
 interface IProps {
     rootTag: number;
+    navigation: HelpCenterScreenNavigationProp;
+    route: HelpCenterRouteProp;
 }
 
 export default class HelpScreen extends React.PureComponent<IProps> {
@@ -71,6 +79,19 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         HELP_PAGE_CATEGORIES.forEach((category) => {
             this.searchableItemsIndex.push(...category.OPTIONS)
         })
+        const {
+            navigation,
+            route
+        } = this.props;
+        console.log(route);
+        navigation.setOptions({
+            title: 'Help Center',
+            headerLeft: () => (
+                <HeaderBackButton onClick={() => {
+                    NativeModules.HelpCenterNativeBridge.goBack(route.params.rootTag);
+                }} />
+            )
+        })
     }
 
     // ==== NAVIGATION METHODS =============================
@@ -81,13 +102,9 @@ export default class HelpScreen extends React.PureComponent<IProps> {
 
     openHelpPage = (title: string, sourceURL: string): void => {
         const {
-            rootTag
+            navigation
         } = this.props;
-        NativeModules.HelpCenterNativeBridge.openLink(
-            sourceURL,
-            title,
-            rootTag,
-        );
+        navigation.navigate('HelpFaqWebView', { title: title, uriToLoad: sourceURL })
     };
 
     openChat = (): void => {
@@ -192,7 +209,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     }
 
     scrollToYOffset = (y: number): void => {
-        this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 20, animated: true })
+        this._scrollView.scrollTo({ x: 0, y: y - 120, animated: true })
     }
 
     getHelpTopicsContainer = () => {
@@ -362,7 +379,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
             shouldShowAlert
         } = this.state;
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
