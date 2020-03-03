@@ -83,7 +83,6 @@ export default class HelpScreen extends React.PureComponent<IProps> {
             navigation,
             route
         } = this.props;
-        console.log(route);
         navigation.setOptions({
             title: 'Help Center',
             headerLeft: () => (

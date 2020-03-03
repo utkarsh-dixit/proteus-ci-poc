@@ -3,7 +3,7 @@ import { WebView, WebViewNavigation } from 'react-native-webview';
 import { HelpNavigationStack } from './helpCenterNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { Linking, ActivityIndicator, View } from 'react-native';
+import { Linking, ActivityIndicator, View, NativeModules } from 'react-native';
 import { Conditional } from '../../atoms/conditional';
 import { HeaderBackButton } from '../../atoms/headerBackButton';
 
@@ -23,7 +23,7 @@ interface IState {
 
 export default class HelpFaqWebView extends React.PureComponent<IProps, IState> {
     webView: WebView = null;
-    HIDE_HEADER_AND_NAVIGATION_JS = `var header = document.querySelector('.Header');if (header) header.style.display = 'none'; var nav = document.querySelector('.Breadcrumbs--mobile');if (nav) nav.style.display = 'none'; window.ReactNativeWebView.postMessage(document.title);`
+    HIDE_HEADER_AND_NAVIGATION_JS = `var header = document.querySelector('.Header'); if (header) header.style.display = 'none'; var nav = document.querySelector('.Breadcrumbs--mobile'); if (nav) nav.style.display = 'none'; var lc = document.querySelector('#chat-widget-container'); if(lc) lc.style.display = 'none'; window.ReactNativeWebView.postMessage(document.title);`
 
     state = {
         isLoading: true
@@ -53,6 +53,12 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
         if (url.startsWith('https://headout.kb.help/') && url !== uriToLoad) {
             navigation.push('HelpFaqWebView', { uriToLoad: url, title: '' });
             this.webView.stopLoading();
+        } else if (url.startsWith('https://lc.chat/')) {
+            NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
+                null,
+                null
+            );
+            this.webView.stopLoading();
         } else if (url !== uriToLoad) {
             Linking.openURL(url);
             this.webView.stopLoading();
@@ -64,6 +70,7 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
     }
 
     setTitle = (message) => {
+        console.log(message.nativeEvent.data);
         const {
             navigation,
             route
