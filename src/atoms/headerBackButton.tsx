@@ -1,6 +1,8 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import ChevronLeft from '../assets/icons/chevron-left.svg'
+import { TouchableOpacity, Platform } from 'react-native';
+import ChevronLeft from '../assets/icons/chevron-left';
+import ArrowLeft from '../assets/icons/arrow-left';
+import { Conditional } from './conditional';
 
 interface IProps {
     onClick: () => void;
@@ -12,7 +14,12 @@ export const HeaderBackButton = (props: IProps) => {
     } = props;
     return (
         <TouchableOpacity style={{ paddingLeft: 16 }} onPress={onClick}>
-            <ChevronLeft width={16} height={16} />
+            <Conditional if={Platform.OS === 'ios'}>
+                <ChevronLeft width={20} height={20} stroke={'#545454'} />
+            </Conditional>
+            <Conditional if={Platform.OS === 'android'}>
+                <ArrowLeft width={20} height={20} stroke={'white'} />
+            </Conditional>
         </TouchableOpacity>
     )
 }

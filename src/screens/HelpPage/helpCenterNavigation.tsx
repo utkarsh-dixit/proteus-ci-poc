@@ -3,30 +3,52 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HelpScreen from './helpCenterScreen';
 import HelpFaqWebView from './helpFaqWebView';
+import { Platform } from 'react-native';
+
+// === Creating Navigation Stack for Help Center =========
 
 export type HelpNavigationStack = {
     HelpScreen: { rootTag: number };
     HelpFaqWebView: { uriToLoad: string; title: string };
 };
 
+const Stack = createStackNavigator<HelpNavigationStack>();
+// ========================================================
+
 interface IProps {
     rootTag: number;
 }
-
-const Stack = createStackNavigator<HelpNavigationStack>();
 
 function HelpCenterStack(props: IProps) {
     const {
         rootTag
     } = props;
-    console.log(rootTag);
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName='HelpScreen' screenOptions={{
                 headerTitleStyle: {
-                    fontFamily: 'avenir-light',
-                    fontWeight: '200',
-                    fontSize: 16
+                    ...Platform.select({
+                        ios: {
+                            fontFamily: 'avenir-light',
+                            color: '#545454',
+                            fontWeight: '200',
+                            fontSize: 18
+                        },
+                        android: {
+                            color: 'white',
+                            fontSize: 18
+                        }
+                    })
+                },
+                headerStyle: {
+                    ...Platform.select({
+                        ios: {
+                            backgroundColor: 'white'
+                        },
+                        android: {
+                            backgroundColor: '#ec1943'
+                        }
+                    })
                 }
             }}>
                 <Stack.Screen name="HelpScreen" component={HelpScreen} initialParams={{ rootTag: rootTag }} />
