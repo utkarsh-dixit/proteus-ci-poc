@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 24,
         color: '#545454',
-        paddingTop: 12,
+        paddingTop: 48,
         paddingBottom: 12,
         fontFamily: 'graphik-semibold'
     },

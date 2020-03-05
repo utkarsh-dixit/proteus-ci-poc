@@ -208,7 +208,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     }
 
     scrollToYOffset = (y: number): void => {
-        this._scrollView.scrollTo({ x: 0, y: y - 120, animated: true })
+        this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 120, animated: true })
     }
 
     getHelpTopicsContainer = () => {
@@ -316,7 +316,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 // Existing Reservation Link View
                 <View style={styles.existingReservationContainer}>
                     <Link
-                        title='Existing Reservation'
+                        title='Click here'
                         style={styles.existingReservationLink}
                         textStyle={styles.existingReservationText}
                         handleClick={this.showExistingReservationHelpFlow}
@@ -383,17 +383,20 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
                     onScroll={this.setScrollViewContentOffset}
+                    keyboardDismissMode='on-drag'
                     scrollEventThrottle={32}
                     style={styles.scrollContainer}>
                     {/* Coronovirus alert */}
                     <Conditional if={shouldShowAlert}>
-                        <PageAlert title={'Coronavirus alert'}
-                            subtitle={'Click here to read the updated policy for cancelation & refunds'}
-                            onClick={this.openCoronavirusAlertHelpPage}
-                            onClose={this.hideAlert} />
+                        <View style={{ marginTop: 40 }}>
+                            <PageAlert title={'Coronavirus alert'}
+                                subtitle={'Click here to read the updated policy for cancelation & refunds'}
+                                onClick={this.openCoronavirusAlertHelpPage}
+                                onClose={this.hideAlert} />
+                        </View>
                     </Conditional>
                     {/* Header */}
-                    < Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
+                    < Text style={styles.pageHeader}>Hi, have an existing reservation?</Text>
                     {/* Main error */}
                     <Conditional if={error.length > 0}>
                         <Text style={styles.pageError}>{error}</Text>
@@ -410,7 +413,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     </View>
                     {/* Search Bar */}
                     <HelpCenterSearchComponent
-                        style={{ margin: 16, marginTop: 40, marginBottom: 32 }}
+                        style={{ margin: 16, marginTop: 40 }}
                         searchTextEntered={this.searchTextEntered}
                         results={searchResults}
                         onSearchTopicClicked={this.openHelpPage}
@@ -436,8 +439,9 @@ const styles = StyleSheet.create({
         lineHeight: 35,
         letterSpacing: -0.08,
         color: '#545454',
-        textAlign: 'center',
-        padding: 16,
+        marginTop: 56,
+        paddingLeft: 16,
+        paddingBottom: 24,
         fontFamily: 'graphik-regular'
     },
     pageError: {
@@ -454,7 +458,7 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         ...Platform.select({
             ios: {
-                marginBottom: 80
+                marginBottom: 20
             },
             android: {
                 marginBottom: 20
