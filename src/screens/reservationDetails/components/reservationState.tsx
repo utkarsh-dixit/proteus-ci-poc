@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 interface IProps {
-    bookingState: 'none' | 'interactive' | 'on-drag';
+    bookingState: 'confirmed' | 'cancelled';
 }
 
 
@@ -11,9 +11,9 @@ export default class ReservationState extends React.PureComponent<IProps> {
     imageForBookingState(bookingState: string) {
         switch (bookingState) {
             case 'confirmed':
-                return '../../../assets/images/smile/smile.png'
+                return <Image source={require('../../../assets/images/smile/smile.png')} style={{ width: 32, height: 32 }} />
             case 'cancelled':
-                return '../../../assets/images/cry/cry.png'
+                return <Image source={require('../../../assets/images/cry/cry.png')} style={{ width: 32, height: 32 }} />
         }
     }
 
@@ -26,15 +26,50 @@ export default class ReservationState extends React.PureComponent<IProps> {
         }
     }
 
+    backGroundColorForBookingState(bookingState: string) {
+        switch (bookingState) {
+            case 'confirmed':
+                return '#DBFDDB'
+            case 'cancelled':
+                return '#FFD8D8'
+        }
+    }
+
+    textColorForBookingState(bookingState: string) {
+        switch (bookingState) {
+            case 'confirmed':
+                return '#185332'
+            case 'cancelled':
+                return '#922727'
+        }
+    }
+
     render() {
         const {
             bookingState
         } = this.props;
         return (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image source={require(this.imageForBookingState(bookingState))} style={{ width: 32, height: 32 }} />
-                <Text style={{ fontSize: 16, color: '#545454', fontWeight: '600', marginLeft: 8 }}>{this.textForBookingState(bookingState)}</Text>
+            <View style={[styles.container, { backgroundColor: this.backGroundColorForBookingState(bookingState) }]}>
+                {this.imageForBookingState(bookingState)}
+                <View style={{ marginLeft: 8, marginRight: 16 }}>
+                    <Text style={[styles.textStyle, { color: this.textColorForBookingState(bookingState), }]}>{this.textForBookingState(bookingState)}</Text>
+                </View>
             </View >
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 12,
+        borderRadius: 4,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    textStyle: {
+        fontSize: 16,
+        fontWeight: '800',
+        fontFamily: 'avenir-roman',
+        paddingLeft: 16
+    }
+})
