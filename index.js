@@ -6,6 +6,7 @@ import HelpScreenStack from './src/screens/helpPage/helpCenterNavigation';
 console.disableYellowBox = true;
 
 AppRegistry.registerComponent('HelpScreen', () => HelpScreenStack);
+AppRegistry.registerComponent('ReservationDetailsScreen', () => ReservationDetailsScreen);
 
 CodePush.sync({
     checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,

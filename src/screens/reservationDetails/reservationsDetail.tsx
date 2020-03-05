@@ -3,11 +3,12 @@ import { Text, ScrollView, View, Image, TouchableOpacity } from 'react-native'
 import { Link } from '@headout/aer'
 import MTicketIcon from '../../assets/icons/smartphone.svg'
 import DownloadIcon from '../../assets/icons/download.svg'
+import ReservationState from './components/reservationState';
 
 export default class ReservationDetailScreen extends React.PureComponent {
     render() {
         return (
-            <ScrollView style={{ margin: 16 }}>
+            <ScrollView style={{ padding: 16 }} showsVerticalScrollIndicator={false}>
                 {/* Booking ID and ticket type section */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', height: 56 }}>
                     <View style={{ flex: 2, height: '100%', justifyContent: 'center', }}>
@@ -22,10 +23,7 @@ export default class ReservationDetailScreen extends React.PureComponent {
                 </View>
                 {/* Reservation State */}
                 <View style={{ marginTop: 16, padding: 12, borderRadius: 4, borderWidth: 1, borderColor: '#dadada' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Image source={require('../../assets/images/smile/smile.png')} style={{ width: 32, height: 32 }} />
-                        <Text style={{ fontSize: 16, color: '#545454', fontWeight: '600', marginLeft: 8 }}>Confirmed! You're all set.</Text>
-                    </View>
+                    <ReservationState bookingState={'none'} />
                 </View>
                 {/* Reservations Details */}
                 <View style={{ marginTop: 16, borderRadius: 4, borderWidth: 1, borderColor: '#dadada', borderBottomWidth: 0, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} >
