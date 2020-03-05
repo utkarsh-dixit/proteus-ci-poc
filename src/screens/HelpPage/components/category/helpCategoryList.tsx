@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         color: '#545454',
         paddingTop: 12,
         paddingBottom: 12,
+        fontFamily: 'graphik-semibold'
     },
     showAllButton: {
         fontWeight: '400',
@@ -100,5 +101,6 @@ const styles = StyleSheet.create({
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
+        fontFamily: 'graphik-semibold'
     },
 });

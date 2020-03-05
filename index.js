@@ -1,8 +1,13 @@
 import { AppRegistry } from 'react-native';
-import HelpScreen from './src/screens/helpPage/helpCenterScreen';
 import ReservationDetailsScreen from './src/screens/reservationDetails/reservationsDetail';
+import CodePush from 'react-native-code-push';
+import HelpScreenStack from './src/screens/helpPage/helpCenterNavigation';
 
 console.disableYellowBox = true;
 
-AppRegistry.registerComponent('HelpScreen', () => HelpScreen);
-AppRegistry.registerComponent('ReservationDetailsScreen', () => ReservationDetailsScreen);
+AppRegistry.registerComponent('HelpScreen', () => HelpScreenStack);
+
+CodePush.sync({
+    checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+    installMode: CodePush.InstallMode.ON_NEXT_RESTART
+});

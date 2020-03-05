@@ -55,9 +55,11 @@ const styles = StyleSheet.create({
     unselectedText: {
         color: '#545454',
         fontSize: 16,
+        fontFamily: 'avenir-roman'
     },
     selectedText: {
         color: '#24A1B2',
         fontSize: 16,
+        fontFamily: 'avenir-roman'
     }
 })

@@ -128,6 +128,7 @@ export default class HelpCenterBookingDetailsForm extends React.PureComponent<
                 <Conditional if={!showLoadState}>
                     <Button
                         style={styles.buttonContainer}
+                        textStyle={styles.buttonTextStyle}
                         title={this.submitButtonText()}
                         handleClick={this.formSubmitButtonClicked} />
                 </Conditional>
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         backgroundColor: '#24a1b2',
-        borderRadius: 2,
+        borderRadius: 4,
         ...Platform.select({
             web: {
                 paddingTop: 16,
@@ -159,11 +160,19 @@ const styles = StyleSheet.create({
             }
         })
     },
+    buttonTextStyle: {
+        fontFamily: 'avenir-roman',
+        fontSize: 16,
+        color: 'white'
+    },
     helperLink: {
         fontWeight: '500',
-        fontSize: 12,
+        fontSize: 14,
         color: '#24A1B2',
         textAlign: 'left',
         textDecorationLine: 'underline',
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2,
+        marginTop: 4
     },
 });

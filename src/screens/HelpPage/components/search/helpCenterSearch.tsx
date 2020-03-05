@@ -24,7 +24,7 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
         onSearchTopicClicked(title, sourceLink);
     }
 
-    getSearchResultViews = (results: Array<{ NAME: string, SRC: string }>) => {
+    getSearchResultViews = (results: Array<{ NAME: string; SRC: string }>) => {
         return results.map(helpTopic => (
             <HelpCenterSearchItem
                 title={helpTopic.NAME}
@@ -43,9 +43,9 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
     }
 
     render() {
-        const { results, searchTextEntered } = this.props;
+        const { results, searchTextEntered, style } = this.props;
         return (
-            <View style={styles.searchContainer}>
+            <View style={[styles.searchContainer, style]}>
                 <Input
                     ref={component => this._textInput = component}
                     style={styles.searchBox}

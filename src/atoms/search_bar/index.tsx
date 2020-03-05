@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     TextInput
@@ -20,10 +20,10 @@ export default class SearchBar extends React.PureComponent<Props, any>{
     render() {
         return (
             <TextInput
-                style={[{ width: this.props.width}, styles.search_bar, this.props.style ]}
+                style={[{ width: this.props.width }, styles.search_bar, this.props.style]}
                 onChangeText={this.props.callback}
                 placeholder={this.props.placeholder}
-                
+
                 value={this.props.value}
             />
         );

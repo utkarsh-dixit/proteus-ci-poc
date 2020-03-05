@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    SafeAreaView,
     Text,
     StyleSheet,
     ScrollView,
@@ -26,6 +25,11 @@ import BookingDetailsRadioButtonForm from './components/bookingDetailsRadioButto
 import HelpCenterSearchComponent from './components/search/helpCenterSearch';
 import { Conditional } from '../../atoms/conditional';
 import { ImageButton } from '../../atoms/imageButton';
+import { HeaderBackButton } from '../../atoms/headerBackButton';
+import { PageAlert } from '../../atoms/pageAlert';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { HelpNavigationStack } from './helpCenterNavigation';
+import { RouteProp } from '@react-navigation/native';
 
 interface IState {
     helplineNumbersViewVisible: boolean;
@@ -37,11 +41,17 @@ interface IState {
     bookingEmail: string;
     bookingId: string;
     emailAndBookingIdCombinationFetched: boolean;
+    shouldShowAlert: boolean;
     searchResults: Array<{ NAME: string; SRC: string }>;
 }
+type HelpCenterScreenNavigationProp = StackNavigationProp<HelpNavigationStack, 'HelpScreen'>
+
+type HelpCenterRouteProp = RouteProp<HelpNavigationStack, 'HelpScreen'>
 
 interface IProps {
     rootTag: number;
+    navigation: HelpCenterScreenNavigationProp;
+    route: HelpCenterRouteProp;
 }
 
 export default class HelpScreen extends React.PureComponent<IProps> {
@@ -60,6 +70,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         bookingEmail: '',
         bookingId: '',
         emailAndBookingIdCombinationFetched: false,
+        shouldShowAlert: true,
         searchResults: [],
     };
 
@@ -68,19 +79,31 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         HELP_PAGE_CATEGORIES.forEach((category) => {
             this.searchableItemsIndex.push(...category.OPTIONS)
         })
+        const {
+            navigation,
+            route
+        } = this.props;
+        navigation.setOptions({
+            title: 'Help Center',
+            headerLeft: () => (
+                <HeaderBackButton onClick={() => {
+                    NativeModules.HelpCenterNativeBridge.goBack(route.params.rootTag);
+                }} />
+            )
+        })
     }
 
     // ==== NAVIGATION METHODS =============================
 
+    openCoronavirusAlertHelpPage = () => {
+        this.openHelpPage('Coronavirus Outbreak', 'https://headout.kb.help/8-coronavirus-outbreak/');
+    }
+
     openHelpPage = (title: string, sourceURL: string): void => {
         const {
-            rootTag
+            navigation
         } = this.props;
-        NativeModules.HelpCenterNativeBridge.openLink(
-            sourceURL,
-            title,
-            rootTag,
-        );
+        navigation.navigate('HelpFaqWebView', { title: title, uriToLoad: sourceURL })
     };
 
     openChat = (): void => {
@@ -124,6 +147,10 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     // =====================================================
 
     // ==== STATE MODIFICATION METHODS =====================
+
+    hideAlert = (): void => {
+        this.setState({ shouldShowAlert: false });
+    }
 
     showExistingReservationHelpFlow = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -181,7 +208,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     }
 
     scrollToYOffset = (y: number): void => {
-        this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 20, animated: true })
+        this._scrollView.scrollTo({ x: 0, y: y - 120, animated: true })
     }
 
     getHelpTopicsContainer = () => {
@@ -201,15 +228,15 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 <Text style={styles.helpOptionsText}>Still need help?</Text>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'EMAIL US'}
+                    title={'Email us'}
                     handleClick={this.openMailForSupport}></Button>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'CHAT WITH US'}
+                    title={'Chat with us'}
                     handleClick={this.openChat}></Button>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'CALL US'}
+                    title={'Call us'}
                     handleClick={this.showHelplineNumbers}></Button>
             </View >
         )
@@ -224,7 +251,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <Cross width={20} height={20}></Cross>
                 </TouchableOpacity>
                 <View style={styles.helplineNumbersBackground}>
-                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32 }}>Call us on our 24/7 helpline</Text>
+                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32, fontFamily: 'avenir-roman' }}>Call us on our 24/7 helpline</Text>
                     <ImageButton imageStyle={styles.helplineNumberImageStyle}
                         imageSource={require('../../assets/images/us-flag/us-flag.png')}
                         text={HELPLINE_NUMBERS.USA}
@@ -347,19 +374,26 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         const {
             error,
             searchResults,
-            helplineNumbersViewVisible
+            helplineNumbersViewVisible,
+            shouldShowAlert
         } = this.state;
-        console.log(helplineNumbersViewVisible);
         return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
                     onScroll={this.setScrollViewContentOffset}
                     scrollEventThrottle={32}
                     style={styles.scrollContainer}>
+                    {/* Coronovirus alert */}
+                    <Conditional if={shouldShowAlert}>
+                        <PageAlert title={'Coronavirus alert'}
+                            subtitle={'Click here to read the updated policy for cancelation & refunds'}
+                            onClick={this.openCoronavirusAlertHelpPage}
+                            onClose={this.hideAlert} />
+                    </Conditional>
                     {/* Header */}
-                    <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
+                    < Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
                     {/* Main error */}
                     <Conditional if={error.length > 0}>
                         <Text style={styles.pageError}>{error}</Text>
@@ -376,7 +410,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     </View>
                     {/* Search Bar */}
                     <HelpCenterSearchComponent
-                        style={{ margin: 16 }}
+                        style={{ margin: 16, marginTop: 40, marginBottom: 32 }}
                         searchTextEntered={this.searchTextEntered}
                         results={searchResults}
                         onSearchTopicClicked={this.openHelpPage}
@@ -390,7 +424,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 <Modal visible={helplineNumbersViewVisible} animationType={'slide'}>
                     {this.getHelplineNumbersContainer()}
                 </Modal>
-            </SafeAreaView>
+            </View>
         );
     }
 }
@@ -403,6 +437,8 @@ const styles = StyleSheet.create({
         letterSpacing: -0.08,
         color: '#545454',
         textAlign: 'center',
+        padding: 16,
+        fontFamily: 'graphik-regular'
     },
     pageError: {
         color: '#ec1943',
@@ -411,9 +447,11 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2
     },
     scrollContainer: {
-        paddingTop: 10,
+        paddingTop: 16,
         ...Platform.select({
             ios: {
                 marginBottom: 80
@@ -432,15 +470,16 @@ const styles = StyleSheet.create({
         color: '#24A1B2',
         textDecorationLine: "none",
         textAlign: 'left',
+        fontFamily: 'avenir-roman'
     },
     existingReservationContainer: {
         flexDirection: 'row',
-        padding: 16,
-        marginTop: 16
+        marginLeft: 16,
+        marginRight: 16
     },
     wallpaperContainer: {
         aspectRatio: 375 / 200,
-        marginTop: 16,
+        marginTop: 40,
         marginBottom: 16,
         width: '100%',
     },
@@ -452,7 +491,8 @@ const styles = StyleSheet.create({
         color: '#545454',
         textAlign: 'center',
         fontSize: 32,
-        padding: 16
+        padding: 16,
+        fontFamily: 'avenir-roman'
     },
     helpOptionsContainer: {
         margin: 32,
@@ -484,7 +524,8 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: '#545454',
         textAlign: 'left',
-        marginRight: 16
+        marginRight: 16,
+        fontFamily: 'avenir-roman'
     },
     helplineNumberImageStyle: {
         flex: 1.5,
@@ -494,7 +535,7 @@ const styles = StyleSheet.create({
     helplineNumberButtonStyle: {
         margin: 16,
         flexDirection: 'row',
-        width: '50%',
+        width: '55%',
         height: 56,
         backgroundColor: 'white',
         justifyContent: 'center',
