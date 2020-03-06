@@ -2,6 +2,7 @@ import { AppRegistry } from 'react-native';
 import CodePush from 'react-native-code-push';
 import HelpScreenStack from './src/screens/helpPage/helpCenterNavigation';
 import * as Sentry from '@sentry/react-native';
+import { SENTRY_DSN } from './config';
 
 
 console.disableYellowBox = true;
@@ -14,5 +15,5 @@ CodePush.sync({
 });
 
 Sentry.init({
-    dsn: 'https://43e6055371754efd961cec48b0b0cfe8@sentry.io/3806304',
+    dsn: SENTRY_DSN,
 });
