@@ -36,6 +36,7 @@
         "babel-plugin-transform-remove-console": "^6.9.4",
         "copy": "^0.3.2",
         "core-js": "^3.6.4",
+        "immutable": "^4.0.0-rc.12",
         "postcss": "^7.0.25",
         "react": "16.9.0",
         "react-devtools": "^3",

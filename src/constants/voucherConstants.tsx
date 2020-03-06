@@ -1,0 +1,17 @@
+export const enum BookingType {
+    FIXED_START_TIME_FIXED_DURATION,
+    FIXED_START_TIME_FLEXIBLE_DURATION,
+    FLEXIBLE_START_TIME_FIXED_DURATION,
+    FLEXIBLE_START_TIME_FLEXIBLE_DURATION
+}
+
+export const enum TicketType {
+    MOBILE_TICKET,
+    PRINT_TICKET
+}
+
+export const enum ReservationState {
+    PENDING,
+    CONFIRMED,
+    CANCELLED
+}
