@@ -1,45 +1,54 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { ReservationState } from '../../../constants/voucherConstants';
 
 interface IProps {
-    bookingState: 'confirmed' | 'cancelled';
+    bookingState: ReservationState;
 }
 
 
-export default class ReservationState extends React.PureComponent<IProps> {
+export default class VoucherReservationState extends React.PureComponent<IProps> {
 
-    imageForBookingState(bookingState: string) {
+    imageForBookingState(bookingState: ReservationState) {
         switch (bookingState) {
-            case 'confirmed':
+            case ReservationState.PENDING:
+                return <Image source={require('../../../assets/images/roller-coaster/roller-coaster.png')} style={{ width: 32, height: 32 }} />
+            case ReservationState.CONFIRMED:
                 return <Image source={require('../../../assets/images/smile/smile.png')} style={{ width: 32, height: 32 }} />
-            case 'cancelled':
+            case ReservationState.CANCELLED:
                 return <Image source={require('../../../assets/images/cry/cry.png')} style={{ width: 32, height: 32 }} />
         }
     }
 
-    textForBookingState(bookingState: string) {
+    textForBookingState(bookingState: ReservationState) {
         switch (bookingState) {
-            case 'confirmed':
+            case ReservationState.PENDING:
+                return 'Your reservation is in progress'
+            case ReservationState.CONFIRMED:
                 return 'Confirmed! You\'re all set.'
-            case 'cancelled':
+            case ReservationState.CANCELLED:
                 return 'Sorry, your reservation has been cancelled. Your refund is under process'
         }
     }
 
-    backGroundColorForBookingState(bookingState: string) {
+    backGroundColorForBookingState(bookingState: ReservationState) {
         switch (bookingState) {
-            case 'confirmed':
+            case ReservationState.PENDING:
+                return '#FFF8EF'
+            case ReservationState.CONFIRMED:
                 return '#DBFDDB'
-            case 'cancelled':
+            case ReservationState.CANCELLED:
                 return '#FFD8D8'
         }
     }
 
-    textColorForBookingState(bookingState: string) {
+    textColorForBookingState(bookingState: ReservationState) {
         switch (bookingState) {
-            case 'confirmed':
+            case ReservationState.PENDING:
+                return '#755A0F'
+            case ReservationState.CONFIRMED:
                 return '#185332'
-            case 'cancelled':
+            case ReservationState.CANCELLED:
                 return '#922727'
         }
     }

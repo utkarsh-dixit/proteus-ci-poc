@@ -11,7 +11,7 @@ interface IProps {
     ctaOnClick?: () => void;
 }
 
-export const ReservationTourDetail = (props: IProps) => {
+export const VoucherDetail = (props: IProps) => {
     const {
         title,
         infoText,
@@ -37,7 +37,7 @@ export const ReservationTourDetail = (props: IProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 4,
         paddingTop: 12
     },
     titleTextStyle: {

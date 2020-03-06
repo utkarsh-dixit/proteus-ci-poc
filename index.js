@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
-import ReservationDetailsScreen from './src/screens/reservationDetails/reservationsDetail';
+import VoucherScreenStack from './src/screens/voucherDetailsPage/voucherNavigation';
 import CodePush from 'react-native-code-push';
 import HelpScreenStack from './src/screens/helpPage/helpCenterNavigation';
 import * as Sentry from '@sentry/react-native';
@@ -9,7 +9,7 @@ import { SENTRY_DSN } from './config';
 console.disableYellowBox = true;
 
 AppRegistry.registerComponent('HelpScreen', () => HelpScreenStack);
-AppRegistry.registerComponent('ReservationDetailsScreen', () => ReservationDetailsScreen);
+AppRegistry.registerComponent('VoucherScreenStack', () => VoucherScreenStack);
 
 CodePush.sync({
     checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
