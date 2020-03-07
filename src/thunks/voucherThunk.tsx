@@ -30,7 +30,9 @@ export const getVoucherDetailsFor = (publicItineraryId: string): Voucher => {
             primaryCustomerName: 'Neel Bakshi',
             paxBreakup: [new VoucherPaxBreakup({ displayName: 'Adults', count: 3 }), new VoucherPaxBreakup({ displayName: 'Child', count: 4 })]
         }),
-        tickets: [{ ticketId: '153474', ticketImageUrl: 'https://i.ibb.co/cxJB0TD/QR-Code.png' }]
+        tickets: [{
+            ticketId: '153474', ticketImageUrl: 'https://i.ibb.co/cxJB0TD/QR-Code.png'
+        }]
     })
 }
 

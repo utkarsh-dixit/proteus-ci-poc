@@ -2,11 +2,9 @@ import React from 'react';
 import { Text, ScrollView, View, TouchableOpacity, StyleSheet, NativeModules } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Link } from '@headout/aer';
-import MTicketIcon from '../../assets/icons/smartphone.svg';
 import DownloadIcon from '../../assets/icons/download.svg';
 import VoucherReservationState from './components/voucherReservationState';
 import { VoucherDetail } from './components/voucherDetail';
-import { TicketType } from '../../constants/voucherConstants';
 import Voucher from '../../models/voucher/voucher';
 import { getVoucherDetailsFor } from '../../thunks/voucherThunk';
 import { Conditional } from '../../atoms/conditional';
@@ -15,8 +13,10 @@ import { VoucherNavigationStack } from './voucherNavigation';
 import { RouteProp } from '@react-navigation/native';
 import { HeaderBackButton } from '../../atoms/headerBackButton';
 import VoucherVendor from './components/voucherVendor';
+import VoucherTicketType from './components/voucherTicketType';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-type VoucherDetailsNavigationProp = StackNavigationProp<VoucherNavigationStack, 'VoucherDetails'>
+export type VoucherDetailsNavigationProp = StackNavigationProp<VoucherNavigationStack, 'VoucherDetails'>
 type VoucherDetailRouteProp = RouteProp<VoucherNavigationStack, 'VoucherDetails'>
 
 interface IProps {
@@ -52,15 +52,6 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
         })
     }
 
-    getTicketTypeText(ticketType: TicketType): string {
-        switch (ticketType) {
-            case TicketType.MOBILE_TICKET:
-                return 'Mobile Ticket';
-            case TicketType.PRINT_TICKET:
-                return 'Print Ticket';
-        }
-    }
-
     getPaxCountText(paxDetails: VoucherPaxDetails): string {
         return paxDetails.paxBreakup.map((pax) => {
             return `${pax.count} ${pax.displayName}`
@@ -71,7 +62,9 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
         const {
             voucher
         } = this.state;
-
+        const {
+            navigation
+        } = this.props;
         return (
             <Conditional if={voucher !== undefined}>
                 <View style={{ flex: 1, paddingTop: 16, backgroundColor: 'white' }}>
@@ -82,10 +75,7 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
                                 <Text style={styles.bookingIdTextStyle}>Booking ID: {voucher.bookingId}</Text>
                             </View>
                             <View style={styles.ticketTypeContainer}>
-                                <View style={styles.ticketType}>
-                                    <MTicketIcon />
-                                    <Text style={styles.ticketTypeText}>{this.getTicketTypeText(voucher.ticketType)}</Text>
-                                </View>
+                                <VoucherTicketType ticketType={voucher.ticketType} />
                             </View>
                         </View>
                         {/* Reservation State */}
@@ -147,6 +137,7 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
                             <VoucherVendor
                                 vendorDetails={voucher.vendorDetails}
                                 tickets={voucher.tickets}
+                                navigation={navigation}
                             />
                         </View>
                         <TouchableOpacity style={{ marginTop: 32, flexDirection: 'row', justifyContent: 'center' }}>
@@ -155,9 +146,11 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
                         </TouchableOpacity>
                     </ScrollView >
                     <Conditional if={voucher.tickets.length > 1}>
-                        <TouchableOpacity style={styles.showAllTicketsButtonStyle}>
-                            <Text style={styles.showAllTicketsTextStyle}>Show all QR Codes</Text>
-                        </TouchableOpacity>
+                        <TouchableWithoutFeedback>
+                            <View style={styles.showAllTicketsButtonStyle}>
+                                <Text style={styles.showAllTicketsTextStyle}>Show all QR Codes</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </Conditional>
                 </View>
             </Conditional>
@@ -189,20 +182,6 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    ticketType: {
-        flexDirection: 'row',
-        width: 128,
-        height: 32,
-        backgroundColor: '#ebebeb',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 35
-    },
-    ticketTypeText: {
-        paddingLeft: 4,
-        color: '#545454',
-        fontSize: 12
     },
     voucherDetailsContainer: {
         marginTop: 16,

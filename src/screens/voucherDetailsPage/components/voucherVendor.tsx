@@ -1,21 +1,34 @@
 import React from 'react';
 import VoucherVendorDetails from '../../../models/voucher/voucherVendorDetails';
+import { VoucherDetailsNavigationProp } from '../voucherDetails';
 import { View, Linking, Image, Text, StyleSheet } from 'react-native';
 import { VoucherDetail } from './voucherDetail';
 import { Conditional } from '../../../atoms/conditional';
+import { TouchableWithoutFeedback } from 'react-native';
+import { TicketType } from '../../../constants/voucherConstants';
 
 interface IProps {
+    navigation: VoucherDetailsNavigationProp;
     tickets: Array<{ ticketImageUrl?: string; ticketId: string }>;
     vendorDetails: VoucherVendorDetails;
 }
 export default class VoucherVendor extends React.PureComponent<IProps>  {
 
-    vendorPhoneNumberClicked() {
+    vendorPhoneNumberClicked = () => {
         const {
             vendorDetails
         } = this.props;
         Linking.openURL(`tel:${vendorDetails.phoneNumber}`)
     }
+
+    ticketImageClick = () => {
+        const {
+            tickets,
+            navigation
+        } = this.props;
+        navigation.push('VoucherSingleCode', { ticketImageUrl: tickets[0].ticketImageUrl, ticketType: TicketType.MOBILE_TICKET, ticketId: tickets[0].ticketId })
+    }
+
 
     render() {
         const {
@@ -27,7 +40,9 @@ export default class VoucherVendor extends React.PureComponent<IProps>  {
                 <Conditional if={tickets && tickets.length == 1}>
                     <View style={styles.ticketContainer}>
                         <Conditional if={tickets[0].ticketImageUrl && tickets[0].ticketId}>
-                            <Image source={{ uri: tickets[0].ticketImageUrl }} style={styles.ticketImageStyle} />
+                            <TouchableWithoutFeedback onPress={this.ticketImageClick}>
+                                <Image source={{ uri: tickets[0].ticketImageUrl }} style={styles.ticketImageStyle} />
+                            </TouchableWithoutFeedback>
                             <Text style={styles.ticketIdNormalStyle}>#{tickets[0].ticketId}</Text>
                         </Conditional>
                         <Conditional if={tickets[0].ticketImageUrl === undefined && tickets[0].ticketId}>
