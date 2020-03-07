@@ -1,6 +1,6 @@
 import React from 'react';
 import VoucherVendorDetails from '../../../models/voucher/voucherVendorDetails';
-import { VoucherDetailsNavigationProp } from '../voucherDetails';
+import { VoucherDetailsNavigationProp } from '../voucherDetailsScreen';
 import { View, Linking, Image, Text, StyleSheet } from 'react-native';
 import { VoucherDetail } from './voucherDetail';
 import { Conditional } from '../../../atoms/conditional';

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ebebeb',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 35
+        borderRadius: 35,
     },
     ticketTypeText: {
         paddingLeft: 8,

@@ -15,6 +15,7 @@ import { HeaderBackButton } from '../../atoms/headerBackButton';
 import VoucherVendor from './components/voucherVendor';
 import VoucherTicketType from './components/voucherTicketType';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { VoucherHeader } from './components/voucherHeader';
 
 export type VoucherDetailsNavigationProp = StackNavigationProp<VoucherNavigationStack, 'VoucherDetails'>
 type VoucherDetailRouteProp = RouteProp<VoucherNavigationStack, 'VoucherDetails'>
@@ -58,6 +59,16 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
         }).join(', ')
     }
 
+    showAllTickets = () => {
+        const {
+            navigation
+        } = this.props;
+        const {
+            voucher
+        } = this.state;
+        navigation.push('VoucherMultiCode', { ticketType: voucher.ticketType, ticketUrls: voucher.tickets })
+    }
+
     render() {
         const {
             voucher
@@ -70,14 +81,7 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
                 <View style={{ flex: 1, paddingTop: 16, backgroundColor: 'white' }}>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ height: 100, marginLeft: 16, marginRight: 16, marginBottom: 16 }}>
                         {/* Booking ID and ticket type section */}
-                        <View style={styles.header}>
-                            <View style={styles.bookingIdContainer}>
-                                <Text style={styles.bookingIdTextStyle}>Booking ID: {voucher.bookingId}</Text>
-                            </View>
-                            <View style={styles.ticketTypeContainer}>
-                                <VoucherTicketType ticketType={voucher.ticketType} />
-                            </View>
-                        </View>
+                        <VoucherHeader ticketType={voucher.ticketType} />
                         {/* Reservation State */}
                         <VoucherReservationState bookingState={voucher.reservationState} />
                         {/* Reservations Details */}
@@ -146,14 +150,14 @@ export default class VoucherDetailScreen extends React.PureComponent<IProps, ISt
                         </TouchableOpacity>
                     </ScrollView >
                     <Conditional if={voucher.tickets.length > 1}>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={this.showAllTickets}>
                             <View style={styles.showAllTicketsButtonStyle}>
                                 <Text style={styles.showAllTicketsTextStyle}>Show all QR Codes</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </Conditional>
                 </View>
-            </Conditional>
+            </Conditional >
         )
     }
 }

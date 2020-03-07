@@ -2,14 +2,15 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import VoucherDetailScreen from './voucherDetails';
+import VoucherDetailScreen from './voucherDetailsScreen';
 import VoucherSingleCode from './voucherSingleCode'
 import { TicketType } from '../../constants/voucherConstants';
+import VoucherMultiCode from './voucherMultiCode';
 
 export type VoucherNavigationStack = {
     VoucherDetails: { rootTag: number; publicItineraryId: string };
     VoucherSingleCode: { ticketImageUrl: string; ticketType: TicketType; ticketId: string };
-    VoucherMultiCode: { ticketUrls: Array<{ ticketImageUrl: string; ticketId: string }> };
+    VoucherMultiCode: { ticketUrls: Array<{ ticketImageUrl: string; ticketId: string }>; ticketType: TicketType };
     VoucherPrintTicket: { ticketUrls: Array<{ ticketImageUrl: string; ticketId: string }> };
 }
 
@@ -55,6 +56,7 @@ export default function VoucherStack(props: IProps) {
             }}>
                 <Stack.Screen name="VoucherDetails" component={VoucherDetailScreen} initialParams={{ rootTag: rootTag, publicItineraryId: publicItineraryId }} />
                 <Stack.Screen name="VoucherSingleCode" component={VoucherSingleCode} />
+                <Stack.Screen name="VoucherMultiCode" component={VoucherMultiCode} />
             </Stack.Navigator>
         </NavigationContainer>
     )

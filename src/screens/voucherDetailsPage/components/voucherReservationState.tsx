@@ -71,6 +71,7 @@ export default class VoucherReservationState extends React.PureComponent<IProps>
 const styles = StyleSheet.create({
     container: {
         padding: 12,
+        marginTop: 16,
         borderRadius: 4,
         flexDirection: 'row',
         alignItems: 'center'

@@ -31,11 +31,12 @@ export const getVoucherDetailsFor = (publicItineraryId: string): Voucher => {
             paxBreakup: [new VoucherPaxBreakup({ displayName: 'Adults', count: 3 }), new VoucherPaxBreakup({ displayName: 'Child', count: 4 })]
         }),
         tickets: [{
-            ticketId: '153474', ticketImageUrl: 'https://i.ibb.co/cxJB0TD/QR-Code.png'
+            ticketId: '153474', ticketImageUrl: 'https://i.ibb.co/6F1cwMt/Barcode-PNG-Pic.png'
         }]
     })
 }
 
 // https://i.ibb.co/cxJB0TD/QR-Code.png
 // https://i.ibb.co/bgpPbJL/Bar-Code.png
+// https://i.ibb.co/6F1cwMt/Barcode-PNG-Pic.png
 // https://i.ibb.co/GcwrdzY/vendor-image.png

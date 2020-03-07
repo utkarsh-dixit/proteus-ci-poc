@@ -15,7 +15,7 @@ export default class Voucher extends Record<{
     bookingDetails?: VoucherBookingDetails;
     vendorDetails?: VoucherVendorDetails;
     paxDetails?: VoucherPaxDetails;
-    tickets: Array<{ ticketImageUrl?: string; ticketId: string }>;
+    tickets: Array<{ ticketImageUrl: string; ticketId: string }>;
 }>({
     ticketType: TicketType.MOBILE_TICKET,
     reservationState: ReservationState.CONFIRMED,
@@ -27,5 +27,5 @@ export default class Voucher extends Record<{
     bookingDetails: new VoucherBookingDetails(),
     vendorDetails: new VoucherVendorDetails(),
     paxDetails: new VoucherPaxDetails(),
-    tickets: Array<{ ticketImageUrl?: string; ticketId: string }>()
+    tickets: Array<{ ticketImageUrl: string; ticketId: string }>()
 }) { }

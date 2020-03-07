@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import { VoucherDetailsNavigationProp } from './voucherDetails';
 import { HeaderBackButton } from '../../atoms/headerBackButton';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { VoucherNavigationStack } from './voucherNavigation';
@@ -11,7 +10,7 @@ type VoucherSingleCodeNavigationProp = StackNavigationProp<VoucherNavigationStac
 type VoucherSingleCodeRouteProp = RouteProp<VoucherNavigationStack, 'VoucherSingleCode'>
 
 interface IProps {
-    navigation: VoucherDetailsNavigationProp;
+    navigation: VoucherSingleCodeNavigationProp;
     route: VoucherSingleCodeRouteProp;
 }
 
