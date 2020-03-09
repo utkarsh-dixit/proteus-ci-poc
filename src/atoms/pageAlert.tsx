@@ -34,13 +34,11 @@ export const PageAlert = (props: IProps) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        borderRadius: 2,
-        borderColor: '#ef4c4c',
+        borderRadius: 4,
         height: 90,
         backgroundColor: '#ffece5',
         marginLeft: 16,
         marginRight: 16,
-        borderWidth: 1
     },
     title: {
         marginTop: 8,

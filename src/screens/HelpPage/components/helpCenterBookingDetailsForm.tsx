@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, ActivityIndicator, StyleSheet, Platform, ViewStyle } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Platform, ViewStyle, Text } from 'react-native';
 import { FormInputTextField } from '../../../atoms/formInputTextField';
 import { Link, Button } from '@headout/aer';
 
