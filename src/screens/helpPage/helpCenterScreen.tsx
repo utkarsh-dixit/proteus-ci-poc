@@ -7,7 +7,6 @@ import {
     View,
     Image,
     NativeModules,
-    Platform,
     Linking,
     Modal,
     TouchableOpacity
@@ -16,7 +15,7 @@ import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import { Link, Button } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../thunks/helpThunk';
-import ChevronRight from '../../assets/icons/chevron-right.svg';
+import { ChevronRight } from '../../assets/icons/chevron-right';
 import Cross from '../../assets/icons/cross.svg'
 import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES, HELPLINE_NUMBERS } from '../../constants/helpPageConstants';
 import HelpCenterBookingDetailsForm from './components/helpCenterBookingDetailsForm';
@@ -316,7 +315,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 // Existing Reservation Link View
                 <View style={styles.existingReservationContainer}>
                     <Link
-                        title='Click here'
+                        title="We're here to help"
                         style={styles.existingReservationLink}
                         textStyle={styles.existingReservationText}
                         handleClick={this.showExistingReservationHelpFlow}
@@ -324,7 +323,8 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <ChevronRight
                         width={16}
                         height={16}
-                        style={{ left: 4, marginTop: 2 }}
+                        stroke={'#03829D'}
+                        style={{ left: 4, marginTop: 19 }}
                     />
                 </View>
             );
@@ -375,7 +375,8 @@ export default class HelpScreen extends React.PureComponent<IProps> {
             error,
             searchResults,
             helplineNumbersViewVisible,
-            shouldShowAlert
+            shouldShowAlert,
+            showReservationHelpForm
         } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -388,7 +389,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     style={styles.scrollContainer}>
                     {/* Coronovirus alert */}
                     <Conditional if={shouldShowAlert}>
-                        <View style={{ marginTop: 40 }}>
+                        <View style={{ marginTop: 24 }}>
                             <PageAlert title={'Coronavirus alert'}
                                 subtitle={'Click here to read the updated policy for cancelation & refunds'}
                                 onClick={this.openCoronavirusAlertHelpPage}
@@ -397,6 +398,9 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     </Conditional>
                     {/* Header */}
                     < Text style={styles.pageHeader}>Hi, have an existing reservation?</Text>
+                    <Conditional if={showReservationHelpForm}>
+                        < Text style={styles.reservationFormSubHeader}>Let's pull up your reservation!</Text>
+                    </Conditional>
                     {/* Main error */}
                     <Conditional if={error.length > 0}>
                         <Text style={styles.pageError}>{error}</Text>
@@ -439,10 +443,16 @@ const styles = StyleSheet.create({
         lineHeight: 35,
         letterSpacing: -0.08,
         color: '#545454',
-        marginTop: 56,
+        marginTop: 24,
         paddingLeft: 16,
-        paddingBottom: 24,
         fontFamily: 'graphik-regular'
+    },
+    reservationFormSubHeader: {
+        fontFamily: 'avenir-roman',
+        fontSize: 16,
+        color: '#666666',
+        marginLeft: 16,
+        marginTop: 16
     },
     pageError: {
         color: '#ec1943',
@@ -456,22 +466,15 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         paddingTop: 16,
-        ...Platform.select({
-            ios: {
-                marginBottom: 20
-            },
-            android: {
-                marginBottom: 20
-            }
-        })
     },
     existingReservationLink: {
         justifyContent: 'flex-start',
+        marginTop: 16
     },
     existingReservationText: {
-        fontWeight: '600',
+        fontWeight: '800',
         fontSize: 16,
-        color: '#24A1B2',
+        color: '#03829D',
         textDecorationLine: "none",
         textAlign: 'left',
         fontFamily: 'avenir-roman'
