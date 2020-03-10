@@ -73,7 +73,9 @@ export default class HelpCenterSearchComponent extends React.PureComponent<IProp
 const styles = StyleSheet.create({
     searchContainer: {
         backgroundColor: 'white',
-        margin: 16
+        marginTop: 32,
+        marginLeft: 16,
+        marginRight: 16,
     },
     searchBox: {
         flexDirection: 'row',
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     },
     resultsContainer: {
-        shadowColor: '#545454',
+        shadowColor: '#444444',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.5,
         shadowRadius: 1,

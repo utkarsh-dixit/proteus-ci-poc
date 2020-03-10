@@ -15,7 +15,7 @@ export const HeaderBackButton = (props: IProps) => {
     return (
         <TouchableOpacity style={{ paddingLeft: 16 }} onPress={onClick}>
             <Conditional if={Platform.OS === 'ios'}>
-                <ChevronLeft width={20} height={20} stroke={'#545454'} />
+                <ChevronLeft width={20} height={20} stroke={'#444444'} />
             </Conditional>
             <Conditional if={Platform.OS === 'android'}>
                 <ArrowLeft width={20} height={20} stroke={'white'} />

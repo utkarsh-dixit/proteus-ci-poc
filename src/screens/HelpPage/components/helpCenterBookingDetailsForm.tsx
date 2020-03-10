@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: '#24a1b2',
+        backgroundColor: '#03829D',
         borderRadius: 4,
         ...Platform.select({
             web: {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     helperLink: {
         fontWeight: '500',
         fontSize: 14,
-        color: '#24A1B2',
+        color: '#03829D',
         textAlign: 'left',
         textDecorationLine: 'underline',
         fontFamily: 'avenir-roman',

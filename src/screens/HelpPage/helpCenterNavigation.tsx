@@ -30,7 +30,7 @@ function HelpCenterStack(props: IProps) {
                     ...Platform.select({
                         ios: {
                             fontFamily: 'avenir-light',
-                            color: '#545454',
+                            color: '#444444',
                             fontWeight: '200',
                             fontSize: 18
                         },

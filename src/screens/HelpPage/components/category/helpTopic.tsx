@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
     topic: {
         fontWeight: '400',
         fontSize: 16,
-        color: '#545454',
+        color: '#666666',
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
-        fontFamily: 'graphik-regular'
+        fontFamily: 'avenir-roman'
     },
 });

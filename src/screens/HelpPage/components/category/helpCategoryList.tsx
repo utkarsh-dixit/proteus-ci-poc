@@ -89,15 +89,15 @@ const styles = StyleSheet.create({
     heading: {
         fontWeight: '600',
         fontSize: 24,
-        color: '#545454',
-        paddingTop: 48,
+        color: '#444444',
+        marginTop: 32,
         paddingBottom: 12,
-        fontFamily: 'graphik-semibold'
+        fontFamily: 'graphik'
     },
     showAllButton: {
         fontWeight: '400',
         fontSize: 16,
-        color: '#24a1b2',
+        color: '#03829D',
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,

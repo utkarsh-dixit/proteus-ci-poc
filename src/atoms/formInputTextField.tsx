@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '800',
         fontSize: 16,
-        color: '#545454',
+        color: '#444444',
         paddingBottom: 8,
         fontFamily: 'avenir-medium'
     },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: '#545454',
+        color: '#666666',
         paddingBottom: 8,
         letterSpacing: 0.2,
         fontFamily: 'avenir-medium'
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: '#ec1943',
+        color: '#EF0404',
         paddingTop: 8,
         fontFamily: 'avenir-roman',
         letterSpacing: 0.2

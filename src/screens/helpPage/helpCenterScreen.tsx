@@ -250,7 +250,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <Cross width={20} height={20}></Cross>
                 </TouchableOpacity>
                 <View style={styles.helplineNumbersBackground}>
-                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32, fontFamily: 'avenir-roman' }}>Call us on our 24/7 helpline</Text>
+                    <Text style={{ fontSize: 24, color: '#444444', marginBottom: 32, fontFamily: 'avenir-roman' }}>Call us on our 24/7 helpline</Text>
                     <ImageButton imageStyle={styles.helplineNumberImageStyle}
                         imageSource={require('../../assets/images/us-flag/us-flag.png')}
                         text={HELPLINE_NUMBERS.USA}
@@ -442,8 +442,8 @@ const styles = StyleSheet.create({
         fontSize: 32,
         lineHeight: 35,
         letterSpacing: -0.08,
-        color: '#545454',
-        marginTop: 24,
+        color: '#444444',
+        marginTop: 32,
         paddingLeft: 16,
         fontFamily: 'graphik-regular'
     },
@@ -455,7 +455,7 @@ const styles = StyleSheet.create({
         marginTop: 16
     },
     pageError: {
-        color: '#ec1943',
+        color: '#EF0404',
         fontSize: 16,
         fontWeight: '500',
         paddingTop: 16,
@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.2
     },
     scrollContainer: {
-        paddingTop: 16,
+        paddingTop: 0,
     },
     existingReservationLink: {
         justifyContent: 'flex-start',
@@ -486,8 +486,7 @@ const styles = StyleSheet.create({
     },
     wallpaperContainer: {
         aspectRatio: 375 / 200,
-        marginTop: 40,
-        marginBottom: 16,
+        marginTop: 32,
         width: '100%',
     },
     wallpaperImage: {
@@ -495,7 +494,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     helpOptionsText: {
-        color: '#545454',
+        color: '#444444',
         textAlign: 'center',
         fontSize: 32,
         padding: 16,
@@ -514,7 +513,7 @@ const styles = StyleSheet.create({
         margin: 16
     },
     helpOptionsButtonTextStyle: {
-        color: '#545454',
+        color: '#444444',
         fontSize: 16,
         fontWeight: '400'
     },
@@ -529,7 +528,7 @@ const styles = StyleSheet.create({
         flex: 8,
         fontSize: 16,
         fontWeight: '400',
-        color: '#545454',
+        color: '#444444',
         textAlign: 'left',
         marginRight: 16,
         fontFamily: 'avenir-roman'

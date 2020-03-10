@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     topic: {
         fontWeight: '500',
         fontSize: 16,
-        color: '#545454',
+        color: '#444444',
         textDecorationLine: "none",
         padding: 12,
         fontFamily: 'avenir-roman'
