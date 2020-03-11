@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet, Platform } from 'react-native';
 import Cross from '../assets/icons/cross.svg'
 
 interface IProps {
@@ -46,13 +46,23 @@ const styles = StyleSheet.create({
         marginRight: 16,
         fontFamily: 'avenir-medium',
         color: '#444444',
-        fontWeight: '800'
+        fontWeight: '800',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Bold'
+            }
+        })
     },
     subtitle: {
         marginTop: 4,
         marginLeft: 16,
         marginRight: 56,
         fontFamily: 'avenir-roman',
-        color: '#444444'
+        color: '#444444',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     }
 })

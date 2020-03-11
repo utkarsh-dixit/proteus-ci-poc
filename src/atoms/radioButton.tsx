@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, ViewStyle, Platform } from 'react-native';
 
 interface IProps {
     style: ViewStyle;
@@ -55,11 +55,21 @@ const styles = StyleSheet.create({
     unselectedText: {
         color: '#666666',
         fontSize: 16,
-        fontFamily: 'avenir-roman'
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     selectedText: {
         color: '#03829D',
         fontSize: 16,
-        fontFamily: 'avenir-roman'
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     }
 })

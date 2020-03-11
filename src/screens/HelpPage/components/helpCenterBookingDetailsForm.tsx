@@ -163,7 +163,12 @@ const styles = StyleSheet.create({
     buttonTextStyle: {
         fontFamily: 'avenir-roman',
         fontSize: 16,
-        color: 'white'
+        color: 'white',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helperLink: {
         fontWeight: '500',
@@ -173,6 +178,11 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         fontFamily: 'avenir-roman',
         letterSpacing: 0.2,
-        marginTop: 4
+        marginTop: 4,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet, ViewStyle, Platform } from 'react-native';
 import { RadioButton } from '../../../atoms/radioButton';
 import { Link, Button } from '@headout/aer';
 import { BOOKING_FLOW_HELP_OPTIONS } from '../../../constants/helpPageConstants';
@@ -136,7 +136,12 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         textDecorationLine: 'underline',
         fontFamily: 'avenir-roman',
-        letterSpacing: 0.2
+        letterSpacing: 0.2,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helperLinkContainer: {
         marginTop: 12
@@ -144,6 +149,11 @@ const styles = StyleSheet.create({
     buttonTextStyle: {
         fontFamily: 'avenir-roman',
         fontSize: 16,
-        color: 'white'
+        color: 'white',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     }
 });

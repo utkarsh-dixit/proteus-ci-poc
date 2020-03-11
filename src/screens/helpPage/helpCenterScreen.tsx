@@ -9,7 +9,8 @@ import {
     NativeModules,
     Linking,
     Modal,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import { Link, Button } from '@headout/aer';
@@ -445,14 +446,25 @@ const styles = StyleSheet.create({
         color: '#444444',
         marginTop: 32,
         paddingLeft: 16,
-        fontFamily: 'graphik-regular'
+        fontFamily: 'graphik-regular',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Graphik-Bold'
+            }
+        })
     },
     reservationFormSubHeader: {
         fontFamily: 'avenir-roman',
         fontSize: 16,
         color: '#666666',
         marginLeft: 16,
-        marginTop: 16
+        marginTop: 16,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular',
+                fontWeight: '600'
+            }
+        })
     },
     pageError: {
         color: '#EF0404',
@@ -462,7 +474,12 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         paddingRight: 16,
         fontFamily: 'avenir-roman',
-        letterSpacing: 0.2
+        letterSpacing: 0.2,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     scrollContainer: {
         paddingTop: 0,
@@ -477,7 +494,12 @@ const styles = StyleSheet.create({
         color: '#03829D',
         textDecorationLine: "none",
         textAlign: 'left',
-        fontFamily: 'avenir-roman'
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Bold'
+            }
+        })
     },
     existingReservationContainer: {
         flexDirection: 'row',
@@ -498,7 +520,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 32,
         padding: 16,
-        fontFamily: 'avenir-roman'
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helpOptionsContainer: {
         margin: 32,
@@ -531,7 +558,12 @@ const styles = StyleSheet.create({
         color: '#444444',
         textAlign: 'left',
         marginRight: 16,
-        fontFamily: 'avenir-roman'
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helplineNumberImageStyle: {
         flex: 1.5,

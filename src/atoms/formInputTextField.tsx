@@ -54,7 +54,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#444444',
         paddingBottom: 8,
-        fontFamily: 'avenir-medium'
+        fontFamily: 'avenir-medium',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Medium'
+            }
+        })
     },
     subTitleLabel: {
         fontStyle: 'normal',
@@ -63,7 +68,12 @@ const styles = StyleSheet.create({
         color: '#666666',
         paddingBottom: 8,
         letterSpacing: 0.2,
-        fontFamily: 'avenir-medium'
+        fontFamily: 'avenir-medium',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Medium'
+            }
+        })
     },
     errorLabel: {
         fontStyle: 'normal',
@@ -72,7 +82,12 @@ const styles = StyleSheet.create({
         color: '#EF0404',
         paddingTop: 8,
         fontFamily: 'avenir-roman',
-        letterSpacing: 0.2
+        letterSpacing: 0.2,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-regular'
+            }
+        })
     },
     input: {
         flex: 1,

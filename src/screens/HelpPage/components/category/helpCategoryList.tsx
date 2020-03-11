@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, Platform } from 'react-native';
 import { Link } from '@headout/aer';
 import HelpTopic from './helpTopic';
 import { Conditional } from '../../../../atoms/conditional';
@@ -92,7 +92,12 @@ const styles = StyleSheet.create({
         color: '#444444',
         marginTop: 32,
         paddingBottom: 12,
-        fontFamily: 'graphik'
+        fontFamily: 'graphik',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Graphik-SemiBold'
+            }
+        })
     },
     showAllButton: {
         fontWeight: '400',
@@ -101,6 +106,11 @@ const styles = StyleSheet.create({
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
-        fontFamily: 'graphik-semibold'
+        fontFamily: 'graphik-semibold',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Graphik-SemiBold'
+            }
+        })
     },
 });
