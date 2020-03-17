@@ -11,7 +11,8 @@ AppRegistry.registerComponent('HelpScreen', () => HelpScreenStack);
 
 CodePush.sync({
     checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
-    installMode: CodePush.InstallMode.ON_NEXT_RESTART
+    installMode: CodePush.InstallMode.ON_NEXT_RESUME,
+    updateDialog: true
 });
 
 Sentry.init({
