@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
         fontFamily: 'graphik-regular',
         ...Platform.select({
             android: {
-                fontFamily: 'Graphik-Bold'
+                fontFamily: 'Graphik-Semibold'
             }
         })
     },
@@ -497,7 +497,7 @@ const styles = StyleSheet.create({
         fontFamily: 'avenir-roman',
         ...Platform.select({
             android: {
-                fontFamily: 'Avenir-Bold'
+                fontFamily: 'Avenir-Semibold'
             }
         })
     },

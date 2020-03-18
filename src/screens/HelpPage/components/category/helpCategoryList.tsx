@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         fontFamily: 'graphik-semibold',
         ...Platform.select({
             android: {
-                fontFamily: 'Graphik-SemiBold'
+                fontFamily: 'Graphik'
             }
         })
     },
