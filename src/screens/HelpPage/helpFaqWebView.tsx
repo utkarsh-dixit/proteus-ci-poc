@@ -49,19 +49,22 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
         const { url } = newNavState;
         const { navigation, route } = this.props;
         const { uriToLoad } = route.params;
-        if (!url) return;
+        if (!url) return false;
+        if (url === uriToLoad) {
+            return true;
+        }
         if (url.startsWith('https://headout.kb.help/') && url !== uriToLoad) {
             navigation.push('HelpFaqWebView', { uriToLoad: url, title: '' });
-            this.webView.stopLoading();
+            return false;
         } else if (url.startsWith('https://lc.chat/')) {
             NativeModules.HelpCenterNativeBridge.chatWithUsButtonTapped(
                 null,
                 null
             );
-            this.webView.stopLoading();
+            return false;
         } else if (url !== uriToLoad) {
             Linking.openURL(url);
-            this.webView.stopLoading();
+            return false;
         }
     }
 
@@ -72,13 +75,18 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
     }
 
     setTitle = (message) => {
-        console.log(message.nativeEvent.data);
         const {
             navigation,
             route
         } = this.props;
         if (route.params.title === '') {
             navigation.setOptions({ title: message.nativeEvent.data });
+        }
+    }
+
+    setWebViewReference = (ref) => {
+        if (this.webView === null) {
+            this.webView = ref
         }
     }
 
@@ -92,9 +100,9 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
         return (
             <View style={{ flex: 1 }}>
                 <WebView
-                    ref={ref => { this.webView = ref }}
+                    ref={this.setWebViewReference}
                     source={{ uri: route.params.uriToLoad }}
-                    onNavigationStateChange={this.handleWebViewNavigationStateChange}
+                    onShouldStartLoadWithRequest={this.handleWebViewNavigationStateChange}
                     injectedJavaScript={this.HIDE_HEADER_AND_NAVIGATION_JS}
                     onLoadEnd={this.stopLoading}
                     onMessage={this.setTitle}
