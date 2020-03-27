@@ -162,6 +162,6 @@ export const BOOKING_FLOW_HELP_OPTIONS = {
 
 export const HELPLINE_NUMBERS = {
     USA: '+1 347 897 0100',
-    UK: '+44 (20) 38747322',
+    UK: '+44 117 325 5305',
     CLIPPERTON: '+33 (1) 85640771'
 }

@@ -268,14 +268,6 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                         onPress={() => {
                             Linking.openURL(`tel:${HELPLINE_NUMBERS.UK}`)
                         }} />
-                    <ImageButton imageStyle={styles.helplineNumberImageStyle}
-                        imageSource={require('../../assets/images/clipperton-flag/clipperton-flag.png')}
-                        text={HELPLINE_NUMBERS.CLIPPERTON}
-                        textStyle={styles.helplineNumberTextStyle}
-                        style={styles.helplineNumberButtonStyle}
-                        onPress={() => {
-                            Linking.openURL(`tel:${HELPLINE_NUMBERS.CLIPPERTON}`)
-                        }} />
                 </View >
             </View>
         )
