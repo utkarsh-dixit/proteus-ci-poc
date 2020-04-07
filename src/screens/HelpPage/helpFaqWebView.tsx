@@ -46,7 +46,7 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
     }
 
     handleWebViewNavigationStateChange = (newNavState: WebViewNavigation) => {
-        const { url } = newNavState;
+        const { url, navigationType } = newNavState;
         const { navigation, route } = this.props;
         const { uriToLoad } = route.params;
         if (!url) return false;
@@ -62,10 +62,11 @@ export default class HelpFaqWebView extends React.PureComponent<IProps, IState> 
                 null
             );
             return false;
-        } else if (url !== uriToLoad) {
+        } else if (url !== uriToLoad && navigationType == 'click') {
             Linking.openURL(url);
             return false;
         }
+        return false;
     }
 
     stopLoading = () => {
