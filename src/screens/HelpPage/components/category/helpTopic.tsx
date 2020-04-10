@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@headout/aer';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 interface IProps {
     title: string;
@@ -35,9 +35,15 @@ const styles = StyleSheet.create({
     topic: {
         fontWeight: '400',
         fontSize: 16,
-        color: '#545454',
+        color: '#666666',
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
 });

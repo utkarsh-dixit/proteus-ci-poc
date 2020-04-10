@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, Platform } from 'react-native';
 import { Link } from '@headout/aer';
 import HelpTopic from './helpTopic';
 import { Conditional } from '../../../../atoms/conditional';
@@ -89,16 +89,28 @@ const styles = StyleSheet.create({
     heading: {
         fontWeight: '600',
         fontSize: 24,
-        color: '#545454',
-        paddingTop: 12,
+        color: '#444444',
+        marginTop: 32,
         paddingBottom: 12,
+        fontFamily: 'graphik',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Graphik-SemiBold'
+            }
+        })
     },
     showAllButton: {
         fontWeight: '400',
         fontSize: 16,
-        color: '#24a1b2',
+        color: '#03829D',
         textDecorationLine: "none",
         paddingTop: 12,
         paddingBottom: 12,
+        fontFamily: 'graphik-semibold',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Graphik'
+            }
+        })
     },
 });

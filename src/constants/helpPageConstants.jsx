@@ -72,19 +72,20 @@ export const HELP_PAGE_CATEGORIES = [
         HEADING: 'Cancellation & Refunds',
         OPTIONS: [
             {
+                NAME: 'Coronavirus Outbreak',
+                SRC: 'https://headout.kb.help/8-coronavirus-outbreak/'
+            },
+            {
                 NAME: 'Cancel Reservation',
-                SRC:
-                    'https://headout.kb.help/3-cancellation-refunds/cancel-reservation/',
+                SRC: 'https://headout.kb.help/3-cancellation-refunds/cancel-reservation/',
             },
             {
                 NAME: 'Cancellation Deadline',
-                SRC:
-                    'https://headout.kb.help/3-cancellation-refunds/cancellation-deadline/',
+                SRC: 'https://headout.kb.help/3-cancellation-refunds/cancellation-deadline/',
             },
             {
                 NAME: 'Refund Information',
-                SRC:
-                    'https://headout.kb.help/3-cancellation-refunds/refund-information/',
+                SRC: 'https://headout.kb.help/3-cancellation-refunds/refund-information/',
             },
         ],
     },
@@ -93,23 +94,19 @@ export const HELP_PAGE_CATEGORIES = [
         OPTIONS: [
             {
                 NAME: 'Add/Remove Participant',
-                SRC:
-                    'https://headout.kb.help/4-booking-modification/addremove-participant/',
+                SRC: 'https://headout.kb.help/4-booking-modification/addremove-participant/',
             },
             {
                 NAME: 'Changing tour options',
-                SRC:
-                    'https://headout.kb.help/4-booking-modification/changing-tour-options/',
+                SRC: 'https://headout.kb.help/4-booking-modification/changing-tour-options/',
             },
             {
                 NAME: 'Rescheduling a reservation',
-                SRC:
-                    'https://headout.kb.help/4-booking-modification/rescheduling-a-reservation/',
+                SRC: 'https://headout.kb.help/4-booking-modification/rescheduling-a-reservation/',
             },
             {
                 NAME: 'Update Participant Information',
-                SRC:
-                    'https://headout.kb.help/4-booking-modification/update-participant-information/',
+                SRC: 'https://headout.kb.help/4-booking-modification/update-participant-information/',
             },
         ],
     },
@@ -165,6 +162,6 @@ export const BOOKING_FLOW_HELP_OPTIONS = {
 
 export const HELPLINE_NUMBERS = {
     USA: '+1 347 897 0100',
-    UK: '+44 (20) 38747322',
+    UK: '+44 117 325 5305',
     CLIPPERTON: '+33 (1) 85640771'
 }

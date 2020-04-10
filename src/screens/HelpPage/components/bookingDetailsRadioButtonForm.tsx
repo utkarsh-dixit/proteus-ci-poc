@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet, ViewStyle, Platform } from 'react-native';
 import { RadioButton } from '../../../atoms/radioButton';
 import { Link, Button } from '@headout/aer';
 import { BOOKING_FLOW_HELP_OPTIONS } from '../../../constants/helpPageConstants';
@@ -97,6 +97,7 @@ export default class BookingDetailsRadioButtonForm extends React.PureComponent<I
                 />
                 <Button
                     style={styles.buttonContainer}
+                    textStyle={styles.buttonTextStyle}
                     title={this.submitButtonText()}
                     handleClick={this.handleSubmitButtonTap}
                 />
@@ -125,17 +126,34 @@ const styles = StyleSheet.create({
         marginTop: 8,
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: '#24a1b2',
-        borderRadius: 2,
+        backgroundColor: '#03829D',
+        borderRadius: 4,
     },
     helperLinkTextStyle: {
         fontWeight: '500',
-        fontSize: 12,
-        color: '#24A1B2',
+        fontSize: 14,
+        color: '#03829D',
         textAlign: 'left',
         textDecorationLine: 'underline',
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helperLinkContainer: {
         marginTop: 12
+    },
+    buttonTextStyle: {
+        fontFamily: 'avenir-roman',
+        fontSize: 16,
+        color: 'white',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     }
 });

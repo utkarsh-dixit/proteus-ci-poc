@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    SafeAreaView,
     Text,
     StyleSheet,
     ScrollView,
@@ -8,16 +7,16 @@ import {
     View,
     Image,
     NativeModules,
-    Platform,
     Linking,
     Modal,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import { HEADOUT_CHATBOT_GROUP } from '../../../config';
 import { Link, Button } from '@headout/aer';
 import { checkEmail } from '../../util/validationUtils';
 import { doesBookingWithEmailAndIDExist } from '../../thunks/helpThunk';
-import ChevronRight from '../../assets/icons/chevron-right.svg';
+import { ChevronRight } from '../../assets/icons/chevron-right';
 import Cross from '../../assets/icons/cross.svg'
 import { BOOKING_FLOW_HELP_OPTIONS, HELP_PAGE_CATEGORIES, HELPLINE_NUMBERS } from '../../constants/helpPageConstants';
 import HelpCenterBookingDetailsForm from './components/helpCenterBookingDetailsForm';
@@ -26,6 +25,11 @@ import BookingDetailsRadioButtonForm from './components/bookingDetailsRadioButto
 import HelpCenterSearchComponent from './components/search/helpCenterSearch';
 import { Conditional } from '../../atoms/conditional';
 import { ImageButton } from '../../atoms/imageButton';
+import { HeaderBackButton } from '../../atoms/headerBackButton';
+import { PageAlert } from '../../atoms/pageAlert';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { HelpNavigationStack } from './helpCenterNavigation';
+import { RouteProp } from '@react-navigation/native';
 
 interface IState {
     helplineNumbersViewVisible: boolean;
@@ -37,11 +41,17 @@ interface IState {
     bookingEmail: string;
     bookingId: string;
     emailAndBookingIdCombinationFetched: boolean;
+    shouldShowAlert: boolean;
     searchResults: Array<{ NAME: string; SRC: string }>;
 }
+type HelpCenterScreenNavigationProp = StackNavigationProp<HelpNavigationStack, 'HelpScreen'>
+
+type HelpCenterRouteProp = RouteProp<HelpNavigationStack, 'HelpScreen'>
 
 interface IProps {
     rootTag: number;
+    navigation: HelpCenterScreenNavigationProp;
+    route: HelpCenterRouteProp;
 }
 
 export default class HelpScreen extends React.PureComponent<IProps> {
@@ -60,6 +70,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         bookingEmail: '',
         bookingId: '',
         emailAndBookingIdCombinationFetched: false,
+        shouldShowAlert: true,
         searchResults: [],
     };
 
@@ -68,19 +79,31 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         HELP_PAGE_CATEGORIES.forEach((category) => {
             this.searchableItemsIndex.push(...category.OPTIONS)
         })
+        const {
+            navigation,
+            route
+        } = this.props;
+        navigation.setOptions({
+            title: 'Help Center',
+            headerLeft: () => (
+                <HeaderBackButton onClick={() => {
+                    NativeModules.HelpCenterNativeBridge.goBack(route.params.rootTag);
+                }} />
+            )
+        })
     }
 
     // ==== NAVIGATION METHODS =============================
 
+    openCoronavirusAlertHelpPage = () => {
+        this.openHelpPage('Coronavirus Outbreak', 'https://headout.kb.help/8-coronavirus-outbreak/');
+    }
+
     openHelpPage = (title: string, sourceURL: string): void => {
         const {
-            rootTag
+            navigation
         } = this.props;
-        NativeModules.HelpCenterNativeBridge.openLink(
-            sourceURL,
-            title,
-            rootTag,
-        );
+        navigation.navigate('HelpFaqWebView', { title: title, uriToLoad: sourceURL })
     };
 
     openChat = (): void => {
@@ -124,6 +147,10 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     // =====================================================
 
     // ==== STATE MODIFICATION METHODS =====================
+
+    hideAlert = (): void => {
+        this.setState({ shouldShowAlert: false });
+    }
 
     showExistingReservationHelpFlow = (): void => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -181,7 +208,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
     }
 
     scrollToYOffset = (y: number): void => {
-        this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 20, animated: true })
+        this._scrollView.scrollTo({ x: 0, y: this.currentScrollViewYOffset + y - 120, animated: true })
     }
 
     getHelpTopicsContainer = () => {
@@ -201,15 +228,15 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 <Text style={styles.helpOptionsText}>Still need help?</Text>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'EMAIL US'}
+                    title={'Email us'}
                     handleClick={this.openMailForSupport}></Button>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'CHAT WITH US'}
+                    title={'Chat with us'}
                     handleClick={this.openChat}></Button>
                 <Button style={styles.helpOptionsButtonStyle}
                     textStyle={styles.helpOptionsButtonTextStyle}
-                    title={'CALL US'}
+                    title={'Call us'}
                     handleClick={this.showHelplineNumbers}></Button>
             </View >
         )
@@ -224,7 +251,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <Cross width={20} height={20}></Cross>
                 </TouchableOpacity>
                 <View style={styles.helplineNumbersBackground}>
-                    <Text style={{ fontSize: 24, color: '#545454', marginBottom: 32 }}>Call us on our 24/7 helpline</Text>
+                    <Text style={{ fontSize: 24, color: '#444444', marginBottom: 32, fontFamily: 'avenir-roman' }}>Call us on our 24/7 helpline</Text>
                     <ImageButton imageStyle={styles.helplineNumberImageStyle}
                         imageSource={require('../../assets/images/us-flag/us-flag.png')}
                         text={HELPLINE_NUMBERS.USA}
@@ -240,14 +267,6 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                         style={styles.helplineNumberButtonStyle}
                         onPress={() => {
                             Linking.openURL(`tel:${HELPLINE_NUMBERS.UK}`)
-                        }} />
-                    <ImageButton imageStyle={styles.helplineNumberImageStyle}
-                        imageSource={require('../../assets/images/clipperton-flag/clipperton-flag.png')}
-                        text={HELPLINE_NUMBERS.CLIPPERTON}
-                        textStyle={styles.helplineNumberTextStyle}
-                        style={styles.helplineNumberButtonStyle}
-                        onPress={() => {
-                            Linking.openURL(`tel:${HELPLINE_NUMBERS.CLIPPERTON}`)
                         }} />
                 </View >
             </View>
@@ -289,7 +308,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 // Existing Reservation Link View
                 <View style={styles.existingReservationContainer}>
                     <Link
-                        title='Existing Reservation'
+                        title="We're here to help"
                         style={styles.existingReservationLink}
                         textStyle={styles.existingReservationText}
                         handleClick={this.showExistingReservationHelpFlow}
@@ -297,7 +316,8 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     <ChevronRight
                         width={16}
                         height={16}
-                        style={{ left: 4, marginTop: 2 }}
+                        stroke={'#03829D'}
+                        style={{ left: 4, marginTop: 19 }}
                     />
                 </View>
             );
@@ -347,19 +367,33 @@ export default class HelpScreen extends React.PureComponent<IProps> {
         const {
             error,
             searchResults,
-            helplineNumbersViewVisible
+            helplineNumbersViewVisible,
+            shouldShowAlert,
+            showReservationHelpForm
         } = this.state;
-        console.log(helplineNumbersViewVisible);
         return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView
                     ref={component => this._scrollView = component}
                     showsVerticalScrollIndicator={false}
                     onScroll={this.setScrollViewContentOffset}
+                    keyboardDismissMode='on-drag'
                     scrollEventThrottle={32}
                     style={styles.scrollContainer}>
+                    {/* Coronovirus alert */}
+                    <Conditional if={shouldShowAlert}>
+                        <View style={{ marginTop: 24 }}>
+                            <PageAlert title={'Coronavirus alert'}
+                                subtitle={'Click here to read the updated policy for cancelation & refunds'}
+                                onClick={this.openCoronavirusAlertHelpPage}
+                                onClose={this.hideAlert} />
+                        </View>
+                    </Conditional>
                     {/* Header */}
-                    <Text style={styles.pageHeader}>Welcome to Headout Help Desk</Text>
+                    < Text style={styles.pageHeader}>Hi, have an existing reservation?</Text>
+                    <Conditional if={showReservationHelpForm}>
+                        < Text style={styles.reservationFormSubHeader}>Let's pull up your reservation!</Text>
+                    </Conditional>
                     {/* Main error */}
                     <Conditional if={error.length > 0}>
                         <Text style={styles.pageError}>{error}</Text>
@@ -376,7 +410,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                     </View>
                     {/* Search Bar */}
                     <HelpCenterSearchComponent
-                        style={{ margin: 16 }}
+                        style={{ margin: 16, marginTop: 40 }}
                         searchTextEntered={this.searchTextEntered}
                         results={searchResults}
                         onSearchTopicClicked={this.openHelpPage}
@@ -390,7 +424,7 @@ export default class HelpScreen extends React.PureComponent<IProps> {
                 <Modal visible={helplineNumbersViewVisible} animationType={'slide'}>
                     {this.getHelplineNumbersContainer()}
                 </Modal>
-            </SafeAreaView>
+            </View>
         );
     }
 }
@@ -401,47 +435,72 @@ const styles = StyleSheet.create({
         fontSize: 32,
         lineHeight: 35,
         letterSpacing: -0.08,
-        color: '#545454',
-        textAlign: 'center',
+        color: '#444444',
+        marginTop: 32,
+        paddingLeft: 16,
+        fontFamily: 'graphik-regular',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Graphik-Semibold'
+            }
+        })
+    },
+    reservationFormSubHeader: {
+        fontFamily: 'avenir-roman',
+        fontSize: 16,
+        color: '#666666',
+        marginLeft: 16,
+        marginTop: 16,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular',
+                fontWeight: '600'
+            }
+        })
     },
     pageError: {
-        color: '#ec1943',
+        color: '#EF0404',
         fontSize: 16,
         fontWeight: '500',
         paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
-    },
-    scrollContainer: {
-        paddingTop: 10,
+        fontFamily: 'avenir-roman',
+        letterSpacing: 0.2,
         ...Platform.select({
-            ios: {
-                marginBottom: 80
-            },
             android: {
-                marginBottom: 20
+                fontFamily: 'Avenir-Regular'
             }
         })
     },
+    scrollContainer: {
+        paddingTop: 0,
+    },
     existingReservationLink: {
         justifyContent: 'flex-start',
+        marginTop: 16
     },
     existingReservationText: {
-        fontWeight: '600',
+        fontWeight: '800',
         fontSize: 16,
-        color: '#24A1B2',
+        color: '#03829D',
         textDecorationLine: "none",
         textAlign: 'left',
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Semibold'
+            }
+        })
     },
     existingReservationContainer: {
         flexDirection: 'row',
-        padding: 16,
-        marginTop: 16
+        marginLeft: 16,
+        marginRight: 16
     },
     wallpaperContainer: {
         aspectRatio: 375 / 200,
-        marginTop: 16,
-        marginBottom: 16,
+        marginTop: 32,
         width: '100%',
     },
     wallpaperImage: {
@@ -449,10 +508,16 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     helpOptionsText: {
-        color: '#545454',
+        color: '#444444',
         textAlign: 'center',
         fontSize: 32,
-        padding: 16
+        padding: 16,
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helpOptionsContainer: {
         margin: 32,
@@ -467,7 +532,7 @@ const styles = StyleSheet.create({
         margin: 16
     },
     helpOptionsButtonTextStyle: {
-        color: '#545454',
+        color: '#444444',
         fontSize: 16,
         fontWeight: '400'
     },
@@ -482,9 +547,15 @@ const styles = StyleSheet.create({
         flex: 8,
         fontSize: 16,
         fontWeight: '400',
-        color: '#545454',
+        color: '#444444',
         textAlign: 'left',
-        marginRight: 16
+        marginRight: 16,
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     helplineNumberImageStyle: {
         flex: 1.5,
@@ -494,7 +565,7 @@ const styles = StyleSheet.create({
     helplineNumberButtonStyle: {
         margin: 16,
         flexDirection: 'row',
-        width: '50%',
+        width: '55%',
         height: 56,
         backgroundColor: 'white',
         justifyContent: 'center',

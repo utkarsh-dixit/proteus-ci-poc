@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, ViewStyle, Platform } from 'react-native';
 
 interface IProps {
     style: ViewStyle;
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         width: 16,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#24A1B2',
+        borderColor: '#03829D',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         width: 14,
         borderRadius: 7,
         borderWidth: 1,
-        borderColor: '#545454',
+        borderColor: '#666666',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -50,14 +50,26 @@ const styles = StyleSheet.create({
         height: 8,
         width: 8,
         borderRadius: 4,
-        backgroundColor: '#24A1B2'
+        backgroundColor: '#03829D'
     },
     unselectedText: {
-        color: '#545454',
+        color: '#666666',
         fontSize: 16,
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     },
     selectedText: {
-        color: '#24A1B2',
+        color: '#03829D',
         fontSize: 16,
+        fontFamily: 'avenir-roman',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Avenir-Regular'
+            }
+        })
     }
 })
