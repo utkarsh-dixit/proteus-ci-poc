@@ -32,9 +32,7 @@ jobs:
         yarn install --frozen-lockfile
 
     - name: Checkout submodules
-      uses: srt32/git-actions@v0.0.3
-      with:
-        args: git submodule update --init --recursive
+      uses: textbook/git-checkout-submodule-action@master
 
     - name: Build
       working-directory: android
