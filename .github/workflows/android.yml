@@ -32,7 +32,10 @@ jobs:
         yarn install --frozen-lockfile
 
     - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
+      shell: bash
+      run: |
+        git submodule sync --recursive
+        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
     - name: Build
       working-directory: android
