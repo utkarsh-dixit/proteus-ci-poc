@@ -38,3 +38,4 @@ jobs:
 
     - name: Build
       working-directory: android
+      run: ./gradlew build
