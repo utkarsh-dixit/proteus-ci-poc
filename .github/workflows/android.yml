@@ -16,8 +16,16 @@ jobs:
       with:
         key: ${{ secrets.SSH_KEY }}
         name: id_rsa # optional
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
-    
+        known_hosts: ${{ secrets.KNOWN_HOSTS }} 
+        
+    - name: Set git username and email
+      run: |
+        # 
+        git config --global user.email "${GH_USERNAME}@users.noreply.github.com" 
+        git config --global user.name "${GH_USERNAME}" 
+      env: 
+        GH_USERNAME: ${{ github.event.schedule.user.login }}
+          
     - name: Checkout submodules
       shell: bash
       run: |
