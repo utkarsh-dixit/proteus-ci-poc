@@ -10,15 +10,20 @@ jobs:
     steps:
     - name: Checkout project
       uses: actions/checkout@v1
+      
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        name: id_rsa # optional
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
     
     - name: Checkout submodules
       shell: bash
       run: |
-        git config --global url."https://github.com/".insteadOf "git@github.com:"
         git submodule sync --recursive
         git config --global user.name "utkarsh-dixit"
-        git config --global user.password "Manudix@1997"
-        git -c "http.extraheader=$(git config --local --get http.https://github.com/.extraheader)" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+        git submodule update --init --force --recursive --depth=1
 
     - name: Specify node version
       uses: actions/setup-node@v1
