@@ -52,11 +52,20 @@ jobs:
       run: |
         yarn install
 
-    - name: Build
+    - name: Assemble Debug Build
       working-directory: android
       run: ./gradlew assembleDebug
+      
+    - name: Assemble Release Build
+      working-directory: android
+      run: ./gradlew assembleRelease
 
     - uses: actions/upload-artifact@v1
       with:
-        name: Uploading Artificates
+        name: DEBUG_BUILD
         path: android/app/build/outputs/apk/debug/
+        
+    - uses: actions/upload-artifact@v1
+      with:
+        name: RELEASE_BUILD
+        path: android/app/build/outputs/apk/release/  
