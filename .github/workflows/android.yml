@@ -12,11 +12,9 @@ jobs:
       uses: actions/checkout@v1
       
     - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
+      uses: webfactory/ssh-agent@v0.2.0
       with:
-        key: ${{ secrets.SSH_KEY }}
-        name: id_rsa # optional
-        known_hosts: ${{ secrets.KNOWN_HOSTS }} 
+        ssh-private-key: ${{ secrets.SSH_KEY }}
         
     - name: Set git username and email
       run: |
