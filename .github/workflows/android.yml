@@ -55,15 +55,15 @@ jobs:
     - name: Assemble Debug Build
       working-directory: android
       run: ./gradlew assembleDebug
-      
-    - name: Assemble Release Build
-      working-directory: android
-      run: ./gradlew assembleRelease
 
     - uses: actions/upload-artifact@v1
       with:
         name: DEBUG_BUILD
         path: android/app/build/outputs/apk/debug/
+          
+    - name: Assemble Release Build
+      working-directory: android
+      run: ./gradlew assembleRelease
         
     - uses: actions/upload-artifact@v1
       with:
