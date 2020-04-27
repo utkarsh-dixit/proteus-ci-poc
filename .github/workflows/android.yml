@@ -54,4 +54,10 @@ jobs:
 
     - name: Build
       working-directory: android
-      run: ./gradlew build
+      run: ./gradlew assembleDebug
+
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: Uploading Artificates
+        path: android/app/build/outputs/apk/debug/
